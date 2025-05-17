@@ -48,18 +48,21 @@
 
  - Tasks / Bookings
 
-| Column        | Type     | Description                             |
-| ------------- | -------- | --------------------------------------- |
-| Id            | INT, PK  | Khóa chính                              |
-| CustomerId    | INT, FK  | Người thuê (User)                       |
-| WorkerId      | INT, FK  | Thợ được thuê                           |
-| Address       | NVARCHAR | Địa điểm thi công                       |
-| EstimatedWork | NVARCHAR | Ước tính khối lượng công việc           |
-| Description   | TEXT     | Mô tả chi tiết công việc                |
-| ScheduledTime | DATETIME | Thời gian yêu cầu bắt đầu               |
-| Status        | NVARCHAR | Pending / Confirmed / InProgress / Done |
-| PaymentStatus | NVARCHAR | Unpaid / Paid                           |
-| CreatedAt     | DATETIME | Ngày tạo yêu cầu                        |
+| Column        | Type     | Description                                                    |
+| ------------- | -------- | -------------------------------------------------------------- |
+| Id            | INT, PK  | Khóa chính                                                     |
+| CustomerId    | INT, FK  | Người thuê thợ (liên kết `Users.Id`)                           |
+| WorkerId      | INT, FK  | Thợ được thuê (liên kết `Users.Id`)                            |
+| TaskTypeId    | INT, FK  | Loại công việc (liên kết `TaskTypes.Id`)                       |
+| Address       | NVARCHAR | Địa chỉ thi công                                               |
+| EstimatedWork | NVARCHAR | Ước tính khối lượng công việc (ví dụ: 3 bóng đèn, 5m dây...)   |
+| Description   | TEXT     | Mô tả chi tiết yêu cầu                                         |
+| ScheduledTime | DATETIME | Thời gian khách yêu cầu thợ có mặt                             |
+| Status        | NVARCHAR | Trạng thái: Pending / Confirmed / InProgress / Done / Canceled |
+| PaymentStatus | NVARCHAR | Trạng thái thanh toán: Unpaid / Paid / Refunded                |
+| CreatedAt     | DATETIME | Ngày tạo                                                       |
+| UpdatedAt     | DATETIME | Ngày cập nhật gần nhất                                         |
+
 
  - Payments
 
@@ -137,5 +140,14 @@
 | Description | NVARCHAR      | Mô tả chi tiết                        |
 | CreatedAt   | DATETIME      | Thời gian giao dịch                   |
 | Status      | NVARCHAR      | Success / Pending / Failed            |
+
+- TaskTypes
+
+| Column      | Type     | Description                       |
+| ----------- | -------- | --------------------------------- |
+| Id          | INT, PK  | Khóa chính                        |
+| Name        | NVARCHAR | Tên loại công việc (VD: Sửa điện) |
+| Description | NVARCHAR | Mô tả thêm (tùy chọn)             |
+| IsActive    | BIT      | Còn sử dụng hay không             |
 
 
