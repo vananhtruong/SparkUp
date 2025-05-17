@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkUp.Business", "SparkUp.Business\SparkUp.Business.csproj", "{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8D42004-C822-454D-A300-6568BA5FEC97}
+	EndGlobalSection
+EndGlobal
