@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkUp.Business", "SparkUp.Business\SparkUp.Business.csproj", "{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkUp.MVC", "SparkUp.MVC\SparkUp.MVC.csproj", "{0AD5F24E-F324-43FC-B59E-83148A5B38E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E794FC9-C52C-41A9-9F76-9EAA8CAD0E1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AD5F24E-F324-43FC-B59E-83148A5B38E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD5F24E-F324-43FC-B59E-83148A5B38E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD5F24E-F324-43FC-B59E-83148A5B38E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD5F24E-F324-43FC-B59E-83148A5B38E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
