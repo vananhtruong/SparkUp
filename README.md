@@ -1,20 +1,34 @@
-# SparkUp
-# THợ
-- login
-- Đăng kí thợ
-- quản lý hồ sơ
-- Comfirm task -> nhắn tin với khách
-- Danh sách feedbacks sau khi được thuê
+## SparkUp
+# Thành viên 1 - Phương (đã được phân công)
+-Phụ trách Authentication & Đăng ký
+-Đăng ký user thông thường
+-Đăng ký workers (hồ sơ thợ)
+-Login (tích hợp Google và Facebook OAuth)
+-Forgot password, gửi email reset (SMTP)
+-WorkerProfileService (hồ sơ thợ)
+# Thành viên 2 - Quyền (haiquyen00)
+-Phụ trách chức năng kinh doanh chính
+-Tìm kiếm danh sách thợ (theo địa điểm, loại dịch vụ)
+-Hiển thị danh sách thợ thuộc service khách hàng muốn thuê
+-Đặt lịch thợ theo ngày và khối lượng công việc
+-TaskService (quản lý công việc/booking)
+-Quản lý lịch trình của thợ
+-Feedback cho thợ sau khi booking
+# Thành viên 3 Anh 
+-Phụ trách thanh toán và tính năng mở rộng
+-PaymentService (thanh toán)
+-Thanh toán trước cho admin
+-Xử lý duyệt yêu cầu công việc của thợ
+-Luồng chuyển tiền sau khi confirm hoàn thành
+-Hệ thống tin nhắn
+-Quản lý ví và giao dịch
 
-# Người dùng
-- Login
-- quản lý hồ sơ
-- Thuê thợ ( Địa điểm, ước khối lượng công việc, mô tả chi tiết, chọn thời gian => danh sách thợ => chọn thợ => thanh toán -> nhắn tin với thợ)
-
-# Admin
-- Quản lí thợ, người dùng
-- ..
-
+# Công việc chung
+Thiết kế database và migrations 
+Xây dựng layout chung
+Code reviews
+Testing
+Tích hợp các module
 # Database
 
  - Users
@@ -128,6 +142,7 @@
 | Balance   | DECIMAL  | Số dư khả dụng hiện tại   |
 | IsLocked  | BIT      | Có bị khóa ví không       |
 | UpdatedAt | DATETIME | Lần cuối cập nhật số dư   |
+
 - WalletTransactions
 
 | Column      | Type          | Description                           |
