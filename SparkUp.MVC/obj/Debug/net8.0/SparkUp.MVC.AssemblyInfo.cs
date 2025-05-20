@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SparkUp.MVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e37279544f8c0982e00fab5f49380486ecb40a9e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b659c6d368173357180bb039859a58601039e44")]
 [assembly: System.Reflection.AssemblyProductAttribute("SparkUp.MVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SparkUp.MVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

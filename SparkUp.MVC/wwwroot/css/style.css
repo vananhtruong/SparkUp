@@ -1,0 +1,248 @@
+﻿/* Reset default styles */
+.authentication_container * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.authentication_wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.authentication_container {
+    width: 900px;
+    height: 500px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    margin: 2rem auto 0;
+}
+
+/* Make the container responsive */
+@media (max-width: 950px) {
+    .authentication_container {
+        width: 95%;
+        height: auto;
+        min-height: 500px;
+        margin: 2rem auto 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .authentication_container {
+        flex-direction: column;
+        margin: 1rem auto 0;
+    }
+
+    .authentication_forms-wrapper,
+    .authentication_side-panel {
+        width: 100%;
+        height: 50%;
+    }
+}
+
+/* Forms wrapper (left side) */
+.authentication_forms-wrapper {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Slide forms wrapper when in register mode */
+.authentication_container.register-mode .authentication_forms-wrapper {
+    transform: translateX(100%);
+}
+
+/* Form box styling */
+.authentication_form-box {
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Login and Register form positioning */
+.authentication_login-box {
+    transform: translateX(0);
+}
+
+.authentication_register-box {
+    transform: translateX(100%);
+}
+
+/* Form transitions for register mode */
+.authentication_container.register-mode .authentication_login-box {
+    transform: translateX(-100%);
+}
+
+.authentication_container.register-mode .authentication_register-box {
+    transform: translateX(0);
+}
+
+/* Form elements styling */
+.authentication_form-box h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.authentication_form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.authentication_form-box input {
+    padding: 0.75rem;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Regular submit button styling */
+.authentication_form-box button {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #007BFF;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+    .authentication_form-box button:hover {
+        background: #0056b3;
+    }
+
+/* Side panel (right side) styling */
+.authentication_side-panel {
+    width: 50%;
+    background: linear-gradient(120deg, #667eea, #764ba2);
+    color: #fff;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Slide side panel in register mode */
+.authentication_container.register-mode .authentication_side-panel {
+    transform: translateX(-100%);
+}
+
+/* Panel content styling */
+.authentication_panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    text-align: center;
+    transition: transform 0.6s ease-in-out;
+}
+
+    /* Panel text styling */
+    .authentication_panel h2 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    .authentication_panel p {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+
+    /* Panel button styling */
+    .authentication_panel button {
+        padding: 0.75rem 2rem;
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .authentication_panel button:hover {
+            background: #fff;
+            color: #764ba2;
+        }
+
+/* Panel transitions */
+.authentication_register-panel {
+    transform: translateX(100%);
+}
+
+.authentication_container.register-mode .authentication_register-panel {
+    transform: translateX(0);
+}
+
+.authentication_container.register-mode .authentication_login-panel {
+    transform: translateX(-100%);
+}
+
+/* Divider styling */
+.authentication_divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+    .authentication_divider::before,
+    .authentication_divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .authentication_divider span {
+        padding: 0 1rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+/* Google button styling */
+.authentication_google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #fff !important;
+    color: #757575 !important;
+    border: 1px solid #ddd !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease !important;
+}
+
+    .authentication_google-btn:hover {
+        background: #f5f5f5 !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+.authentication_google-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}

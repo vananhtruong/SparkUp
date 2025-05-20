@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GADdksOQoTeTSe7IbE6ZCPWYuB5dwdzNxX8TTJ5g4fg=",
+  "Hash": "n+qfVQsWKsUqdvvzYHUrJLj4cDxOzkSWdwQR1KHsdX4=",
   "Source": "SparkUp.MVC",
   "BasePath": "_content/SparkUp.MVC",
   "Mode": "Default",
@@ -80,6 +80,27 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
+      "SourceId": "SparkUp.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\",
+      "BasePath": "_content/SparkUp.MVC",
+      "RelativePath": "css/style#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7wofiru37b",
+      "Integrity": "OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
       "Identity": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\favicon.ico",
       "SourceId": "SparkUp.MVC",
       "SourceType": "Discovered",
@@ -99,6 +120,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\script.js",
+      "SourceId": "SparkUp.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\",
+      "BasePath": "_content/SparkUp.MVC",
+      "RelativePath": "js/script#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2fyplfq333",
+      "Integrity": "glTC70xRN53YoUpqXpb9nYSaFeqKlUmrPmYfHRKLCAk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\script.js"
     },
     {
       "Identity": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\site.js",
@@ -1403,6 +1445,88 @@
       ]
     },
     {
+      "Route": "css/style.7wofiru37b.css",
+      "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5655"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 20 May 2025 12:50:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7wofiru37b"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css",
+      "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5655"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 20 May 2025 12:50:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho="
+        }
+      ]
+    },
+    {
       "Route": "favicon.61n19gt1b8.ico",
       "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\favicon.ico",
       "Selectors": [],
@@ -1481,6 +1605,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "js/script.2fyplfq333.js",
+      "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\script.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "372"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"glTC70xRN53YoUpqXpb9nYSaFeqKlUmrPmYfHRKLCAk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 20 May 2025 12:38:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2fyplfq333"
+        },
+        {
+          "Name": "label",
+          "Value": "js/script.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-glTC70xRN53YoUpqXpb9nYSaFeqKlUmrPmYfHRKLCAk="
+        }
+      ]
+    },
+    {
+      "Route": "js/script.js",
+      "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\script.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "372"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"glTC70xRN53YoUpqXpb9nYSaFeqKlUmrPmYfHRKLCAk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 20 May 2025 12:38:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-glTC70xRN53YoUpqXpb9nYSaFeqKlUmrPmYfHRKLCAk="
         }
       ]
     },
