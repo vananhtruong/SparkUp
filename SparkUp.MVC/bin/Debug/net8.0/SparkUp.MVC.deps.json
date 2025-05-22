@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "SparkUp.MVC/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Facebook": "8.0.16",
+          "Microsoft.AspNetCore.Authentication.Google": "8.0.16",
           "SparkUp.Business": "1.0.0"
         },
         "runtime": {
@@ -46,6 +48,22 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.11.4.0",
             "fileVersion": "1.1100.424.31005"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Facebook/8.0.16": {
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "8.0.16.0",
+            "fileVersion": "8.0.1625.21611"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.16": {
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "assemblyVersion": "8.0.16.0",
+            "fileVersion": "8.0.1625.21611"
           }
         }
       },
@@ -723,6 +741,20 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/8.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZAGt3kRvWTV+J4cKxzzodqI8/qTeRgxgpI2RHGK5B12paplXMkWvFjq6vx6t60NXtxlePK4DcCXqGh3vEjoqCQ==",
+      "path": "microsoft.aspnetcore.authentication.facebook/8.0.16",
+      "hashPath": "microsoft.aspnetcore.authentication.facebook.8.0.16.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X4jGB9ebljVss21KqEgDZkHENMFw3gFKBWpnPcNtCvGbOqncO0HZG1yZE8rSwPS449HVoyv+2STs/MJqrw8nJQ==",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.16",
+      "hashPath": "microsoft.aspnetcore.authentication.google.8.0.16.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",

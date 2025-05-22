@@ -12,17 +12,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-pAGv4ietcJNk/EwsQZ5BN9\u002BK4MuNYS2a9wl4Jw\u002Bq9D0="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"362"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022pAGv4ietcJNk/EwsQZ5BN9\u002BK4MuNYS2a9wl4Jw\u002Bq9D0=\u0022"},{"Name":"Last-Modified","Value":"Mon, 19 May 2025 13:43:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/SparkUp.MVC/css/style.7wofiru37b.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\style.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"7wofiru37b"},{"Name":"integrity","Value":"sha256-OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho="},{"Name":"label","Value":"_content/SparkUp.MVC/css/style.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5655"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=\u0022"},{"Name":"Last-Modified","Value":"Tue, 20 May 2025 12:50:54 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/SparkUp.MVC/css/style.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\style.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5655"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=\u0022"},{"Name":"Last-Modified","Value":"Tue, 20 May 2025 12:50:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6273"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg=\u0022"},{"Name":"Last-Modified","Value":"Wed, 21 May 2025 14:05:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/SparkUp.MVC/css/style.zc853djahv.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\style.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zc853djahv"},{"Name":"integrity","Value":"sha256-k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg="},{"Name":"label","Value":"_content/SparkUp.MVC/css/style.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6273"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg=\u0022"},{"Name":"Last-Modified","Value":"Wed, 21 May 2025 14:05:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/SparkUp.MVC/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

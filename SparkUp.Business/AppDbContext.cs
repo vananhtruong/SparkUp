@@ -23,6 +23,7 @@ namespace SparkUp.Business
         public DbSet<WorkerSchedule> WorkerSchedules { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
         public DbSet<WalletTransaction> WalletTransactions { get; set; }
+        public DbSet<EmailTemplate> EmailTemplates { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //    => optionsBuilder.UseSqlServer("server=db16450.public.databaseasp.net;database=db16450;uid=db16450;pwd=12345678;TrustServerCertificate=True;");

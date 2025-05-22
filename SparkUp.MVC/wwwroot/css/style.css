@@ -17,8 +17,8 @@
 }
 
 .authentication_container {
-    width: 900px;
-    height: 500px;
+    width: 1000px;
+    height: 700px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
@@ -29,11 +29,11 @@
 }
 
 /* Make the container responsive */
-@media (max-width: 950px) {
+@media (max-width: 1050px) {
     .authentication_container {
         width: 95%;
         height: auto;
-        min-height: 500px;
+        min-height: 700px;
         margin: 2rem auto 0;
     }
 }
@@ -57,6 +57,7 @@
     height: 100%;
     position: relative;
     transition: transform 0.6s ease-in-out;
+    overflow: hidden;
 }
 
 /* Slide forms wrapper when in register mode */
@@ -71,11 +72,13 @@
     padding: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     position: absolute;
     top: 0;
     left: 0;
     transition: transform 0.6s ease-in-out;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Login and Register form positioning */
@@ -245,4 +248,31 @@
     width: 18px;
     height: 18px;
     object-fit: contain;
+}
+
+.authentication_facebook-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.authentication_facebook-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background: #1877f2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
+
+.authentication_facebook-btn:hover {
+    background: #166fe5;
 }

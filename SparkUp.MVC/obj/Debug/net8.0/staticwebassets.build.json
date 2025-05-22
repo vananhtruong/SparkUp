@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "n+qfVQsWKsUqdvvzYHUrJLj4cDxOzkSWdwQR1KHsdX4=",
+  "Hash": "7DNmn1/Ts4jeg3W7eJlHdCLPu5fbxjccHGzXUDSTQx4=",
   "Source": "SparkUp.MVC",
   "BasePath": "_content/SparkUp.MVC",
   "Mode": "Default",
@@ -94,8 +94,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "7wofiru37b",
-      "Integrity": "OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=",
+      "Fingerprint": "zc853djahv",
+      "Integrity": "k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\style.css"
@@ -1445,51 +1445,6 @@
       ]
     },
     {
-      "Route": "css/style.7wofiru37b.css",
-      "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5655"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 20 May 2025 12:50:54 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "7wofiru37b"
-        },
-        {
-          "Name": "label",
-          "Value": "css/style.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho="
-        }
-      ]
-    },
-    {
       "Route": "css/style.css",
       "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
       "Selectors": [],
@@ -1500,7 +1455,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5655"
+          "Value": "6273"
         },
         {
           "Name": "Content-Type",
@@ -1508,11 +1463,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho=\""
+          "Value": "\"k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 20 May 2025 12:50:54 GMT"
+          "Value": "Wed, 21 May 2025 14:05:40 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1522,7 +1477,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-OZZmzVbgeDfYC1Art/K6KsTMfsXODpToAm7fDgt6uho="
+          "Value": "sha256-k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.zc853djahv.css",
+      "AssetFile": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6273"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 14:05:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zc853djahv"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-k6C0OgXiiFIQbczzNTUdpuCBmpnNTMk/PnqIif0GMCg="
         }
       ]
     },

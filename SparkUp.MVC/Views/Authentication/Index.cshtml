@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spark Up</title>
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </head>
 <body>
     <div class="authentication_container" id="container">
@@ -12,31 +14,51 @@
             <div class="authentication_form-box authentication_login-box">
                 <h2>Login</h2>
                 <form>
-                    <input type="text" placeholder="Username" required />
+                    <input type="email" placeholder="Email" required />
                     <input type="password" placeholder="Password" required />
+                    <div class="text-end mb-3">
+                        <a href="@Url.Action("ForgotPasswordView", "Authentication")" class="text-decoration-none">Forgot Password?</a>
+                    </div>
                     <button type="submit">Login</button>
                     <div class="authentication_divider">
                         <span>or</span>
                     </div>
-                    <button type="button" class="authentication_google-btn">
+                </form>
+                <form asp-action="GoogleLogin" asp-controller="Authentication">
+                    <button type="submit" class="authentication_google-btn">
                         <img src="https://www.google.com/favicon.ico" alt="Google icon" class="authentication_google-icon">
                         Login with Google
+                    </button>
+                </form>
+                <form asp-action="FacebookLogin" asp-controller="Authentication">
+                    <button type="submit" class="authentication_facebook-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" alt="Facebook icon" class="authentication_facebook-icon">
+                        Login with Facebook
                     </button>
                 </form>
             </div>
             <div class="authentication_form-box authentication_register-box">
                 <h2>Register</h2>
                 <form>
-                    <input type="text" placeholder="Username" required />
+                    <input type="text" placeholder="Full Name" required />
                     <input type="email" placeholder="Email" required />
+                    <input type="tel" placeholder="Phone Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required />
                     <input type="password" placeholder="Password" required />
                     <button type="submit">Register</button>
                     <div class="authentication_divider">
                         <span>or</span>
                     </div>
-                    <button type="button" class="authentication_google-btn">
+                </form>
+                <form asp-action="GoogleLogin" asp-controller="Authentication">
+                    <button type="submit" class="authentication_google-btn">
                         <img src="https://www.google.com/favicon.ico" alt="Google icon" class="authentication_google-icon">
                         Register with Google
+                    </button>
+                </form>
+                <form asp-action="FacebookLogin" asp-controller="Authentication">
+                    <button type="submit" class="authentication_facebook-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png" alt="Facebook icon" class="authentication_facebook-icon">
+                        Register with Facebook
                     </button>
                 </form>
             </div>
@@ -56,5 +78,68 @@
             </div>
         </div>
     </div>
+
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: 'YOUR_APP_ID', // Replace with your Facebook App ID
+                cookie: true,
+                xfbml: true,
+                version: 'v18.0' // Use the latest version
+            });
+        };
+
+        function loginWithFacebook() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    // User successfully logged in
+                    FB.api('/me', { fields: 'name,email' }, function(response) {
+                        // Send the user data to your server
+                        window.location.href = '@Url.Action("FacebookLogin", "Authentication")?accessToken=' + 
+                            encodeURIComponent(response.accessToken);
+                    });
+                } else {
+                    // User cancelled login or did not fully authorize
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }, { scope: 'public_profile,email' });
+        }
+
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook
+                console.log('Welcome! Fetching your information....');
+                FB.api('/me', { fields: 'name,email' }, function(response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+            } else {
+                // Not logged into your app or Facebook
+                console.log('Please log into this app.');
+            }
+        }
+    </script>
+
+    <script>
+        // Add this at the end of the file, before the closing body tag
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('container');
+            const toRegister = document.getElementById('toRegister');
+            const toLogin = document.getElementById('toLogin');
+
+            toRegister.addEventListener('click', () => {
+                container.classList.add('active');
+            });
+
+            toLogin.addEventListener('click', () => {
+                container.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>

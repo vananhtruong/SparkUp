@@ -196,3 +196,5 @@ C:\FU\EXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\refint\SparkUp.MVC.dll
 C:\FU\EXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.MVC.pdb
 C:\FU\EXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.MVC.genruntimeconfig.cache
 C:\FU\EXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\ref\SparkUp.MVC.dll
+C:\FU\EXE\SparkUp\SparkUp.MVC\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\FU\EXE\SparkUp\SparkUp.MVC\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Facebook.dll
