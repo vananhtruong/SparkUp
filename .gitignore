@@ -5,3 +5,5 @@
 /.vs
 /SparkUp.Business/bin/Debug/net8.0
 /SparkUp.Business/obj
+/SparkUp.MVC/bin/Debug/net8.0
+/SparkUp.MVC/obj

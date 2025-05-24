@@ -1,0 +1,47 @@
+﻿@model SparkUp.Business.TaskType
+@{
+    ViewData["Title"] = "Chỉnh Sửa Dịch Vụ";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="iq-card">
+        <div class="iq-card-header d-flex justify-content-between align-items-center">
+            <div class="iq-header-title">
+                <h4 class="card-title">Chỉnh Sửa Dịch Vụ</h4>
+            </div>
+            <a class="btn btn-secondary" asp-action="Index">← Quay lại danh sách</a>
+        </div>
+
+        <div class="iq-card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Tên Dịch Vụ</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Mô Tả</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label">Hoạt động</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Cập Nhật</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
