@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "A/OBK4z09Y1V5ppWomCMo4Ca971MlPpzTHQJ1Eaf6Ng=",
+  "Hash": "pQw+arklWp3tAm11QqJaJtQ0IS2X+yjUemLSXRj46bk=",
   "Source": "SparkUp.MVC",
   "BasePath": "_content/SparkUp.MVC",
   "Mode": "Default",
@@ -59,6 +59,27 @@
       "OriginalItemSpec": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SparkUp.MVC.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\home.css",
+      "SourceId": "SparkUp.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\",
+      "BasePath": "_content/SparkUp.MVC",
+      "RelativePath": "css/home#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3b1h2y4o1c",
+      "Integrity": "32r8aSeQ+MkCfg866Bsn7aMrhX/RmT153mp8x8Q/rfc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
+    },
+    {
       "Identity": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\site.css",
       "SourceId": "SparkUp.MVC",
       "SourceType": "Discovered",
@@ -73,8 +94,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "c2tiyv64ts",
-      "Integrity": "pAGv4ietcJNk/EwsQZ5BN9+K4MuNYS2a9wl4Jw+q9D0=",
+      "Fingerprint": "51vbomcayi",
+      "Integrity": "2eG2OYJBR3gSZB8e5eAoCBGn+3FCtKY46N3Go2Or6gM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -99,6 +120,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker.jpg",
+      "SourceId": "SparkUp.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\",
+      "BasePath": "_content/SparkUp.MVC",
+      "RelativePath": "images/worker#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2w1zozfre3",
+      "Integrity": "Uihxa3TmUBMT9PzVVGm2ZLfLndjntn9QV30gULONk2E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\worker.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker-hero.jpg",
+      "SourceId": "SparkUp.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\",
+      "BasePath": "_content/SparkUp.MVC",
+      "RelativePath": "images/worker-hero#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8qdq2dcv4v",
+      "Integrity": "AN4eWtyDEQ9F3SmNhFwQUV7m8L3vhWE7XE2jZ2/aLmU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\worker-hero.jpg"
     },
     {
       "Identity": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\site.js",
@@ -1321,8 +1384,8 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.c2tiyv64ts.css",
-      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\site.css",
+      "Route": "css/home.3b1h2y4o1c.css",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\home.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1331,7 +1394,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "362"
+          "Value": "9592"
         },
         {
           "Name": "Content-Type",
@@ -1339,11 +1402,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pAGv4ietcJNk/EwsQZ5BN9+K4MuNYS2a9wl4Jw+q9D0=\""
+          "Value": "\"32r8aSeQ+MkCfg866Bsn7aMrhX/RmT153mp8x8Q/rfc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 19 May 2025 07:03:14 GMT"
+          "Value": "Mon, 26 May 2025 13:40:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1353,7 +1416,89 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "c2tiyv64ts"
+          "Value": "3b1h2y4o1c"
+        },
+        {
+          "Name": "label",
+          "Value": "css/home.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-32r8aSeQ+MkCfg866Bsn7aMrhX/RmT153mp8x8Q/rfc="
+        }
+      ]
+    },
+    {
+      "Route": "css/home.css",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\home.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9592"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"32r8aSeQ+MkCfg866Bsn7aMrhX/RmT153mp8x8Q/rfc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 26 May 2025 13:40:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-32r8aSeQ+MkCfg866Bsn7aMrhX/RmT153mp8x8Q/rfc="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.51vbomcayi.css",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4947"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2eG2OYJBR3gSZB8e5eAoCBGn+3FCtKY46N3Go2Or6gM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 26 May 2025 12:15:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "51vbomcayi"
         },
         {
           "Name": "label",
@@ -1361,7 +1506,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-pAGv4ietcJNk/EwsQZ5BN9+K4MuNYS2a9wl4Jw+q9D0="
+          "Value": "sha256-2eG2OYJBR3gSZB8e5eAoCBGn+3FCtKY46N3Go2Or6gM="
         }
       ]
     },
@@ -1376,7 +1521,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "362"
+          "Value": "4947"
         },
         {
           "Name": "Content-Type",
@@ -1384,11 +1529,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pAGv4ietcJNk/EwsQZ5BN9+K4MuNYS2a9wl4Jw+q9D0=\""
+          "Value": "\"2eG2OYJBR3gSZB8e5eAoCBGn+3FCtKY46N3Go2Or6gM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 19 May 2025 07:03:14 GMT"
+          "Value": "Mon, 26 May 2025 12:15:48 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1398,7 +1543,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-pAGv4ietcJNk/EwsQZ5BN9+K4MuNYS2a9wl4Jw+q9D0="
+          "Value": "sha256-2eG2OYJBR3gSZB8e5eAoCBGn+3FCtKY46N3Go2Or6gM="
         }
       ]
     },
@@ -1481,6 +1626,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "images/worker.2w1zozfre3.jpg",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234998"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Uihxa3TmUBMT9PzVVGm2ZLfLndjntn9QV30gULONk2E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 26 May 2025 12:52:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2w1zozfre3"
+        },
+        {
+          "Name": "label",
+          "Value": "images/worker.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Uihxa3TmUBMT9PzVVGm2ZLfLndjntn9QV30gULONk2E="
+        }
+      ]
+    },
+    {
+      "Route": "images/worker.jpg",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234998"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Uihxa3TmUBMT9PzVVGm2ZLfLndjntn9QV30gULONk2E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 26 May 2025 12:52:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Uihxa3TmUBMT9PzVVGm2ZLfLndjntn9QV30gULONk2E="
+        }
+      ]
+    },
+    {
+      "Route": "images/worker-hero.8qdq2dcv4v.jpg",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker-hero.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "170290"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AN4eWtyDEQ9F3SmNhFwQUV7m8L3vhWE7XE2jZ2/aLmU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 26 May 2025 09:24:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8qdq2dcv4v"
+        },
+        {
+          "Name": "label",
+          "Value": "images/worker-hero.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AN4eWtyDEQ9F3SmNhFwQUV7m8L3vhWE7XE2jZ2/aLmU="
+        }
+      ]
+    },
+    {
+      "Route": "images/worker-hero.jpg",
+      "AssetFile": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker-hero.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "170290"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AN4eWtyDEQ9F3SmNhFwQUV7m8L3vhWE7XE2jZ2/aLmU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 26 May 2025 09:24:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AN4eWtyDEQ9F3SmNhFwQUV7m8L3vhWE7XE2jZ2/aLmU="
         }
       ]
     },

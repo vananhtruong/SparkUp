@@ -3,45 +3,103 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SparkUp.MVC</title>
+    <title>@ViewData["Title"] - SparkUp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SparkUp.MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700,800&display=swap" rel="stylesheet">
+    @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
+<body class="@ViewData["BodyClass"]">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SparkUp.MVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="hf-navbar navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top py-2">
+            <div class="container-fluid px-md-5">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <div class="hf-logo-icon d-flex align-items-center justify-content-center me-2">
+                        <i class="bi bi-house-door"></i>
+                    </div>
+                    <span class="hf-logo-text fw-bold">HomeFix</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hfNavCollapse" aria-controls="hfNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                <div class="collapse navbar-collapse justify-content-center" id="hfNavCollapse">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3 gap-1 align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" href="#">Dịch vụ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Cách thức hoạt động</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Đánh giá</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
                     </ul>
+                    <div class="d-flex gap-2 align-items-center">
+                        <a href="#" class="hf-nav-btn-login" >Đăng nhập</a>
+                        <a href="#" class="hf-nav-btn-signups">Đăng ký</a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - SparkUp.MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+     <main role="main" class="main">
+            @RenderBody()
+     </main>
+
+    <!-- FOOTER chuẩn UI HomeFix -->
+    <footer class="hf-footer mt-1 pt-5 pb-2">
+        <div class="container-lg">
+            <div class="row g-4 pb-4">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="hf-logo-icon me-2"><i class="bi bi-house-door"></i></div>
+                        <span class="hf-logo-text fw-bold">HomeFix</span>
+                    </div>
+                    <div class="hf-footer-desc mb-4">Nền tảng kết nối người dùng với đội ngũ thợ chuyên nghiệp để giải quyết mọi vấn đề về nhà cửa.</div>
+                    <div class="d-flex gap-3">
+                        <span class="hf-social-btn hf-social-f">F</span>
+                        <span class="hf-social-btn hf-social-t">T</span>
+                        <span class="hf-social-btn hf-social-i">I</span>
+                        <span class="hf-social-btn hf-social-y">Y</span>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6">
+                    <div class="hf-footer-col-title">Dịch vụ</div>
+                    <div><a href="#">Sửa chữa tổng hợp</a></div>
+                    <div><a href="#">Sửa chữa đường ống</a></div>
+                    <div><a href="#">Sửa chữa điện</a></div>
+                    <div><a href="#">Dọn dẹp nhà cửa</a></div>
+                    <div><a href="#">Vận chuyển đồ</a></div>
+                </div>
+                <div class="col-md-2 col-6">
+                    <div class="hf-footer-col-title">Công ty</div>
+                    <div><a href="#">Về chúng tôi</a></div>
+                    <div><a href="#">Đội ngũ</a></div>
+                    <div><a href="#">Tuyển dụng</a></div>
+                    <div><a href="#">Blog</a></div>
+                    <div><a href="#">Tin tức</a></div>
+                </div>
+                <div class="col-md-2 col-6">
+                    <div class="hf-footer-col-title">Hỗ trợ</div>
+                    <div><a href="#">Liên hệ</a></div>
+                    <div><a href="#">Trung tâm hỗ trợ</a></div>
+                    <div><a href="#">Chính sách bảo mật</a></div>
+                    <div><a href="#">Điều khoản sử dụng</a></div>
+                    <div><a href="#">FAQ</a></div>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between pt-4 border-top border-secondary hf-footer-bottom">
+                <div class="text-white-50 small">© 2025 HomeFix. Tất cả các quyền được bảo lưu.</div>
+                <div class="d-flex gap-3 mt-2 mt-md-0 small">
+                    <a href="#" class="text-white-50">Chính sách bảo mật</a>
+                    <a href="#" class="text-white-50">Điều khoản sử dụng</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

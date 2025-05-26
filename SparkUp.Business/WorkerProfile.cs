@@ -12,7 +12,13 @@
         public bool IsConfirmed { get; set; }
         public string ApprovalStatus { get; set; } = "Pending";
 
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+
         public User User { get; set; }
+        public ICollection<WorkerTaskType> WorkerTaskTypes { get; set; }
+
     }
 
 }

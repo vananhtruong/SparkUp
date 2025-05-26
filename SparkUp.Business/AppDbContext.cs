@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task = SparkUp.Business.Task;
+
 
 namespace SparkUp.Business
 {
@@ -24,6 +26,7 @@ namespace SparkUp.Business
         public DbSet<Wallet> Wallets { get; set; }
         public DbSet<WalletTransaction> WalletTransactions { get; set; }
 
+        public DbSet<WorkerTaskType> WorkerTaskTypes { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //    => optionsBuilder.UseSqlServer("server=db16450.public.databaseasp.net;database=db16450;uid=db16450;pwd=12345678;TrustServerCertificate=True;");
 
@@ -140,6 +143,17 @@ namespace SparkUp.Business
                 .WithMany()
                 .HasForeignKey(wt => wt.TaskId)
                 .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<WorkerTaskType>().ToTable("WorkerTaskTypes");
+
+            modelBuilder.Entity<WorkerTaskType>()
+                .HasOne(wtt => wtt.WorkerProfile)
+                .WithMany(wp => wp.WorkerTaskTypes)
+                .HasForeignKey(wtt => wtt.WorkerProfileId);
+
+            modelBuilder.Entity<WorkerTaskType>()
+                .HasOne(wtt => wtt.TaskType)
+                .WithMany()
+                .HasForeignKey(wtt => wtt.TaskTypeId);
         }
     }
 

@@ -1,0 +1,304 @@
+﻿@model WorkerSearchViewModel
+@{
+    ViewData["Title"] = "Tìm kiếm thợ";
+}
+
+<div class="container-fluid search-container py-4">
+    <div class="row">
+        <!-- Sidebar filters -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Bộ lọc tìm kiếm</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" action="@Url.Action("Search", "Worker")">
+                        <!-- Loại dịch vụ -->
+                        <div class="mb-4">
+                            <label for="taskTypeId" class="form-label fw-bold">Loại dịch vụ</label>
+                            <select class="form-select" id="taskTypeId" name="taskTypeId">
+                                <option value="">-- Tất cả dịch vụ --</option>
+                                @foreach (var taskType in ViewBag.TaskTypes)
+                                {
+                                    <option value="@taskType.Value" selected="@(Model.TaskTypeId.ToString() == taskType.Value)">
+                                        @taskType.Text
+                                    </option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Địa điểm -->
+                        <div class="mb-4">
+                            <label for="location" class="form-label fw-bold">Địa điểm</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <input type="text" class="form-control" id="location" name="location"
+                                       value="@Model.Location" placeholder="Nhập địa chỉ làm việc...">
+                            </div>
+                        </div>
+
+                        <!-- Rating filter -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Đánh giá</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="minRating" id="rating4" value="4" checked>
+                                <label class="form-check-label" for="rating4">
+                                    <div class="text-warning">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                    4+ sao
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="minRating" id="rating3" value="3">
+                                <label class="form-check-label" for="rating3">
+                                    <div class="text-warning">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                        <i class="bi bi-star"></i>
+                                    </div>
+                                    3+ sao
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="minRating" id="ratingAll" value="0">
+                                <label class="form-check-label" for="ratingAll">Tất cả</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search me-1"></i> Lọc kết quả
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-lg-9">
+            <!-- Search header -->
+            <div class="search-header mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h2 class="h4 mb-0">
+                                @if (!string.IsNullOrEmpty(Model.SelectedTaskType))
+                                {
+                                    <span>Thợ <strong>@Model.SelectedTaskType</strong></span>
+                                }
+                                else
+                                {
+                                    <span>Tất cả thợ</span>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.Location))
+                                {
+                                    <span>tại <strong>@Model.Location</strong></span>
+                                }
+                            </h2>
+                            <div class="d-flex align-items-center">
+                                <span class="me-2">Sắp xếp theo:</span>
+                                <select class="form-select form-select-sm" id="sortOrder">
+                                    <option value="rating">Đánh giá cao nhất</option>
+                                    <option value="price_low">Giá thấp nhất</option>
+                                    <option value="price_high">Giá cao nhất</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Worker cards -->
+            <div class="row g-4">
+                @if (Model.Workers != null && Model.Workers.Any())
+                {
+                    foreach (var worker in Model.Workers)
+                    {
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 worker-card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <!-- Avatar -->
+                                        <div class="worker-avatar me-3">
+                                            @if (string.IsNullOrEmpty(worker.AvatarUrl))
+                                            {
+                                                <div class="avatar-placeholder">
+                                                    @worker.FullName.Substring(0, 1)
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <img src="@worker.AvatarUrl" alt="@worker.FullName"
+                                                     class="rounded-circle" width="80" height="80">
+                                            }
+                                        </div>
+
+                                        <!-- Info -->
+                                        <div class="worker-info flex-grow-1">
+                                            <h4 class="card-title h5 mb-1">@worker.FullName</h4>
+
+                                            <div class="text-warning mb-2">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= Math.Floor(worker.Rating))
+                                                    {
+                                                        <i class="bi bi-star-fill"></i>
+                                                    }
+                                                    else if (i - worker.Rating < 1 && i - worker.Rating > 0)
+                                                    {
+                                                        <i class="bi bi-star-half"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="bi bi-star"></i>
+                                                    }
+                                                }
+                                                <span class="ms-1">(@worker.Rating.ToString("0.0"))</span>
+                                            </div>
+
+                                            <div class="price-tag">
+                                                <span class="fw-bold">@string.Format("{0:N0}", worker.HourlyRate)đ</span>/giờ
+                                            </div>
+
+                                            @if (!string.IsNullOrEmpty(worker.City) || !string.IsNullOrEmpty(worker.District))
+                                            {
+                                                <p class="location mt-2 mb-0">
+                                                    <i class="bi bi-geo-alt me-1"></i>
+                                                    @(string.IsNullOrEmpty(worker.District) ? worker.City : worker.District + ", " + worker.City)
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="skills-section mb-3">
+                                        <p class="skills-text mb-2">
+                                            <i class="bi bi-tools me-1"></i>
+                                            <strong>Kỹ năng:</strong> @worker.Skills
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="bi bi-calendar-check me-1"></i>
+                                            <strong>Kinh nghiệm:</strong> @worker.ExperienceYears năm
+                                        </p>
+                                    </div>
+
+                                    @if (worker.TaskTypes != null && worker.TaskTypes.Any())
+                                    {
+                                        <div class="mb-3">
+                                            @foreach (var type in worker.TaskTypes.Take(3))
+                                            {
+                                                <span class="badge bg-light text-dark me-1">@type</span>
+                                            }
+                                            @if (worker.TaskTypes.Count > 3)
+                                            {
+                                                <span class="badge bg-light text-dark">+@(worker.TaskTypes.Count - 3)</span>
+                                            }
+                                        </div>
+                                    }
+
+                                    <div class="d-flex mt-3">
+                                        <a href="@Url.Action("Profile", "Worker", new { id = worker.Id, taskTypeId = Model.TaskTypeId })"
+                                           class="btn btn-outline-primary me-2 flex-grow-1">
+                                            <i class="bi bi-info-circle me-1"></i> Chi tiết
+                                        </a>
+                                        <a href="@Url.Action("Create", "Task", new { workerId = worker.Id, taskTypeId = Model.TaskTypeId })"
+                                           class="btn btn-primary flex-grow-1">
+                                            <i class="bi bi-calendar-plus me-1"></i> Đặt lịch
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Không tìm thấy thợ phù hợp với tiêu chí tìm kiếm của bạn.
+                            Hãy thử tìm kiếm với từ khóa khác hoặc mở rộng tiêu chí tìm kiếm.
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Sắp xếp kết quả
+            $('#sortOrder').change(function() {
+                const sortOrder = $(this).val();
+                const cards = $('.worker-card').get();
+
+                cards.sort(function(a, b) {
+                    let valA, valB;
+
+                    if (sortOrder === 'rating') {
+                        valA = parseFloat($(a).find('.text-warning span').text().replace('(', '').replace(')', ''));
+                        valB = parseFloat($(b).find('.text-warning span').text().replace('(', '').replace(')', ''));
+                        return valB - valA;
+                    } else if (sortOrder === 'price_low') {
+                        valA = parseInt($(a).find('.price-tag').text().replace(/[^\d]/g, ''));
+                        valB = parseInt($(b).find('.price-tag').text().replace(/[^\d]/g, ''));
+                        return valA - valB;
+                    } else if (sortOrder === 'price_high') {
+                        valA = parseInt($(a).find('.price-tag').text().replace(/[^\d]/g, ''));
+                        valB = parseInt($(b).find('.price-tag').text().replace(/[^\d]/g, ''));
+                        return valB - valA;
+                    }
+                });
+
+                const container = $('.row.g-4');
+                $.each(cards, function(idx, item) { container.append(item); });
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .search-container {
+            background-color: #f8f9fa;
+            min-height: 80vh;
+        }
+
+        .worker-card {
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+        }
+
+            .worker-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                border-color: #0d6efd;
+            }
+
+        .price-tag {
+            font-size: 1.1rem;
+            color: #198754;
+        }
+
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            background-color: #6c757d;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 32px;
+        }
+    </style>
+}

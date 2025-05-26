@@ -1,8 +1,389 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
+    ViewData["BodyClass"] = "home-page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Section -->
+<!-- Hero Section -->
+<div class="hero-section position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Badge -->
+                <div class="mb-4">
+                    <span class="badge bg-warning">Dịch vụ uy tín #1 Việt Nam</span>
+                </div>
+
+                <!-- Heading -->
+                <h1 class="display-4 fw-bold mb-4">
+                    Tìm thợ sửa chữa chuyên nghiệp cho mọi vấn đề gia đình
+                </h1>
+
+                <!-- Description -->
+                <p class="lead mb-4">
+                    Kết nối với đội ngũ thợ chuyên nghiệp, uy tín để giải quyết mọi vấn đề về điện nước, sửa chữa, dọn dẹp nhà cửa một cách nhanh chóng và hiệu quả.
+                </p>
+
+                <!-- Search Form -->
+                <form method="get" action="@Url.Action("Search", "Worker")" class="search-form mb-4">
+                    <div class="search-input-group">
+                        <div class="input-group">
+                            <span class="input-group-text border-0 bg-white">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control form-control-lg border-0 shadow-none"
+                                   placeholder="Tìm kiếm dịch vụ..."
+                                   name="searchTask"
+                                   autocomplete="off"
+                                   id="taskSearch">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg px-4">
+                            Tìm kiếm ngay <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Stats -->
+                <div class="d-flex gap-4">
+                    <div class="stat-badge">
+                        <span>T1</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span>T2</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span>T3</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span>T4</span>
+                    </div>
+                    <div class="service-stat">
+                        <span>500+ thợ sẵn sàng</span>
+                    </div>
+                    <div class="rating-stat">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span>4.9/5 đánh giá</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 position-relative">
+                <div class="service-image">
+                    <img src="/images/worker-hero.jpg" alt="Worker" class="img-fluid rounded-4">
+                    <div class="service-badge">
+                        <div class="d-flex align-items-center">
+                            <div class="service-badge-icon">
+                                <i class="bi bi-clock text-success"></i>
+                            </div>
+                            <div class="ms-2">
+                                <h6 class="mb-0">Phục vụ 24/7</h6>
+                                <small class="text-muted">Hỗ trợ khẩn cấp</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<section class="stats-section py-5">
+    <div class="container">
+        <div class="row justify-content-center text-center gy-4">
+            <div class="col-6 col-md-3">
+                <div class="stats-icon stats-icon-blue mb-3 mx-auto">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <h3 class="fw-bold mb-1">500+</h3>
+                <div class="stats-label">Thợ chuyên nghiệp</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stats-icon stats-icon-green mb-3 mx-auto">
+                    <i class="bi bi-award-fill"></i>
+                </div>
+                <h3 class="fw-bold mb-1">10,000+</h3>
+                <div class="stats-label">Dự án hoàn thành</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stats-icon stats-icon-orange mb-3 mx-auto">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <h3 class="fw-bold mb-1">24/7</h3>
+                <div class="stats-label">Hỗ trợ khách hàng</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stats-icon stats-icon-purple mb-3 mx-auto">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3 class="fw-bold mb-1">100%</h3>
+                <div class="stats-label">Bảo hành dịch vụ</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="howit-section py-5" style="background: linear-gradient(120deg, #f6fafd 0%, #eef9fb 100%);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="howit-badge">Quy trình đơn giản</span>
+            <h2 class="fw-bold mt-3 mb-2 howit-title">Cách thức hoạt động</h2>
+            <div class="howit-desc">Chỉ với vài bước đơn giản, bạn có thể tìm được thợ phù hợp cho vấn đề của mình</div>
+        </div>
+        <div class="howit-steps-wrap">
+            <div class="row justify-content-center text-center align-items-start position-relative howit-row-flex">
+                <!-- Step 1 -->
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
+                    <div class="howit-step">
+                        <div class="howit-step-number howit-step-blue">01</div>
+                        <div class="fw-bold howit-step-title mt-4 mb-2">Tìm kiếm dịch vụ</div>
+                        <div class="howit-step-desc">Chọn loại dịch vụ bạn cần và mô tả vấn đề của bạn</div>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="col-12 col-md-4 mb-4 mb-md-0">
+                    <div class="howit-step">
+                        <div class="howit-step-number howit-step-green">02</div>
+                        <div class="fw-bold howit-step-title mt-4 mb-2">Chọn thợ phù hợp</div>
+                        <div class="howit-step-desc">Xem hồ sơ, đánh giá và chọn thợ phù hợp với nhu cầu của bạn</div>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="col-12 col-md-4">
+                    <div class="howit-step">
+                        <div class="howit-step-number howit-step-orange">03</div>
+                        <div class="fw-bold howit-step-title mt-4 mb-2">Đặt lịch và thanh toán</div>
+                        <div class="howit-step-desc">Đặt lịch hẹn và thanh toán an toàn qua nền tảng</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Line giữa các bước - fix độ dài -->
+            <div class="howit-line-custom d-none d-md-block"></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Popular Task Types -->
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Dịch vụ phổ biến</h2>
+    
+    <div class="row g-4 justify-content-center">
+        @foreach (var taskType in ViewBag.PopularTaskTypes)
+        {
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="@Url.Action("Search", "Worker", new { taskTypeId = taskType.Id })" class="task-type-card text-decoration-none">
+                    <div class="card h-100 text-center border-0 shadow-sm">
+                        <div class="card-body py-4">
+                            <div class="icon-container mb-3">
+                                <i class="bi @taskType.Icon fs-1"></i>
+                            </div>
+                            <h5 class="card-title">@taskType.Name</h5>
+                            <p class="card-text text-muted small mb-0">Từ @string.Format("{0:N0}", taskType.MinPrice)đ/giờ</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        
+        <div class="col-12 text-center mt-4">
+            <a href="@Url.Action("Search", "Worker")" class="btn btn-outline-primary">
+                Xem tất cả dịch vụ
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Đánh giá khách hàng -->
+<section class="testimonials-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-warning mb-2">Đánh giá từ khách hàng</span>
+            <h2 class="fw-bold">Khách hàng nói gì về chúng tôi</h2>
+            <p class="text-muted">Hàng ngàn khách hàng hài lòng với dịch vụ của chúng tôi</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="card-text mb-4">"Tôi đã sử dụng dịch vụ sửa chữa điện nước và rất hài lòng với chất lượng công việc. Thợ đến đúng giờ và làm việc rất chuyên nghiệp."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avatar bg-primary text-white rounded-circle">A</div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Nguyễn Văn A</h6>
+                                <small class="text-muted">Chủ nhà</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="card-text mb-4">"Tôi đã sử dụng dịch vụ sửa chữa điện nước và rất hài lòng với chất lượng công việc. Thợ đến đúng giờ và làm việc rất chuyên nghiệp."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avatar bg-primary text-white rounded-circle">A</div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Nguyễn Văn A</h6>
+                                <small class="text-muted">Chủ nhà</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="card-text mb-4">"Tôi đã sử dụng dịch vụ sửa chữa điện nước và rất hài lòng với chất lượng công việc. Thợ đến đúng giờ và làm việc rất chuyên nghiệp."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avatar bg-primary text-white rounded-circle">A</div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Nguyễn Văn A</h6>
+                                <small class="text-muted">Chủ nhà</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Tại sao chọn chúng tôi -->
+<section class="why-us-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <span class="badge bg-primary mb-2">Lợi ích</span>
+                <h2 class="fw-bold mb-4">Tại sao chọn dịch vụ của chúng tôi?</h2>
+                <p class="text-muted mb-4">Chúng tôi cam kết mang đến trải nghiệm dịch vụ tốt nhất cho khách hàng</p>
+
+                <div class="features">
+                    <div class="feature d-flex align-items-center mb-3">
+                        <div class="feature-icon bg-success-light p-3 rounded-circle me-3">
+                            <i class="bi bi-shield-check text-success fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Thợ chuyên nghiệp</h5>
+                            <p class="text-muted mb-0">Đội ngũ thợ được đào tạo chuyên nghiệp và có kinh nghiệm</p>
+                        </div>
+                    </div>
+
+                    <div class="feature d-flex align-items-center mb-3">
+                        <div class="feature-icon bg-primary-light p-3 rounded-circle me-3">
+                            <i class="bi bi-patch-check text-primary fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Bảo hành dịch vụ</h5>
+                            <p class="text-muted mb-0">Cam kết bảo hành dịch vụ lên đến 30 ngày</p>
+                        </div>
+                    </div>
+
+                    <div class="feature d-flex align-items-center mb-3">
+                        <div class="feature-icon bg-warning-light p-3 rounded-circle me-3">
+                            <i class="bi bi-currency-dollar text-warning fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Giá cả minh bạch</h5>
+                            <p class="text-muted mb-0">Không có phí ẩn, báo giá trước khi thực hiện</p>
+                        </div>
+                    </div>
+
+                    <div class="feature d-flex align-items-center">
+                        <div class="feature-icon bg-danger-light p-3 rounded-circle me-3">
+                            <i class="bi bi-headset text-danger fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Hỗ trợ 24/7</h5>
+                            <p class="text-muted mb-0">Đội ngũ hỗ trợ khách hàng luôn sẵn sàng giúp đỡ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 position-relative service-image-2">
+                <img src="/images/worker.jpg" alt="Worker" class="img-fluid rounded-3 shadow">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="cta-section text-center text-white">
+    <div class="container py-5">
+        <h2 class="cta-title mb-3">Sẵn sàng giải quyết vấn đề của bạn?</h2>
+        <div class="cta-desc mb-4">Đăng ký ngay hôm nay để kết nối với đội ngũ thợ chuyên nghiệp</div>
+        <div class="cta-actions d-flex flex-column flex-md-row justify-content-center gap-3">
+            <a href="#" class="cta-btn">Đăng ký ngay</a>
+            <a href="#" class="cta-btn">
+                <i class="bi bi-telephone me-2"></i>
+                Liên hệ hỗ trợ
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Khởi tạo autocomplete cho tìm kiếm công việc
+            $("#taskSearch").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetTaskTypesByName", "Worker")",
+                        data: { term: request.term },
+                        success: function(data) {
+                            response(data.map(function(item) {
+                                return {
+                                    label: item.name,
+                                    value: item.name,
+                                    id: item.id
+                                };
+                            }));
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function(event, ui) {
+                    $("#taskTypeId").val(ui.item.id);
+                }
+            });
+            
+            // Hidden field để lưu TaskTypeId
+            $("<input>").attr({
+                type: "hidden",
+                name: "taskTypeId",
+                id: "taskTypeId"
+            }).appendTo("form");
+        });
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}

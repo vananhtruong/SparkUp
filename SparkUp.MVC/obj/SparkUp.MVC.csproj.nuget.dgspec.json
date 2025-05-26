@@ -148,6 +148,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "jQuery.UI.Combined": {
+              "target": "Package",
+              "version": "[1.14.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
