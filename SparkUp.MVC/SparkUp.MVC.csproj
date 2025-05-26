@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="jQuery.UI.Combined" Version="1.14.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SparkUp.Business\SparkUp.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

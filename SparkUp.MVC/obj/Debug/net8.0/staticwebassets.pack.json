@@ -5,12 +5,24 @@
       "PackagePath": "staticwebassets\\SparkUp.MVC.4dytqv9q1s.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker-hero.jpg",
+      "PackagePath": "staticwebassets\\images\\worker-hero.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker.jpg",
+      "PackagePath": "staticwebassets\\images\\worker.jpg"
     },
     {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\site.js",
