@@ -10,6 +10,7 @@
         public string PortfolioUrl { get; set; }
         public float RatingAverage { get; set; }
         public bool IsConfirmed { get; set; }
+        public string ApprovalStatus { get; set; } = "Pending";
 
         public User User { get; set; }
     }

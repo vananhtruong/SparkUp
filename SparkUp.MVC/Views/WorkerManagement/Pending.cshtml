@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SparkUp.Business.WorkerProfile>
+@{
+    ViewData["Title"] = "Thợ Chờ Duyệt";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="iq-card">
+        <div class="iq-card-header d-flex justify-content-between align-items-center">
+            <div class="iq-header-title">
+                <h4 class="card-title">Danh Sách Thợ Chờ Duyệt</h4>
+            </div>
+            <a class="btn btn-secondary" asp-action="Index">← Tất Cả Thợ</a>
+        </div>
+
+        <div class="iq-card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Họ Tên</th>
+                            <th>Email</th>
+                            <th>Kỹ Năng</th>
+                            <th>Kinh Nghiệm</th>
+                            <th>Hồ Sơ</th>
+                            <th class="text-center">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center">Không có thợ chờ duyệt.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            int index = 1;
+                            foreach (var profile in Model)
+                            {
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@profile.User?.FullName</td>
+                                    <td>@profile.User?.Email</td>
+                                    <td>@profile.Skills</td>
+                                    <td>@profile.ExperienceYears năm</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(profile.PortfolioUrl))
+                                        {
+                                            <a href="@Url.Content("~/uploads/" + profile.PortfolioUrl)" target="_blank" class="btn btn-sm btn-outline-info">
+                                                Xem
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Không có</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <form asp-action="Approve" method="post" asp-route-id="@profile.Id" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i class="ri-check-line"></i> Duyệt
+                                            </button>
+                                        </form>
+                                        <form asp-action="Reject" method="post" asp-route-id="@profile.Id" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn từ chối hồ sơ này?');">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="ri-close-line"></i> Từ chối
+                                            </button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
