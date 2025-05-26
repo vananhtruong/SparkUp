@@ -7,10 +7,10 @@ namespace SparkUp.MVC.Models
         public string Domain { get; set; }
         public float ExpiredCache { get; set; }
 
-        public SettingsDto(IOptions<SettingsDto> options)
-        {
-            Domain = options.Value.Domain;
-            ExpiredCache = options.Value.ExpiredCache;
-        }
+        //public SettingsDto(IOptions<SettingsDto> options)
+        //{
+        //    Domain = options.Value.Domain;
+        //    ExpiredCache = options.Value.ExpiredCache;
+        //}
     }
 }

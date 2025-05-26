@@ -13,9 +13,9 @@
         <div class="authentication_forms-wrapper">
             <div class="authentication_form-box authentication_login-box">
                 <h2>Login</h2>
-                <form>
-                    <input type="email" placeholder="Email" required />
-                    <input type="password" placeholder="Password" required />
+                <form asp-action="Login" asp-controller="Authentication">
+                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="password" name="password" placeholder="Password" required />
                     <div class="text-end mb-3">
                         <a href="@Url.Action("ForgotPasswordView", "Authentication")" class="text-decoration-none">Forgot Password?</a>
                     </div>
@@ -39,11 +39,11 @@
             </div>
             <div class="authentication_form-box authentication_register-box">
                 <h2>Register</h2>
-                <form>
-                    <input type="text" placeholder="Full Name" required />
-                    <input type="email" placeholder="Email" required />
-                    <input type="tel" placeholder="Phone Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required />
-                    <input type="password" placeholder="Password" required />
+                <form asp-action="Register" asp-controller="Authentication">
+                    <input type="text" name="fullName" placeholder="Full Name" required />
+                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required />
+                    <input type="password" name="password" placeholder="Password" required />
                     <button type="submit">Register</button>
                     <div class="authentication_divider">
                         <span>or</span>

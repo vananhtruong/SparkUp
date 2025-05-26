@@ -7,10 +7,10 @@ namespace SparkUp.MVC.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public EmailSenderDto(IOptions<EmailSenderDto> options)
-        {
-            Email = options.Value.Email;
-            Password = options.Value.Password;
-        }
+        //public EmailSenderDto(IOptions<EmailSenderDto> options)
+        //{
+        //    Email = options.Value.Email;
+        //    Password = options.Value.Password;
+        //}
     }
 }

@@ -31,7 +31,12 @@ builder.Services.AddAuthentication(options =>
     {
         options.ClientId = builder.Configuration["GoogleKeys:ClientId"];
         options.ClientSecret = builder.Configuration["GoogleKeys:ClientSecret"];
-        options.CallbackPath = "/Authentication/GoogleResponse";
+        options.CallbackPath = "/signin-google"; // Standard path
+        options.SaveTokens = true; // Save tokens for later use
+
+        // If you need additional scopes:
+        options.Scope.Add("profile");
+        options.Scope.Add("email");
     })
     .AddFacebook(FacebookDefaults.AuthenticationScheme, options =>
     {
@@ -79,6 +84,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

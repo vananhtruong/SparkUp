@@ -11,6 +11,8 @@ using System.Security.Cryptography;
 using System.Web;
 using SparkUp.MVC.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace SparkUp.MVC.Controllers
 {
@@ -21,11 +23,11 @@ namespace SparkUp.MVC.Controllers
         private readonly SettingsDto _settings;
         private readonly IMemoryCache _memoryCache;
 
-        public AuthenticationController(AppDbContext context, IEmailSender emailSender, SettingsDto settings, IMemoryCache memoryCache)
+        public AuthenticationController(AppDbContext context, IEmailSender emailSender, IOptions<SettingsDto> settings, IMemoryCache memoryCache)
         {
             _context = context;
             _emailSender = emailSender;
-            _settings = settings;
+            _settings = settings.Value;
             _memoryCache = memoryCache;
         }
 
@@ -63,16 +65,43 @@ namespace SparkUp.MVC.Controllers
         public async Task<IActionResult> GoogleResponse()
         {
             var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+            if (!result.Succeeded)
+                return RedirectToAction("Index");
 
-            var claims = result.Principal.Identities.FirstOrDefault()?.Claims.Select(c => new
+            //find user
+            var principal = result.Principal;
+            var email = principal.FindFirst(ClaimTypes.Email)?.Value;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+            Random rand = new Random();
+            
+            if(user == null)
             {
-                c.Issuer,
-                c.OriginalIssuer,
-                c.Type,
-                c.Value
-            });
+                var newUser = new User()
+                {
+                    FullName = principal.FindFirst(ClaimTypes.Name)?.Value,
+                    Email = principal.FindFirst(ClaimTypes.Email)?.Value,
+                    Role = "Customer",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now,
+                    AvatarUrl = "default.png",
+                    PasswordHash = (rand.Next(100000, 999999)).ToString() + (char)('a' + rand.Next(0, 26)) + (char)('A' + rand.Next(0, 26)),
+                    PhoneNumber = "not yet"
+                };
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+                user = newUser;
+            }
 
-            return Json(claims);
+            //create claim for user log in cookie
+            var claims = new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.FullName),
+                    new Claim(ClaimTypes.Role, user.Role),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                };
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async System.Threading.Tasks.Task FacebookLogin()
@@ -116,7 +145,7 @@ namespace SparkUp.MVC.Controllers
         }
 
         //register with new account
-        public async Task<IActionResult> RegisterAsync(string fullName, string email, string phone, string password)
+        public async Task<IActionResult> Register(string fullName, string email, string phone, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
             if(user == null)
@@ -142,7 +171,7 @@ namespace SparkUp.MVC.Controllers
         //change to forget password
         public IActionResult ForgotPasswordView()
         {
-            return View();
+            return View("ForgotPassword");
 
         }
 
@@ -151,35 +180,34 @@ namespace SparkUp.MVC.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
             if (user != null)
             {
-                var template = _context.EmailTemplates.FirstOrDefault(t => t.Purpose.Equals("ForgotPassword"));
+                //var template = _context.EmailTemplates.FirstOrDefault(t => t.Purpose.Equals("ForgotPassword"));
                 //create link for reset password
                 var rawToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-                var encodedToken = HttpUtility.UrlEncode(rawToken);
 
                 //store token in cache
-                _memoryCache.Set(encodedToken, user.Id, TimeSpan.FromMinutes(_settings.ExpiredCache));
+                _memoryCache.Set(rawToken, user.Id, TimeSpan.FromMinutes(_settings.ExpiredCache));
 
                 //create link
-                var link = $"{_settings.Domain}ResetPasswordView?token={encodedToken}";
+                var link = $"{_settings.Domain}Authentication/ResetPasswordView?token={rawToken}";
 
                 //send email
-                _emailSender.SendEmailAsync(user.Email, template.Header, template.Body.Replace("{link}", link));
+                //_emailSender.SendEmailAsync(user.Email, template.Header, template.Body.Replace("{link}", link));
             }
             return RedirectToAction("ForgotPasswordView");
         }
 
         public IActionResult ResetPasswordView(string token)
         {
-            if (_memoryCache.TryGetValue(token, out var userId))
+            if (token != null && _memoryCache.TryGetValue(token, out var userId))
             {
-                return View();
                 ViewData["UserId"] = userId;
-                return RedirectToAction("Index");
+                return View("ResetPassword");
             }
             return RedirectToAction("ForgotPasswordView");
         }
 
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public IActionResult ResetPassword(int UserId, string password)
         {
             var user = _context.Users.Find(UserId);
