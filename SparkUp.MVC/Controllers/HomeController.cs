@@ -21,28 +21,26 @@ namespace SparkUp.MVC.Controllers
         {
             try
             {
-                // Lấy các loại công việc phổ biến (chỉ lấy dữ liệu từ DB)
                 var taskTypes = await _context.TaskTypes
                     .Where(tt => tt.IsActive)
                     .OrderBy(tt => tt.Name)
                     .Take(8)
                     .ToListAsync();
 
-                // Lấy giá tối thiểu cho từng loại công việc
                 var minPrices = await _context.WorkerTaskTypes
                     .GroupBy(wtt => wtt.TaskTypeId)
                     .Select(g => new { TaskTypeId = g.Key, MinPrice = g.Min(wtt => wtt.HourlyRate) })
                     .ToListAsync();
 
-                // Kết hợp dữ liệu và gán icon
                 var popularTaskTypes = taskTypes.Select(tt => new
                 {
                     Id = tt.Id,
                     Name = tt.Name,
-                    Icon = GetIconForTaskType(tt.Name), // Gán icon ở đây, không dùng DbSeeder
-                    MinPrice = minPrices.FirstOrDefault(mp => mp.TaskTypeId == tt.Id)?.MinPrice ?? 50000M
+                    Icon = tt.Icon, // Hoặc dùng tt.Icon nếu lưu trong DB
+                    MinPrice = minPrices.FirstOrDefault(mp => mp.TaskTypeId == tt.Id)?.MinPrice ?? 50000M,
+                    ImageUrl = tt.ImageUrl, // lấy URL ảnh từ DB
+                    Description = tt.Description // lấy mô tả nếu có
                 }).ToList();
-
                 ViewBag.PopularTaskTypes = popularTaskTypes;
                 return View();
             }
@@ -52,15 +50,14 @@ namespace SparkUp.MVC.Controllers
                 // Dữ liệu giả lập
                 ViewBag.PopularTaskTypes = new List<dynamic>
         {
-            new { Id = 1, Name = "Sửa điện", Icon = "bi-lightning-charge", MinPrice = 50000M },
-            new { Id = 2, Name = "Sửa nước", Icon = "bi-droplet", MinPrice = 60000M },
-            new { Id = 3, Name = "Vệ sinh", Icon = "bi-house-gear", MinPrice = 45000M },
-            new { Id = 4, Name = "Chuyển nhà", Icon = "bi-truck", MinPrice = 120000M },
+            new { Id = 1, Name = "Sửa điện", Icon = "bi-lightning-charge", MinPrice = 50000M, ImageUrl = "/images/electric.jpg", Description = "Sửa điện dân dụng" },
+            new { Id = 2, Name = "Sửa nước", Icon = "bi-droplet", MinPrice = 60000M, ImageUrl = "/images/water.jpg", Description = "Sửa chữa hệ thống nước" },
+            // Thêm dữ liệu mẫu nếu muốn
         };
                 return View();
             }
         }
-
+     
 
 
         private string GetIconForTaskType(string taskType)

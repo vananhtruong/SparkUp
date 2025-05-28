@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/AdminHome/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -34,6 +38,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/TaskType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/TaskType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/TaskType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/WorkerManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2VyTWFuYWdlbWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/WorkerManagement/Pending.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2VyTWFuYWdlbWVudFxQZW5kaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/Worker/Profile.cshtml]
@@ -51,6 +75,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-asbdexqaw3
 
 [C:/Users/HELLO/Desktop/ProjectEXE/SparkUp/SparkUp.MVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s

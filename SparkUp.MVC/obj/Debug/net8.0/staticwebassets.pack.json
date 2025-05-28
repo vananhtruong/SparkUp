@@ -2,19 +2,763 @@
   "Files": [
     {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SparkUp.MVC.bundle.scp.css",
-      "PackagePath": "staticwebassets\\SparkUp.MVC.4dytqv9q1s.bundle.scp.css"
+      "PackagePath": "staticwebassets\\SparkUp.MVC.9i2i2octp0.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\Chart.min.css",
+      "PackagePath": "staticwebassets\\css\\Chart.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\ajax-loader.gif",
+      "PackagePath": "staticwebassets\\css\\ajax-loader.gif"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\animate.css",
+      "PackagePath": "staticwebassets\\css\\animate.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\dataTables.bootstrap4.min.css",
+      "PackagePath": "staticwebassets\\css\\dataTables.bootstrap4.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\developer.css",
+      "PackagePath": "staticwebassets\\css\\developer.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\dripicons.css",
+      "PackagePath": "staticwebassets\\css\\dripicons.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\flatpickr.min.css",
+      "PackagePath": "staticwebassets\\css\\flatpickr.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\fontawesome.css",
+      "PackagePath": "staticwebassets\\css\\fontawesome.css"
     },
     {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\home.css",
       "PackagePath": "staticwebassets\\css\\home.css"
     },
     {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\ionicons.min.css",
+      "PackagePath": "staticwebassets\\css\\ionicons.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\line-awesome.min.css",
+      "PackagePath": "staticwebassets\\css\\line-awesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\magnific-popup.css",
+      "PackagePath": "staticwebassets\\css\\magnific-popup.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\owl.carousel.min.css",
+      "PackagePath": "staticwebassets\\css\\owl.carousel.min.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\owl.video.play.png",
+      "PackagePath": "staticwebassets\\css\\owl.video.play.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\remixicon.css",
+      "PackagePath": "staticwebassets\\css\\remixicon.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\responsive.css",
+      "PackagePath": "staticwebassets\\css\\responsive.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\select2.min.css",
+      "PackagePath": "staticwebassets\\css\\select2.min.css"
+    },
+    {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\slick-theme.css",
+      "PackagePath": "staticwebassets\\css\\slick-theme.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\slick.css",
+      "PackagePath": "staticwebassets\\css\\slick.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style-customizer.css",
+      "PackagePath": "staticwebassets\\css\\style-customizer.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\typography.css",
+      "PackagePath": "staticwebassets\\css\\typography.css"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\css\\variable.css",
+      "PackagePath": "staticwebassets\\css\\variable.css"
+    },
+    {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\AvenirLTStd-Black.eot",
+      "PackagePath": "staticwebassets\\fonts\\AvenirLTStd-Black.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\AvenirLTStd-Book.eot",
+      "PackagePath": "staticwebassets\\fonts\\AvenirLTStd-Book.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\AvenirLTStd-Roman.eot",
+      "PackagePath": "staticwebassets\\fonts\\AvenirLTStd-Roman.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\FontAwesome.otf",
+      "PackagePath": "staticwebassets\\fonts\\FontAwesome.otf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\Now-Bold.woff",
+      "PackagePath": "staticwebassets\\fonts\\Now-Bold.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\Now-Bold.woff2",
+      "PackagePath": "staticwebassets\\fonts\\Now-Bold.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\Now-Regular.woff",
+      "PackagePath": "staticwebassets\\fonts\\Now-Regular.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\Now-Regular.woff2",
+      "PackagePath": "staticwebassets\\fonts\\Now-Regular.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\dripicons-v2.eot",
+      "PackagePath": "staticwebassets\\fonts\\dripicons-v2.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\dripicons-v2.svg",
+      "PackagePath": "staticwebassets\\fonts\\dripicons-v2.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\dripicons-v2.ttf",
+      "PackagePath": "staticwebassets\\fonts\\dripicons-v2.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\dripicons-v2.woff",
+      "PackagePath": "staticwebassets\\fonts\\dripicons-v2.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-brands-400.eot",
+      "PackagePath": "staticwebassets\\fonts\\fa-brands-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-brands-400.svg",
+      "PackagePath": "staticwebassets\\fonts\\fa-brands-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\fonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\fonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\fonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-regular-400.eot",
+      "PackagePath": "staticwebassets\\fonts\\fa-regular-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-regular-400.svg",
+      "PackagePath": "staticwebassets\\fonts\\fa-regular-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\fonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\fonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\fonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-solid-900.eot",
+      "PackagePath": "staticwebassets\\fonts\\fa-solid-900.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-solid-900.svg",
+      "PackagePath": "staticwebassets\\fonts\\fa-solid-900.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\fonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\fonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\fonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fontawesome-webfont.eot",
+      "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fontawesome-webfont.svg",
+      "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fontawesome-webfont.ttf",
+      "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fontawesome-webfont.woff",
+      "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\fontawesome-webfont.woff2",
+      "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\ionicons.eot",
+      "PackagePath": "staticwebassets\\fonts\\ionicons.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\ionicons.svg",
+      "PackagePath": "staticwebassets\\fonts\\ionicons.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\ionicons.ttf",
+      "PackagePath": "staticwebassets\\fonts\\ionicons.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\ionicons.woff",
+      "PackagePath": "staticwebassets\\fonts\\ionicons.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-brands-400.eot",
+      "PackagePath": "staticwebassets\\fonts\\la-brands-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-brands-400.svg",
+      "PackagePath": "staticwebassets\\fonts\\la-brands-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-brands-400.ttf",
+      "PackagePath": "staticwebassets\\fonts\\la-brands-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-brands-400.woff",
+      "PackagePath": "staticwebassets\\fonts\\la-brands-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-brands-400.woff2",
+      "PackagePath": "staticwebassets\\fonts\\la-brands-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-regular-400.eot",
+      "PackagePath": "staticwebassets\\fonts\\la-regular-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-regular-400.svg",
+      "PackagePath": "staticwebassets\\fonts\\la-regular-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-regular-400.ttf",
+      "PackagePath": "staticwebassets\\fonts\\la-regular-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-regular-400.woff",
+      "PackagePath": "staticwebassets\\fonts\\la-regular-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-regular-400.woff2",
+      "PackagePath": "staticwebassets\\fonts\\la-regular-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-solid-900.eot",
+      "PackagePath": "staticwebassets\\fonts\\la-solid-900.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-solid-900.svg",
+      "PackagePath": "staticwebassets\\fonts\\la-solid-900.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-solid-900.ttf",
+      "PackagePath": "staticwebassets\\fonts\\la-solid-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-solid-900.woff",
+      "PackagePath": "staticwebassets\\fonts\\la-solid-900.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\la-solid-900.woff2",
+      "PackagePath": "staticwebassets\\fonts\\la-solid-900.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\remixicon.eot",
+      "PackagePath": "staticwebassets\\fonts\\remixicon.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\remixicon.svg",
+      "PackagePath": "staticwebassets\\fonts\\remixicon.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\remixicon.ttf",
+      "PackagePath": "staticwebassets\\fonts\\remixicon.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\remixicon.woff",
+      "PackagePath": "staticwebassets\\fonts\\remixicon.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\remixicon.woff2",
+      "PackagePath": "staticwebassets\\fonts\\remixicon.woff2"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\slick.eot",
+      "PackagePath": "staticwebassets\\fonts\\slick.eot"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\slick.svg",
+      "PackagePath": "staticwebassets\\fonts\\slick.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\slick.ttf",
+      "PackagePath": "staticwebassets\\fonts\\slick.ttf"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\fonts\\slick.woff",
+      "PackagePath": "staticwebassets\\fonts\\slick.woff"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\TaskType\\electrician.png",
+      "PackagePath": "staticwebassets\\images\\TaskType\\electrician.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\TaskType\\hero-handyman.png",
+      "PackagePath": "staticwebassets\\images\\TaskType\\hero-handyman.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\TaskType\\home-repair.png",
+      "PackagePath": "staticwebassets\\images\\TaskType\\home-repair.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\TaskType\\plumber-work.png",
+      "PackagePath": "staticwebassets\\images\\TaskType\\plumber-work.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\booking\\01.png",
+      "PackagePath": "staticwebassets\\images\\booking\\01.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\booking\\02.jpg",
+      "PackagePath": "staticwebassets\\images\\booking\\02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\booking\\cart.png",
+      "PackagePath": "staticwebassets\\images\\booking\\cart.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\booking\\seat.svg",
+      "PackagePath": "staticwebassets\\images\\booking\\seat.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\checkout\\01.jpg",
+      "PackagePath": "staticwebassets\\images\\checkout\\01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\checkout\\02.jpg",
+      "PackagePath": "staticwebassets\\images\\checkout\\02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\checkout\\03.jpg",
+      "PackagePath": "staticwebassets\\images\\checkout\\03.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\error\\02.png",
+      "PackagePath": "staticwebassets\\images\\error\\02.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\error\\404.png",
+      "PackagePath": "staticwebassets\\images\\error\\404.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\error\\500.png",
+      "PackagePath": "staticwebassets\\images\\error\\500.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\01.png",
+      "PackagePath": "staticwebassets\\images\\icon\\01.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\02.png",
+      "PackagePath": "staticwebassets\\images\\icon\\02.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\03.png",
+      "PackagePath": "staticwebassets\\images\\icon\\03.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\04.png",
+      "PackagePath": "staticwebassets\\images\\icon\\04.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\05.png",
+      "PackagePath": "staticwebassets\\images\\icon\\05.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\06.png",
+      "PackagePath": "staticwebassets\\images\\icon\\06.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\07.png",
+      "PackagePath": "staticwebassets\\images\\icon\\07.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\08.png",
+      "PackagePath": "staticwebassets\\images\\icon\\08.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\09.png",
+      "PackagePath": "staticwebassets\\images\\icon\\09.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\10.png",
+      "PackagePath": "staticwebassets\\images\\icon\\10.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\11.png",
+      "PackagePath": "staticwebassets\\images\\icon\\11.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\12.png",
+      "PackagePath": "staticwebassets\\images\\icon\\12.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\13.png",
+      "PackagePath": "staticwebassets\\images\\icon\\13.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\expand-window.json",
+      "PackagePath": "staticwebassets\\images\\icon\\expand-window.json"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\icon\\open-letter.json",
+      "PackagePath": "staticwebassets\\images\\icon\\open-letter.json"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\01.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\02.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\03.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\03.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\07.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\07.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\08.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\08.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\09.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\09.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\10.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\100.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\100.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\11.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\12.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\13.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\14.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\15.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\16.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\16.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\17.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\17.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\18.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\19.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\19.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\20.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\20.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\21.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\21.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\22.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\22.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\23.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\23.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\24.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\24.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\25.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\25.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\26.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\26.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\27.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\27.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\28.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\28.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\42.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\42.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\42.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\42.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\43.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\43.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\44.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\44.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\45.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\45.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\46.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\46.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\47.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\47.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\48.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\48.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\49.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\49.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\a1.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\a1.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\a2.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\a2.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\a3.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\a3.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\a4.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\a4.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\featured-book.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\featured-book.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\img-success.png",
+      "PackagePath": "staticwebassets\\images\\page-img\\img-success.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\man.svg",
+      "PackagePath": "staticwebassets\\images\\page-img\\man.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\p1.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\p1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\p2.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\p2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\page-load-loader.gif",
+      "PackagePath": "staticwebassets\\images\\page-img\\page-load-loader.gif"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\profile-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\page-img\\profile-bg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\tag_blue.svg",
+      "PackagePath": "staticwebassets\\images\\page-img\\tag_blue.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\page-img\\tag_red.svg",
+      "PackagePath": "staticwebassets\\images\\page-img\\tag_red.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\04.svg",
+      "PackagePath": "staticwebassets\\images\\small\\04.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\05.svg",
+      "PackagePath": "staticwebassets\\images\\small\\05.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\07.png",
+      "PackagePath": "staticwebassets\\images\\small\\07.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\08.png",
+      "PackagePath": "staticwebassets\\images\\small\\08.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\09.png",
+      "PackagePath": "staticwebassets\\images\\small\\09.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\10.png",
+      "PackagePath": "staticwebassets\\images\\small\\10.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\11.png",
+      "PackagePath": "staticwebassets\\images\\small\\11.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\12.png",
+      "PackagePath": "staticwebassets\\images\\small\\12.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\13.png",
+      "PackagePath": "staticwebassets\\images\\small\\13.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\14.png",
+      "PackagePath": "staticwebassets\\images\\small\\14.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\data.json",
+      "PackagePath": "staticwebassets\\images\\small\\data.json"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\data1.json",
+      "PackagePath": "staticwebassets\\images\\small\\data1.json"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\data2.json",
+      "PackagePath": "staticwebassets\\images\\small\\data2.json"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\flag-01.png",
+      "PackagePath": "staticwebassets\\images\\small\\flag-01.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\flag-02.png",
+      "PackagePath": "staticwebassets\\images\\small\\flag-02.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\flag-03.png",
+      "PackagePath": "staticwebassets\\images\\small\\flag-03.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\flag-04.png",
+      "PackagePath": "staticwebassets\\images\\small\\flag-04.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\flag-05.png",
+      "PackagePath": "staticwebassets\\images\\small\\flag-05.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\flag-06.png",
+      "PackagePath": "staticwebassets\\images\\small\\flag-06.png"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\img-1.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\jpg.svg",
+      "PackagePath": "staticwebassets\\images\\small\\jpg.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\match-code.json",
+      "PackagePath": "staticwebassets\\images\\small\\match-code.json"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\xml.svg",
+      "PackagePath": "staticwebassets\\images\\small\\xml.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\small\\zip.svg",
+      "PackagePath": "staticwebassets\\images\\small\\zip.svg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\user\\1.jpg",
+      "PackagePath": "staticwebassets\\images\\user\\1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\user\\2.jpg",
+      "PackagePath": "staticwebassets\\images\\user\\2.jpg"
     },
     {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\images\\worker-hero.jpg",
@@ -25,8 +769,160 @@
       "PackagePath": "staticwebassets\\images\\worker.jpg"
     },
     {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\algoliasearchLite.min.js",
+      "PackagePath": "staticwebassets\\js\\algoliasearchLite.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\animated.js",
+      "PackagePath": "staticwebassets\\js\\animated.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\apexcharts.js",
+      "PackagePath": "staticwebassets\\js\\apexcharts.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\bodymovin.js",
+      "PackagePath": "staticwebassets\\js\\bodymovin.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\chart-custom.js",
+      "PackagePath": "staticwebassets\\js\\chart-custom.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\charts.js",
+      "PackagePath": "staticwebassets\\js\\charts.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\core.js",
+      "PackagePath": "staticwebassets\\js\\core.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\countdown.min.js",
+      "PackagePath": "staticwebassets\\js\\countdown.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\custom.js",
+      "PackagePath": "staticwebassets\\js\\custom.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\dataTables.bootstrap4.min.js",
+      "PackagePath": "staticwebassets\\js\\dataTables.bootstrap4.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\flatpickr.js",
+      "PackagePath": "staticwebassets\\js\\flatpickr.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\highcharts-3d.js",
+      "PackagePath": "staticwebassets\\js\\highcharts-3d.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\highcharts-more.js",
+      "PackagePath": "staticwebassets\\js\\highcharts-more.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\highcharts.js",
+      "PackagePath": "staticwebassets\\js\\highcharts.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\instantsearch.js",
+      "PackagePath": "staticwebassets\\js\\instantsearch.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\jquery-3.3.1.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery-3.3.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\jquery.appear.js",
+      "PackagePath": "staticwebassets\\js\\jquery.appear.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\jquery.counterup.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.counterup.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\jquery.dataTables.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.dataTables.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\jquery.magnific-popup.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.magnific-popup.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\kelly.js",
+      "PackagePath": "staticwebassets\\js\\kelly.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\lottie.js",
+      "PackagePath": "staticwebassets\\js\\lottie.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\maps.js",
+      "PackagePath": "staticwebassets\\js\\maps.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\morris.js",
+      "PackagePath": "staticwebassets\\js\\morris.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\morris.min.js",
+      "PackagePath": "staticwebassets\\js\\morris.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\owl.carousel.min.js",
+      "PackagePath": "staticwebassets\\js\\owl.carousel.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\popper.min.js",
+      "PackagePath": "staticwebassets\\js\\popper.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\raphael-min.js",
+      "PackagePath": "staticwebassets\\js\\raphael-min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\select2.min.js",
+      "PackagePath": "staticwebassets\\js\\select2.min.js"
+    },
+    {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\slick.min.js",
+      "PackagePath": "staticwebassets\\js\\slick.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\smooth-scrollbar.js",
+      "PackagePath": "staticwebassets\\js\\smooth-scrollbar.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\style-customizer.js",
+      "PackagePath": "staticwebassets\\js\\style-customizer.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\waypoints.min.js",
+      "PackagePath": "staticwebassets\\js\\waypoints.min.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\worldHigh.js",
+      "PackagePath": "staticwebassets\\js\\worldHigh.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\worldLow.js",
+      "PackagePath": "staticwebassets\\js\\worldLow.js"
+    },
+    {
+      "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\js\\wow.min.js",
+      "PackagePath": "staticwebassets\\js\\wow.min.js"
     },
     {
       "Id": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\wwwroot\\lib\\bootstrap\\LICENSE",

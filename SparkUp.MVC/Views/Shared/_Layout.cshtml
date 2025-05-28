@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SparkUp.MVC.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/SparkUp.MVC.styles.css" asp-append-version="true" /> phần này bị xung đột css nên t comment lại  *@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700,800&display=swap" rel="stylesheet">
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body class="@ViewData["BodyClass"]">
     <header>
-        <nav class="hf-navbar navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top py-2">
+        <nav class="hf-navbar navbar navbar-expand-lg navbar-light shadow-sm fixed-top py-2">
             <div class="container-fluid px-md-5">
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     <div class="hf-logo-icon d-flex align-items-center justify-content-center me-2">

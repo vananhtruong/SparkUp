@@ -482,3 +482,193 @@
         min-width: 180px;
     }
 }
+
+/* Service section styling */
+.service-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+}
+
+.service-section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-section-badge {
+    background-color: #e6f0ff;
+    color: #2563eb;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.service-section-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.service-section-desc {
+    font-size: 1.1rem;
+    color: #6c757d;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+/* Service Card Styling */
+.service-card {
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    overflow: hidden;
+}
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+.service-card-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+    .service-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    .service-card-image::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+        pointer-events: none;
+    }
+    .service-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+.service-card:hover .service-card-image img {
+    transform: scale(1.05);
+}
+
+.service-card-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.service-card-body {
+    padding: 20px;
+}
+
+.service-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.service-card-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    min-height: 40px;
+}
+
+.service-card-link {
+    display: inline-flex;
+    align-items: center;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+    .service-card-link:hover {
+        text-decoration: underline;
+    }
+
+    .service-card-link i {
+        margin-left: 6px;
+        font-size: 0.8rem;
+        transition: transform 0.2s ease;
+    }
+
+    .service-card-link:hover i {
+        transform: translateX(3px);
+    }
+
+/* Icon background colors */
+.icon-repair {
+    background-color: #2563eb;
+}
+
+.icon-plumbing {
+    background-color: #0ea5e9;
+}
+
+.icon-electrical {
+    background-color: #f59e0b;
+}
+
+.icon-cleaning {
+    background-color: #10b981;
+}
+
+.icon-moving {
+    background-color: #8b5cf6;
+}
+
+.icon-home {
+    background-color: #f97316;
+}
+@media (max-width: 767px) {
+    .service-card-image {
+        height: 180px;
+    }
+
+    .service-section-heading {
+        font-size: 2rem;
+    }
+
+    .service-section-desc {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .service-card {
+        margin-bottom: 20px;
+    }
+
+    .service-card-image {
+        height: 160px;
+    }
+}

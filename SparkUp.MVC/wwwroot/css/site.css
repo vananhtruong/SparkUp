@@ -8,10 +8,17 @@ body {
 
 .hf-navbar {
     font-family: inherit;
-    background: #fff;
-    box-shadow: 0 2px 14px rgba(44,62,80,0.04);
+    background: rgba(255, 255, 255, 0.6); /* Màu trắng với độ trong suốt 80% */
+    backdrop-filter: blur(5px); /* Tạo hiệu ứng mờ cho nội dung phía sau */
+    -webkit-backdrop-filter: blur(10px); /* Hỗ trợ Safari */
+    box-shadow: 0 2px 14px rgba(44, 62, 80, 0.04);
     z-index: 1040;
+    transition: background 0.3s ease; /* Hiệu ứng mượt khi cuộn */
 }
+    /* Tùy chọn: Làm đậm hơn khi hover */
+    .hf-navbar:hover {
+        background: rgba(255, 255, 255, 0.9);
+    }
 
 .hf-logo-icon {
     width: 46px;
@@ -62,7 +69,7 @@ body {
     }
 
 .hf-nav-btn-signups {
-    color: #ffffff;
+    color: #fff;
     background: #2563eb;
     font-weight: 700;
     border-radius: 11px;
@@ -74,9 +81,9 @@ body {
     box-shadow: 0 4px 14px rgba(37,99,235,0.09);
 }
 
-    .hf-nav-btn-signup:hover, .hf-nav-btn-signup:focus {
-        background: #1849b8;
-        color: #fff;
+    .hf-nav-btn-signups:hover, .hf-nav-btn-signups:focus {
+        background: #38a1f7;
+        color: #fff ;
     }
 
 @media (max-width: 991px) {

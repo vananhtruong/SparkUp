@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Trang chủ";
     ViewData["BodyClass"] = "home-page";
+    var popularTaskTypes = ViewBag.PopularTaskTypes as List<dynamic>;
+
 }
 
 <!-- Hero Section -->
@@ -166,34 +168,54 @@
 
 <!-- Popular Task Types -->
 
-<div class="container py-5">
-    <h2 class="text-center mb-4">Dịch vụ phổ biến</h2>
-    
-    <div class="row g-4 justify-content-center">
-        @foreach (var taskType in ViewBag.PopularTaskTypes)
-        {
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="@Url.Action("Search", "Worker", new { taskTypeId = taskType.Id })" class="task-type-card text-decoration-none">
-                    <div class="card h-100 text-center border-0 shadow-sm">
-                        <div class="card-body py-4">
-                            <div class="icon-container mb-3">
-                                <i class="bi @taskType.Icon fs-1"></i>
+<section class="service-section py-5">
+    <div class="container">
+        <div class="service-section-title">
+            <span class="service-section-badge">Dịch vụ của chúng tôi</span>
+            <h2 class="service-section-heading">Đa dạng dịch vụ cho mọi nhu cầu</h2>
+            <p class="service-section-desc">Chúng tôi cung cấp nhiều loại dịch vụ sửa chữa và bảo trì nhà cửa với đội ngũ thợ chuyên nghiệp</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var taskType in ViewBag.PopularTaskTypes)
+            {
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="service-card">
+                        <div class="service-card-image">
+                            <img src="@taskType.ImageUrl" alt="@taskType.Name">
+                            <div class="service-card-icon @GetIconClass(taskType.Name)">
+                                <i class="bi @taskType.Icon"></i>
                             </div>
-                            <h5 class="card-title">@taskType.Name</h5>
-                            <p class="card-text text-muted small mb-0">Từ @string.Format("{0:N0}", taskType.MinPrice)đ/giờ</p>
+                        </div>
+                        <div class="service-card-body">
+                            <h3 class="service-card-title">@taskType.Name</h3>
+                            <p class="service-card-text">
+                                @if (!string.IsNullOrEmpty(taskType.Description))
+                                {
+                                    @taskType.Description
+                                }
+                                else
+                                {
+                                    <text>Dịch vụ chuyên nghiệp với giá cả hợp lý</text>
+                                }
+                            </p>
+                            <a href="@Url.Action("Search", "Worker", new { taskTypeId = taskType.Id })" class="service-card-link">
+                                Tìm hiểu thêm <i class="bi bi-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
-                </a>
-            </div>
-        }
-        
-        <div class="col-12 text-center mt-4">
-            <a href="@Url.Action("Search", "Worker")" class="btn btn-outline-primary">
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Search", "Worker")" class="btn btn-outline-primary px-5 py-2">
                 Xem tất cả dịch vụ
             </a>
         </div>
     </div>
-</div>
+</section>
+
 
 <!-- Đánh giá khách hàng -->
 <section class="testimonials-section py-5 bg-light">
@@ -386,4 +408,19 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+@functions {
+    public string GetIconClass(string name)
+    {
+        return name.ToLower() switch
+        {
+            var n when n.Contains("điện") => "icon-electrical",
+            var n when n.Contains("đường ống") || n.Contains("nước") => "icon-plumbing",
+            var n when n.Contains("dọn") || n.Contains("vệ sinh") => "icon-cleaning",
+            var n when n.Contains("vận chuyển") || n.Contains("chuyển") => "icon-moving",
+            var n when n.Contains("nhà") => "icon-home",
+            var n when n.Contains("tổng hợp") => "icon-repair",
+            _ => "icon-repair"
+        };
+    }
 }

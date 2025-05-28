@@ -97,3 +97,4 @@ C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\refint\Sp
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.MVC.pdb
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.MVC.genruntimeconfig.cache
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\ref\SparkUp.MVC.dll
+C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\scopedcss\Views\Shared\_AdminLayout.cshtml.rz.scp.css
