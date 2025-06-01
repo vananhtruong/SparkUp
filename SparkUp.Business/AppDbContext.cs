@@ -25,6 +25,7 @@ namespace SparkUp.Business
         public DbSet<WorkerSchedule> WorkerSchedules { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
         public DbSet<WalletTransaction> WalletTransactions { get; set; }
+        public DbSet<EmailTemplate> EmailTemplates { get; set; }
 
         public DbSet<WorkerTaskType> WorkerTaskTypes { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

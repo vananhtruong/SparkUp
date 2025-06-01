@@ -1,8 +1,13 @@
 wwwroot\css\home.css
 wwwroot\css\site.css
+wwwroot\css\style.css
 wwwroot\favicon.ico
+<<<<<<< HEAD
 wwwroot\images\worker.jpg
 wwwroot\images\worker-hero.jpg
+=======
+wwwroot\js\script.js
+>>>>>>> origin/PhuongPH
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

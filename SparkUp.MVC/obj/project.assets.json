@@ -47,6 +47,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "jQuery/2.0.0": {
         "type": "package"
       },
@@ -55,6 +56,39 @@
         "dependencies": {
           "jQuery": "1.14.1"
         }
+=======
+      "Microsoft.AspNetCore.Authentication.Facebook/8.0.16": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.16": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+>>>>>>> origin/PhuongPH
       },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
@@ -1192,6 +1226,7 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
+<<<<<<< HEAD
     "jQuery/2.0.0": {
       "sha512": "u3YiE0QnFnBExPkBPqWr2EVd8nh01iQlMWPRfa7b1fQ53YuMtHw+Y9oaJukHtEHaMpyL0PJzq69y3/5AxWogGA==",
       "type": "package",
@@ -1269,6 +1304,36 @@
         "Tools/uninstall.ps1",
         "jquery.ui.combined.1.14.1.nupkg.sha512",
         "jquery.ui.combined.nuspec"
+=======
+    "Microsoft.AspNetCore.Authentication.Facebook/8.0.16": {
+      "sha512": "ZAGt3kRvWTV+J4cKxzzodqI8/qTeRgxgpI2RHGK5B12paplXMkWvFjq6vx6t60NXtxlePK4DcCXqGh3vEjoqCQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.facebook/8.0.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Facebook.xml",
+        "microsoft.aspnetcore.authentication.facebook.8.0.16.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.facebook.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.16": {
+      "sha512": "X4jGB9ebljVss21KqEgDZkHENMFw3gFKBWpnPcNtCvGbOqncO0HZG1yZE8rSwPS449HVoyv+2STs/MJqrw8nJQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.8.0.16.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
+>>>>>>> origin/PhuongPH
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -3193,28 +3258,34 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+<<<<<<< HEAD
       "SparkUp.Business >= 1.0.0",
       "jQuery.UI.Combined >= 1.14.1"
+=======
+      "Microsoft.AspNetCore.Authentication.Facebook >= 8.0.16",
+      "Microsoft.AspNetCore.Authentication.Google >= 8.0.16",
+      "SparkUp.Business >= 1.0.0"
+>>>>>>> origin/PhuongPH
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HELLO\\.nuget\\packages\\": {},
+    "C:\\Users\\phoan\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\SparkUp.MVC.csproj",
+      "projectUniqueName": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\SparkUp.MVC.csproj",
       "projectName": "SparkUp.MVC",
-      "projectPath": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\SparkUp.MVC.csproj",
-      "packagesPath": "C:\\Users\\HELLO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.MVC\\obj\\",
+      "projectPath": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\SparkUp.MVC.csproj",
+      "packagesPath": "C:\\Users\\phoan\\.nuget\\packages\\",
+      "outputPath": "C:\\FU\\EXE\\SparkUp\\SparkUp.MVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\HELLO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\phoan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3223,14 +3294,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.Business\\SparkUp.Business.csproj": {
-              "projectPath": "C:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\\SparkUp.Business\\SparkUp.Business.csproj"
+            "C:\\FU\\EXE\\SparkUp\\SparkUp.Business\\SparkUp.Business.csproj": {
+              "projectPath": "C:\\FU\\EXE\\SparkUp\\SparkUp.Business\\SparkUp.Business.csproj"
             }
           }
         }
@@ -3251,9 +3323,19 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+<<<<<<< HEAD
           "jQuery.UI.Combined": {
             "target": "Package",
             "version": "[1.14.1, )"
+=======
+          "Microsoft.AspNetCore.Authentication.Facebook": {
+            "target": "Package",
+            "version": "[8.0.16, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[8.0.16, )"
+>>>>>>> origin/PhuongPH
           }
         },
         "imports": [
@@ -3267,6 +3349,28 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.15, 8.0.15]"
+          },
+          {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.203, 9.0.203]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.15, 8.0.15]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.15, 8.0.15]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.15, 8.0.15]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -3275,7 +3379,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

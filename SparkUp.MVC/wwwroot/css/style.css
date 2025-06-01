@@ -251,6 +251,12 @@ a:hover { text-decoration: none; }
 .rippleEffect { animation: rippleDrop .6s linear; }
 @keyframes rippleDrop {
   100% { transform: scale(2); opacity: 0; }
+/* Reset default styles */
+.authentication_container * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 /*---------------------------------------------------------------------
@@ -348,15 +354,42 @@ body.sidebar-main .iq-top-navbar { width: calc(100% - 80px); }
 @keyframes shadow-pulse-dots {
   0% { box-shadow: 0 0 0 0px rgba(0, 177, 255, 0.2); }
   100% { box-shadow: 0 0 0 15px rgba(0, 177, 255, 0); }
+.authentication_wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    padding: 2rem;
+    margin-top: 2rem;
 }
 @keyframes shadow-pulse {
   0% { box-shadow: 0 0 0 0px rgba(0, 177, 255, 0.2); }
   100% { box-shadow: 0 0 0 15px rgba(0, 177, 255, 0); }
+
+.authentication_container {
+    width: 1000px;
+    height: 700px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    margin: 2rem auto 0;
 }
 @keyframes shadow-pulse-dots-danger {
   0% { box-shadow: 0 0 0 0px rgb(255, 155, 138, 0.2); }
   100% { box-shadow: 0 0 0 15px rgba(255, 155, 138, 0); }
-}
+
+/* Make the container responsive */
+@media (max-width: 1050px) {
+    .authentication_container {
+        width: 95%;
+        height: auto;
+        min-height: 700px;
+        margin: 2rem auto 0;
+    }
 @keyframes shadow-pulse-danger {
   0% { box-shadow: 0 0 0 0px rgba(255, 155, 138, 0.2); }
   100% { box-shadow: 0 0 0 15px rgba(255, 155, 138, 0); }
@@ -411,6 +444,11 @@ div#lottie-beil svg path, div#lottie-mail svg path, div#lottie-fullscreen svg pa
  * See http://animista.net/license for more info.
  * w: http://animista.net, t: @cssanimista
  * ---------------------------------------------- */
+@media (max-width: 600px) {
+    .authentication_container {
+        flex-direction: column;
+        margin: 1rem auto 0;
+    }
 
 /**
  * ----------------------------------------
@@ -420,7 +458,11 @@ div#lottie-beil svg path, div#lottie-mail svg path, div#lottie-fullscreen svg pa
 @-webkit-keyframes fade-in-bottom {
   0% { -webkit-transform: translateY(50px); transform: translateY(50px); opacity: 0; }
   100% { -webkit-transform: translateY(0); transform: translateY(0); opacity: 1; }
-}
+    .authentication_forms-wrapper,
+    .authentication_side-panel {
+        width: 100%;
+        height: 50%;
+    }
 @keyframes fade-in-bottom {
   0% { -webkit-transform: translateY(50px); transform: translateY(50px); opacity: 0; }
   100% { -webkit-transform: translateY(0); transform: translateY(0); opacity: 1; }
@@ -661,6 +703,14 @@ button.qty-btn { border: 1px solid var(--iq-border); background: var(--iq-white)
 .user-add-authors:before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 132, 255, 0.8); }
 .user-add-authors .user-add-media { position: absolute; top: 50%; transform: translateY(-50%); left: 30px; display: inline-block; }
 .user-add-list { padding: 30px; }
+/* Forms wrapper (left side) */
+.authentication_forms-wrapper {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+    overflow: hidden;
+}
 
 /*---------------------------------------------------------------------
                              Email list
@@ -675,6 +725,10 @@ button.qty-btn { border: 1px solid var(--iq-border); background: var(--iq-white)
 .iq-email-list .iq-email-ui li .badge { float: right; font-weight: normal; margin-top: 3px; }
 .iq-email-list .iq-email-ui.iq-email-label li { margin-bottom: 10px; }
 .iq-email-list .iq-email-ui.iq-email-label li:last-child { margin-bottom: 0; }
+/* Slide forms wrapper when in register mode */
+.authentication_container.register-mode .authentication_forms-wrapper {
+    transform: translateX(100%);
+}
 
 /*----------------------------------*/
 .iq-email-to-list ul { margin: 0; padding: 0; }
@@ -683,12 +737,31 @@ button.qty-btn { border: 1px solid var(--iq-border); background: var(--iq-white)
 .iq-email-to-list ul li>a { color: var(--iq-primary); text-align: center; line-height: 38px; display: inline-block; width: 40px; height: 40px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; background: var(--iq-light-primary); }
 .iq-email-to-list ul li a:hover, .iq-email-to-list ul li.q-list a:hover { color: var(--iq-primary); text-decoration: none; }
 .iq-email-to-list ul li .custom-control-label::before { top: 13px; left: -20px; }
+/* Form box styling */
+.authentication_form-box {
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s ease-in-out;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 /*----------------------------------*/
 .iq-email-search { position: relative; }
 .iq-email-search .form-control { height: 40px; border: 1px solid var(--iq-border-light); width: 170px; }
 .iq-email-search .search-link { position: absolute; top: 0; right: 15px; font-size: 18px; line-height: 38px; color: var(--iq-primary); }
 .iq-email-search .search-link:hover { text-decoration: none; }
+/* Login and Register form positioning */
+.authentication_login-box {
+    transform: translateX(0);
+}
 
 /*----------------------------------*/
 .iq-email-listbox .iq-email-sender-list { margin: 15px 0 0; padding: 0; display: inline-block; width: 100%; overflow: hidden; }
@@ -707,12 +780,19 @@ button.qty-btn { border: 1px solid var(--iq-border); background: var(--iq-white)
 .iq-email-content .iq-email-date { right: 20px; width: 100px; text-align: right; padding-left: 10px; color: var(--iq-body-text); }
 .iq-email-sender-list .iq-social-media { position: absolute; line-height: 62px; right: -200px; top: 0; background: var(--iq-white); font-size: 18px; padding: 0 30px; transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; }
 .iq-email-listbox .iq-email-sender-list li:hover .iq-social-media { right: 0; }
+.authentication_register-box {
+    transform: translateX(100%);
+}
 
 /*----------------------------------*/
 .iq-inbox-details tr td { padding: 5px 10px; }
 .iq-inbox-details tr td:first-child { width: 75px; color: var(--iq-body-text); }
 .iq-subject-info { display: flex; align-items: flex-start; }
 .iq-subject-status { margin-left: 15px; flex: 1; }
+/* Form transitions for register mode */
+.authentication_container.register-mode .authentication_login-box {
+    transform: translateX(-100%);
+}
 
 /*---------------------------------------------------------------------
                              Booking list
@@ -732,12 +812,20 @@ button.qty-btn { border: 1px solid var(--iq-border); background: var(--iq-white)
 .icon-tag-box span { display: inline-block; width: 100%; font-size: 16px; }
 .iq-booking-offer-img { position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; max-width: 110%; }
 .iq-booking-offer { padding: 60px 100px; border-radius: 5px; margin-bottom: 30px; }
+.authentication_container.register-mode .authentication_register-box {
+    transform: translateX(0);
+}
 
 /*----------------------------------------------------------------------
                         Chart
  ----------------------------------------------------------------------*/
 #sda1-chart, #sda1-chart1, #sda1-chart2 { min-height: 200px !important; }
 div#iq-sale-chart{min-height: 218px !important;}
+/* Form elements styling */
+.authentication_form-box h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
 
 /*-----------------------------------------------------------------
                         Material Card Style1
@@ -747,12 +835,23 @@ div#iq-sale-chart{min-height: 218px !important;}
 .card-style1 .title { text-transform: capitalize; font-weight: bold; }
 .card-style1 .percentage { font-weight: bolder; font-size: 1.5rem; margin: auto; }
 .card-style1 .percentage span { font-weight: normal; }
+.authentication_form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
 /*-----------------------------------------------------------------
                         Material Card Style2
 ----------------------------------------------------------------- */
 .card-style1.card-style2 .iq-details { width: 100%; }
 .card-style1.card-style2 .percentage { font-weight: bolder; font-size: 1.2rem; margin-top: -5px; margin-left: -50px; }
+.authentication_form-box input {
+    padding: 0.75rem;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 1rem;
+}
 
 /*-----------------------------------------------------------------
                         Circle Progressbar
@@ -774,6 +873,19 @@ div#iq-sale-chart{min-height: 218px !important;}
 .progress-round.income-progress .progress-bar { border-width: 10px; }
 .progress-round.income-progress::after { border: 10px solid #ff9273; }
 .progress-round.alarams-progress { height: 110px; width: 110px; }
+/* Regular submit button styling */
+.authentication_form-box button {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #007BFF;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    width: 100%;
+}
 
 /*-----------------------------------------------------------------
                         Tikit Booking List
@@ -792,6 +904,9 @@ div#iq-sale-chart{min-height: 218px !important;}
 .iq-booking-no li .iq-seat.active { background: var(--iq-success); }
 .iq-booking-status { line-height: 30px; display: inline-block; margin-right: 30px; }
 .iq-booking-status span { width: 16px; height: 16px; border-radius: 5px; display: inline-block; background: var(--iq-light-primary); margin-right: 10px; margin-top: 6px; float: left; }
+    .authentication_form-box button:hover {
+        background: #0056b3;
+    }
 
 /*-----------------------------------------------------------------
                         Right Sidebar Menu
@@ -803,6 +918,14 @@ div#iq-sale-chart{min-height: 218px !important;}
 .iq-booking-ticket { background: var(--iq-white); border-radius: 5px; padding: 30px 25px 30px; position: relative; }
 .iq-booking-ticket:after { content: ""; position: absolute; bottom: 100px; left: -10px; height: 20px; width: 20px; background: var(--iq-primary); -webkit-border-radius: 90px; -moz-border-radius: 90px; border-radius: 90px; }
 .iq-booking-ticket:before { content: ""; position: absolute; bottom: 100px; right: -10px; height: 20px; width: 20px; background: var(--iq-primary); -webkit-border-radius: 90px; -moz-border-radius: 90px; border-radius: 90px; }
+/* Side panel (right side) styling */
+.authentication_side-panel {
+    width: 50%;
+    background: linear-gradient(120deg, #667eea, #764ba2);
+    color: #fff;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
 
 /*---------------------------------------------------------------------
 FAQ
@@ -817,6 +940,10 @@ FAQ
 .iq-accordion.career-style.faq-style .iq-accordion-block { padding: 10px 5px; border-radius: 5px; }
 .iq-accordion.career-style.faq-style .iq-accordion-block.accordion-active .accordion-title:before, .iq-accordion.career-style.faq-style .accordion-title:before { background-image: -moz-linear-gradient(0deg, rgb(109, 115, 239) 0%, rgb(163, 120, 252) 100%); border-radius: 90px; }
 .active-faq a.accordion-title { display: block; padding-right: 45px; }
+/* Slide side panel in register mode */
+.authentication_container.register-mode .authentication_side-panel {
+    transform: translateX(-100%);
+}
 
 /*---------------------------------------------------------------------
 Table
@@ -831,6 +958,19 @@ img.summary-image-top { width: 35px; }
 .data-tables td p { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 div.dataTables_wrapper div.dataTables_paginate ul.pagination { margin: 15px 0 0; }
 div.dataTables_wrapper div.dataTables_info { padding-top: 20px; }
+/* Panel content styling */
+.authentication_panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    text-align: center;
+    transition: transform 0.6s ease-in-out;
+}
 
 /*---------------------------------------------------------------------
 Animation Card
@@ -840,6 +980,11 @@ Animation Card
 .animation-card .an-img .bodymovin { width: 162%; margin-bottom: -57px; margin-left: -50px; }
 .animation-card .an-text { position: absolute; width: 180px; display: inline-block; top: 75px; left: 30px; }
 .animation-card .an-text h2 { margin-top: 0; }
+    /* Panel text styling */
+    .authentication_panel h2 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
 
 /*------------*/
 .an-img-two { width: 700px; position: absolute; right: -35%; top: -175px; z-index: -1; }
@@ -910,6 +1055,10 @@ button.close-popup { background: transparent; color: var(--iq-black); border: no
 .custom-checkbox.checkbox-icon label i { position: absolute; top: 6px; left: -21px; font-size: 10px; transform: scale(0); -webkit-transform: scale(0); -webkit-transition: all .15s ease-in; transition: all .15s ease-in; }
 .custom-checkbox.checkbox-icon input:checked~label i { transform: scale(1); -webkit-transform: scale(1); color: var(--iq-white); }
 .custom-checkbox.checkbox-icon input:checked~label::after { display: none; }
+    .authentication_panel p {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
 
 /* switch with icon */
 .custom-switch.custom-switch-icon label .switch-icon-left, .custom-switch.custom-switch-icon label .switch-icon-right, .custom-switch.custom-switch-text label .switch-icon-left, .custom-switch.custom-switch-text label .switch-icon-right { position: absolute; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; top: -3px; }
@@ -933,7 +1082,22 @@ button.close-popup { background: transparent; color: var(--iq-black); border: no
 .form-label-group>label { position: absolute; top: 0; left: 0; display: block; -webkit-transition: all .25s ease-in-out; transition: all .25s ease-in-out; padding: .6rem; color: var(--iq-body-text); font-size: .85rem; opacity: 0; }
 .counter-value { color: var(--iq-white); padding: 1px 6px; font-size: .6rem; border-radius: 0 0 5px 5px; margin-right: 1rem; }
 .vector-map.h-500 { width: 100%; height: 500px; }
+    /* Panel button styling */
+    .authentication_panel button {
+        padding: 0.75rem 2rem;
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
 
+        .authentication_panel button:hover {
+            background: #fff;
+            color: #764ba2;
+        }
 
 /*---------------------------------------------------------------------
 slick Arrow
@@ -942,6 +1106,10 @@ slick Arrow
 .slick-arrow.right { right: 0; top: 0; }
 .slick-arrow { background: var(--iq-light-primary); padding: 11px; font-size: 24px; position: absolute; line-height: 90px; z-index: 9; }
 .slick-arrow:hover { text-decoration: none; }
+/* Panel transitions */
+.authentication_register-panel {
+    transform: translateX(100%);
+}
 
 /*---------------------------------------------------------------------
 Calender
@@ -972,6 +1140,9 @@ Calender
 .smaill-calender-home .flatpickr-months .flatpickr-prev-month, .smaill-calender-home .flatpickr-months .flatpickr-next-month { height: 30px; width: 30px; line-height: 30px; background-color: #fafafb; padding: 0; }
 .smaill-calender-home .flatpickr-months .flatpickr-prev-month.flatpickr-prev-month, .smaill-calender-home .flatpickr-months .flatpickr-next-month.flatpickr-prev-month { left: auto; right: 40px; }
 .smaill-calender-home .flatpickr-months .flatpickr-prev-month:hover svg, .smaill-calender-home .flatpickr-months .flatpickr-next-month:hover svg { fill: var(--iq-primary); }
+.authentication_container.register-mode .authentication_register-panel {
+    transform: translateX(0);
+}
 
 /*---------------------------------------------------------------------
  Wizard
@@ -993,6 +1164,9 @@ Calender
 #top-tab-list li a { background: var(--iq-light-primary); color: var(--iq-primary); display: block; padding: 15px; margin: 0 10px; border-radius: 5px; -webkit-border-radius: 5px; text-decoration: none; }
 #top-tab-list li.active i { background-color: var(--iq-white); color: var(--iq-primary); }
 .fit-image { width: 100%; object-fit: cover }
+.authentication_container.register-mode .authentication_login-panel {
+    transform: translateX(-100%);
+}
 
 /* validate */
 .stepwizard-row { display: block; margin: 0 -20px; }
@@ -1016,6 +1190,13 @@ Calender
 .has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline { color: var(--iq-danger); }
 .has-error .form-control { border: 1px solid var(--iq-danger); -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); }
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn { cursor: not-allowed; pointer-events: none; -webkit-box-shadow: none; box-shadow: none; }
+/* Divider styling */
+.authentication_divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1rem 0;
+}
 
 /* vertical */
 #form-wizard3 fieldset:not(:first-of-type) { display: none }
@@ -1035,6 +1216,12 @@ Calender
 #top-tabbar-vertical #official.active a { background: var(--iq-light-success); }
 #top-tabbar-vertical #payment.active a { background: var(--iq-light-warning); }
 #top-tabbar-vertical li.active i { background: var(--iq-white) !important; }
+    .authentication_divider::before,
+    .authentication_divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+    }
 
 /*---------------------------------------------------------------------
 Chat
@@ -1087,6 +1274,11 @@ ul.user-status { list-style: none; }
 .chat-sidebar-name span { color: var(--iq-body-text); font-size: 12px; }
 button.close-btn-res { display: none; }
 div.sidebar-toggle { display: none; }
+    .authentication_divider span {
+        padding: 0 1rem;
+        color: #666;
+        font-size: 0.9rem;
+    }
 
 /*---------------------------------------------------------------------
 Profile Page
@@ -1123,6 +1315,18 @@ form.comment-text input { padding-right: 130px; }
 #profile-activity .iq-timeline li { margin-bottom: 15px; }
 .about-info a, div#profile-profile a { color: var(--iq-body-text); }
 .twit-date a { color: var(--iq-body-text); }
+/* Google button styling */
+.authentication_google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #fff !important;
+    color: #757575 !important;
+    border: 1px solid #ddd !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease !important;
+}
 
 /*---------------------------------------------------------------------
 Profile Edit 
@@ -1136,6 +1340,10 @@ Profile Edit
 .iq-edit-profile.nav-pills .nav-link.active, .iq-edit-profile.nav-pills .show>.nav-link { color: var(--iq-white); background: var(--iq-primary); }
 ul.iq-edit-profile li:first-child a { border-radius: 5px 0 0 5px; border-left: none; }
 ul.iq-edit-profile li:last-child a { border-radius: 0 5px 5px 0; }
+    .authentication_google-btn:hover {
+        background: #f5f5f5 !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
 
 /*---------------------------------------------------------------------
 Todo Page
@@ -1156,6 +1364,11 @@ ul.todo-task-lists li.active-task { background: var(--iq-light-primary); }
 .media-support-info p { line-height: normal; }
 .todo-task-list .sub-task { display: none; }
 .todo-task-list .sub-task.show { display: block; }
+.authentication_google-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
 
 /*---------------------------------------------------------------------
 Privacy Policy Page
@@ -1163,6 +1376,12 @@ Privacy Policy Page
 .privacy-status { }
 .input-group .input-group-text { background: var(--iq-light); border: 0px solid var(--iq-border-light); }
 .data-privacy { margin: 30px 0; }
+.authentication_facebook-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 10px;
+}
 
 /*---------------------------------------------------------------------
 User List Page
@@ -1171,9 +1390,27 @@ User List Page
 #user-list-table.table td { vertical-align: middle; }
 .user-list-files a { padding: 10px 15px; margin: 0 0 0 10px; border-radius: 5px; line-height: normal; }
 .table-responsive #exampleInputSearch { width: auto; }
+.authentication_facebook-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    background: #1877f2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
 
 /*---------------------------------------------------------------------
 Add User Page
 -----------------------------------------------------------------------*/
 .add-img-user .p-image { position: static; text-align: left; display: block; height: auto; width: auto; background: transparent; margin-top: 20px; }
 .img-extension a, .img-extension span { color: var(--iq-body-text); padding: 0 3px; font-size: 13px; }
+.authentication_facebook-btn:hover {
+    background: #166fe5;
+}
