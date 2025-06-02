@@ -13,6 +13,7 @@ using SparkUp.MVC.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SparkUp.MVC.Controllers
 {
@@ -49,6 +50,10 @@ namespace SparkUp.MVC.Controllers
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                 };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index");

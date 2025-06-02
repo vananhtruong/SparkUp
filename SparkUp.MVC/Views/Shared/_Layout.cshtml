@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@{
+    var isAuthenticated = User.Identity?.IsAuthenticated?? false;
+    var isWorker = User.IsInRole("Worker");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,8 +41,15 @@
                         <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
                     </ul>
                     <div class="d-flex gap-2 align-items-center">
-                        <a href="#" class="hf-nav-btn-login" >Đăng nhập</a>
-                        <a href="#" class="hf-nav-btn-signups">Đăng ký</a>
+                        @if(isAuthenticated){
+                            @if(isWorker){
+                                <a href="#" class="hf-nav-btn-login">Bảng công việc</a>
+                            }else{
+                                <a href="#" class="hf-nav-btn-login">Đăng ký làm thợ</a>
+                            }
+                        }else{
+                            <a asp-action="Index" asp-controller="Authentication" class="hf-nav-btn-login">Đăng nhập</a>
+                        }
                     </div>
                 </div>
             </div>
