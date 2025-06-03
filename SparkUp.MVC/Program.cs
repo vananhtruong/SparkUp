@@ -15,6 +15,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Seed Database
 
+// VnPay service
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
+
 
 //read configuration info
 builder.Services.Configure<EmailSenderDto>(
@@ -52,6 +55,10 @@ builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 //enable cache
 builder.Services.AddMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -82,6 +89,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

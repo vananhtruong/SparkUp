@@ -1,0 +1,29 @@
+﻿@model SparkUp.Business.Task
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2>Thanh toán dịch vụ</h2>
+
+<div>
+    <p><strong>Dịch vụ:</strong> @Model.TaskType?.Name</p>
+    <p><strong>Địa chỉ:</strong> @Model.Address</p>
+    <p><strong>Thời gian:</strong> @Model.ScheduledTime.ToString("dd/MM/yyyy HH:mm")</p>
+    <p><strong>Số tiền:</strong> @Model.Payment?.Amount.ToString("N0") VND</p>
+</div>
+
+<form asp-action="ProcessPayment" method="post">
+    <input type="hidden" name="taskId" value="@Model.Id" />
+    <input type="hidden" name="amount" value="@Model.Payment?.Amount" />
+
+    <h4>Chọn phương thức thanh toán:</h4>
+    <div>
+        <input type="radio" name="paymentMethod" value="VNPAY" checked /> Thanh toán qua VNPAY <br />
+        <input type="radio" name="paymentMethod" value="MOMO" /> Thanh toán qua MOMO <br />
+        <input type="radio" name="paymentMethod" value="CASH" /> Thanh toán tiền mặt (Cash) <br />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Thanh toán</button>
+</form>
+

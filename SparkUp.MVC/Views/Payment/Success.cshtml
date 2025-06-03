@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Kết quả thanh toán";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p>@TempData["Message"]</p>
+}
+else
+{
+    <p>Thanh toán thành công!</p>
+}
