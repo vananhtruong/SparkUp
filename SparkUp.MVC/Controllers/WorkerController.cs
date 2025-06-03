@@ -65,7 +65,7 @@ namespace SparkUp.MVC.Controllers
             };
         }
         // Trang tìm kiếm thợ
-        public async Task<IActionResult> Search(string location = "", int? taskTypeId = null)
+        public async Task<IActionResult> Search(WorkerSearchViewModel model)
         {
             // Lấy danh sách các loại công việc cho dropdown
             ViewBag.TaskTypes = await _context.TaskTypes
@@ -86,23 +86,49 @@ namespace SparkUp.MVC.Controllers
                 .Where(u => u.WorkerProfile != null && u.WorkerProfile.IsConfirmed)
                 .AsQueryable();
 
-            // Lọc theo địa điểm nếu được cung cấp
-            if (!string.IsNullOrEmpty(location))
+            // Lọc theo địa điểm
+            if (!string.IsNullOrEmpty(model.Location))
             {
                 workersQuery = workersQuery.Where(u =>
-                    (u.WorkerProfile.City != null && u.WorkerProfile.City.Contains(location)) ||
-                    (u.WorkerProfile.District != null && u.WorkerProfile.District.Contains(location)) ||
-                    (u.WorkerProfile.Address != null && u.WorkerProfile.Address.Contains(location))
+                    (u.WorkerProfile.City != null && u.WorkerProfile.City.Contains(model.Location)) ||
+                    (u.WorkerProfile.District != null && u.WorkerProfile.District.Contains(model.Location)) ||
+                    (u.WorkerProfile.Address != null && u.WorkerProfile.Address.Contains(model.Location))
                 );
             }
 
-            // Lọc theo loại dịch vụ nếu được cung cấp
-            if (taskTypeId.HasValue && taskTypeId > 0)
+            // Lọc theo loại dịch vụ
+            if (model.TaskTypeId.HasValue && model.TaskTypeId > 0)
             {
                 workersQuery = workersQuery.Where(u =>
-                    u.WorkerProfile.WorkerTaskTypes.Any(wtt => wtt.TaskTypeId == taskTypeId)
+                    u.WorkerProfile.WorkerTaskTypes.Any(wtt => wtt.TaskTypeId == model.TaskTypeId)
                 );
+
+                // Lưu tên loại dịch vụ đã chọn
+                var selectedTaskType = await _context.TaskTypes
+                    .Where(tt => tt.Id == model.TaskTypeId)
+                    .Select(tt => tt.Name)
+                    .FirstOrDefaultAsync();
+                model.SelectedTaskType = selectedTaskType;
             }
+
+            // Lọc theo giá tối đa
+            if (model.MaxPrice.HasValue)
+            {
+                workersQuery = workersQuery.Where(u =>
+                    u.WorkerProfile.WorkerTaskTypes.Any(wtt => wtt.HourlyRate <= model.MaxPrice));
+            }
+
+            // Sắp xếp kết quả
+            workersQuery = model.SortBy switch
+            {
+                "PriceLowToHigh" => workersQuery.OrderBy(u => u.WorkerProfile.WorkerTaskTypes
+                    .Where(wtt => !model.TaskTypeId.HasValue || wtt.TaskTypeId == model.TaskTypeId)
+                    .Min(wtt => wtt.HourlyRate)),
+                "PriceHighToLow" => workersQuery.OrderByDescending(u => u.WorkerProfile.WorkerTaskTypes
+                    .Where(wtt => !model.TaskTypeId.HasValue || wtt.TaskTypeId == model.TaskTypeId)
+                    .Max(wtt => wtt.HourlyRate)),
+                _ => workersQuery.OrderByDescending(u => u.WorkerProfile.RatingAverage)
+            };
 
             // Thực hiện truy vấn và chuyển đổi kết quả
             var workers = await workersQuery
@@ -116,19 +142,18 @@ namespace SparkUp.MVC.Controllers
                     Skills = u.WorkerProfile.Skills,
                     City = u.WorkerProfile.City,
                     District = u.WorkerProfile.District,
-                    TaskTypes = u.WorkerProfile.WorkerTaskTypes.Select(wtt => wtt.TaskType.Name).ToList()
+                    HourlyRate = u.WorkerProfile.WorkerTaskTypes
+                        .Where(wtt => !model.TaskTypeId.HasValue || wtt.TaskTypeId == model.TaskTypeId)
+                        .Select(wtt => wtt.HourlyRate)
+                        .FirstOrDefault(),
+                    TaskTypes = u.WorkerProfile.WorkerTaskTypes
+                        .Select(wtt => wtt.TaskType.Name)
+                        .ToList()
                 })
                 .ToListAsync();
 
-            // Tạo view model cho trang tìm kiếm
-            var viewModel = new WorkerSearchViewModel
-            {
-                Location = location,
-                TaskTypeId = taskTypeId,
-                Workers = workers
-            };
-
-            return View(viewModel);
+            model.Workers = workers;
+            return View(model);
         }
 
         // Xem chi tiết thông tin thợ
@@ -181,5 +206,4 @@ namespace SparkUp.MVC.Controllers
 
             return View(workerDetail);
         }
-    }
-}
+    }}

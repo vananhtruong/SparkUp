@@ -84,12 +84,6 @@ C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\scopedcss
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets\msbuild.SparkUp.MVC.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets\msbuild.SparkUp.MVC.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets\msbuild.build.SparkUp.MVC.props
-C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.SparkUp.MVC.props
-C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.SparkUp.MVC.props
-C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp..8CEF80D9.Up2Date
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.MVC.dll
@@ -98,3 +92,4 @@ C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.M
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\SparkUp.MVC.genruntimeconfig.cache
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\ref\SparkUp.MVC.dll
 C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\scopedcss\Views\Shared\_AdminLayout.cshtml.rz.scp.css
+C:\Users\HELLO\Desktop\ProjectEXE\SparkUp\SparkUp.MVC\obj\Debug\net8.0\staticwebassets.build.json.cache

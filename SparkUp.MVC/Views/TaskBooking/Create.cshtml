@@ -1,0 +1,125 @@
+@model TaskBookingViewModel
+@{
+    ViewData["Title"] = "Đặt Lịch Thợ";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Đặt Lịch Thợ</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <input type="hidden" asp-for="WorkerId" />
+                        <input type="hidden" asp-for="TaskTypeId" />
+                        
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="WorkDate" class="form-label">Ngày làm việc</label>
+                            <input type="date" class="form-control" asp-for="WorkDate" 
+                                   min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"
+                                   onchange="loadAvailableSlots()" />
+                            <span asp-validation-for="WorkDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="StartTime" class="form-label">Thời gian bắt đầu</label>
+                            <select class="form-select" asp-for="StartTime" id="timeSlots">
+                                <option value="">-- Chọn thời gian --</option>
+                            </select>
+                            <span asp-validation-for="StartTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="EstimatedHours" class="form-label">Ước tính thời gian làm (giờ)</label>
+                            <input type="number" class="form-control" asp-for="EstimatedHours" min="1" max="8" />
+                            <span asp-validation-for="EstimatedHours" class="text-danger"></span>
+                            <small class="form-text text-muted">Thời gian làm việc từ 1-8 giờ</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label">Địa chỉ làm việc</label>
+                            <textarea class="form-control" asp-for="Address" rows="2"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Mô tả công việc</label>
+                            <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-end">
+                            <a href="javascript:history.back()" class="btn btn-light me-2">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Đặt lịch</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Thời gian làm việc</h5>
+                </div>
+                <div class="card-body">
+                    <div id="availableSlotsDisplay">
+                        <!-- Hiển thị các khung giờ trống -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function loadAvailableSlots() {
+            const date = document.querySelector('#WorkDate').value;
+            if (!date) return;
+
+            fetch(`/TaskBooking/GetAvailableSlots?workerId=@Model.WorkerId&date=${date}`)
+                .then(response => response.json())
+                .then(slots => {
+                    const timeSlotsSelect = document.querySelector('#timeSlots');
+                    const availableSlotsDisplay = document.querySelector('#availableSlotsDisplay');
+                    
+                    // Cập nhật dropdown thời gian
+                    timeSlotsSelect.innerHTML = '<option value="">-- Chọn thời gian --</option>';
+                    availableSlotsDisplay.innerHTML = '';
+                    
+                    slots.forEach(slot => {
+                        if (slot.isAvailable) {
+                            const startTime = slot.startTime;
+                            timeSlotsSelect.innerHTML += `
+                                <option value="${startTime}">${formatTime(startTime)}</option>
+                            `;
+                        }
+                        
+                        // Hiển thị trạng thái từng khung giờ
+                        availableSlotsDisplay.innerHTML += `
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>${formatTime(slot.startTime)} - ${formatTime(slot.endTime)}</span>
+                                <span class="badge ${slot.isAvailable ? 'bg-success' : 'bg-danger'}">
+                                    ${slot.isAvailable ? 'Trống' : 'Đã đặt'}
+                                </span>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        function formatTime(timeSpan) {
+            return timeSpan.split(':').slice(0, 2).join(':');
+        }
+
+        // Load slots khi trang được load
+        document.addEventListener('DOMContentLoaded', loadAvailableSlots);
+    </script>
+}
