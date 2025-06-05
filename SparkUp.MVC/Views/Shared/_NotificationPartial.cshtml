@@ -1,0 +1,172 @@
+@model List<SparkUp.Business.Notification>
+@{
+    var unreadCount = Model?.Count(n => !n.IsRead) ?? 0;
+}
+
+<div class="notifications-wrapper">
+    <div class="position-relative">
+        <a href="#" class="search-toggle iq-waves-effect text-gray rounded" id="notification-toggle">
+            <i class="ri-notification-2-line"></i>
+            @if (unreadCount > 0)
+            {
+                <span class="bg-danger notification-badge" id="notification-badge">@unreadCount</span>
+            }
+        </a>
+
+        <div class="iq-sub-dropdown" id="notification-dropdown">
+            <div class="iq-card shadow-none m-0">
+                <div class="iq-card-body p-0">
+                    <div class="bg-primary p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 text-white">Thông báo</h5>
+                        @if (unreadCount > 0)
+                        {
+                            <small class="badge badge-light float-right" id="notification-count">@unreadCount</small>
+                        }
+                    </div>
+
+                    @if (Model == null || Model.Count == 0)
+                    {
+                        <div class="text-center p-3">
+                            <p class="mb-0">Không có thông báo mới</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="notification-list" style="max-height: 300px; overflow-y: auto;">
+                            @foreach (var notification in Model)
+                            {
+                                <a href="@notification.RedirectUrl" 
+                                   class="iq-sub-card @(notification.IsRead ? "" : "unread")"
+                                   data-id="@notification.Id"
+                                   data-action="@notification.Action"
+                                   onclick="markAsRead(@notification.Id, '@notification.RedirectUrl', '@notification.Action'); return false;">
+                                    <div class="media align-items-center">
+                                        <div class="media-body ml-3">
+                                            <h6 class="mb-0 @(notification.IsRead ? "" : "font-weight-bold")">@notification.Title</h6>
+                                            <small class="float-right font-size-12">@notification.CreatedAt.ToString("dd/MM HH:mm")</small>
+                                            <p class="mb-0">@notification.Content</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+
+                        <div class="text-center p-2 border-top">
+                            <a href="#" class="text-primary" onclick="markAllAsRead(); return false;">
+                                Đánh dấu tất cả đã đọc
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function markAsRead(id, redirectUrl, action) {
+        fetch('/Notification/MarkAsRead/' + id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            if (response.ok) {
+                // Cập nhật UI
+                const notificationElement = document.querySelector(`.iq-sub-card[data-id="${id}"]`);
+                if (notificationElement) {
+                    notificationElement.classList.remove('unread');
+                    notificationElement.querySelector('h6').classList.remove('font-weight-bold');
+                }
+
+                // Giảm số đếm thông báo
+                const badgeElement = document.getElementById('notification-badge');
+                const countElement = document.getElementById('notification-count');
+                
+                if (badgeElement && countElement) {
+                    const currentCount = parseInt(countElement.textContent);
+                    if (currentCount > 1) {
+                        countElement.textContent = currentCount - 1;
+                        badgeElement.textContent = currentCount - 1;
+                    } else {
+                        badgeElement.style.display = 'none';
+                        countElement.style.display = 'none';
+                    }
+                }
+
+                // Chuyển hướng dựa vào action
+                if (action === 'view' || action === 'payment') {
+                    window.location.href = redirectUrl;
+                }
+            }
+        });
+    }
+
+    function markAllAsRead() {
+        fetch('/Notification/MarkAllAsRead', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            if (response.ok) {
+                // Cập nhật UI
+                document.querySelectorAll('.iq-sub-card.unread').forEach(element => {
+                    element.classList.remove('unread');
+                    element.querySelector('h6').classList.remove('font-weight-bold');
+                });
+
+                // Ẩn badge và đặt số đếm về 0
+                const badgeElement = document.getElementById('notification-badge');
+                const countElement = document.getElementById('notification-count');
+                
+                if (badgeElement) {
+                    badgeElement.style.display = 'none';
+                }
+                
+                if (countElement) {
+                    countElement.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationToggle = document.getElementById('notification-toggle');
+        const notificationDropdown = document.getElementById('notification-dropdown');
+        
+        if (notificationToggle && notificationDropdown) {
+            notificationToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                notificationDropdown.classList.toggle('show');
+            });
+
+            // Đóng dropdown khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                if (!notificationToggle.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                    notificationDropdown.classList.remove('show');
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-size: 10px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    
+    .iq-sub-card.unread {
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+</style>

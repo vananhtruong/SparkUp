@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "System Settings";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="iq-card">
+                <div class="iq-card-header d-flex justify-content-between">
+                    <div class="iq-header-title">
+                        <h4 class="card-title">Cài Đặt Hệ Thống</h4>
+                    </div>
+                </div>
+                <div class="iq-card-body">
+                    <form id="system-settings-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5 class="mb-3">Cài đặt chung</h5>
+                                <div class="form-group">
+                                    <label for="siteName">Tên trang web</label>
+                                    <input type="text" class="form-control" id="siteName" value="HomeFix - Dịch vụ sửa chữa nhà cửa">
+                                </div>
+                                <div class="form-group">
+                                    <label for="siteDescription">Mô tả trang web</label>
+                                    <textarea class="form-control" id="siteDescription" rows="3">Nền tảng kết nối người dùng với đội ngũ thợ chuyên nghiệp để giải quyết mọi vấn đề về nhà cửa.</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail">Email liên hệ</label>
+                                    <input type="email" class="form-control" id="contactEmail" value="contact@homefix.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactPhone">Điện thoại liên hệ</label>
+                                    <input type="text" class="form-control" id="contactPhone" value="0987654321">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5 class="mb-3">Cài đặt hệ thống</h5>
+                                <div class="form-group">
+                                    <label for="maintenanceMode">Chế độ bảo trì</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="maintenanceMode">
+                                        <label class="custom-control-label" for="maintenanceMode">Bật chế độ bảo trì</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userRegistration">Đăng ký người dùng</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="userRegistration" checked>
+                                        <label class="custom-control-label" for="userRegistration">Cho phép đăng ký mới</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="workerRegistration">Đăng ký thợ</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="workerRegistration" checked>
+                                        <label class="custom-control-label" for="workerRegistration">Cho phép đăng ký thợ mới</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bookingSystem">Hệ thống đặt lịch</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="bookingSystem" checked>
+                                        <label class="custom-control-label" for="bookingSystem">Bật hệ thống đặt lịch</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5 class="mb-3">Cài đặt thanh toán</h5>
+                                <div class="form-group">
+                                    <label for="paymentMethods">Phương thức thanh toán</label>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="paymentCash" checked>
+                                        <label class="custom-control-label" for="paymentCash">Tiền mặt</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="paymentBanking" checked>
+                                        <label class="custom-control-label" for="paymentBanking">Chuyển khoản ngân hàng</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="paymentVNPay" checked>
+                                        <label class="custom-control-label" for="paymentVNPay">VNPay</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="paymentMomo">
+                                        <label class="custom-control-label" for="paymentMomo">Momo</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="systemFee">Phí hệ thống (%)</label>
+                                    <input type="number" class="form-control" id="systemFee" value="5" min="0" max="100">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5 class="mb-3">Cài đặt thông báo</h5>
+                                <div class="form-group">
+                                    <label for="emailNotifications">Thông báo qua email</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="emailNotifications" checked>
+                                        <label class="custom-control-label" for="emailNotifications">Bật thông báo qua email</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="smsNotifications">Thông báo qua SMS</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="smsNotifications">
+                                        <label class="custom-control-label" for="smsNotifications">Bật thông báo qua SMS</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pushNotifications">Thông báo đẩy</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="pushNotifications" checked>
+                                        <label class="custom-control-label" for="pushNotifications">Bật thông báo đẩy</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Lưu cài đặt</button>
+                        <button type="button" class="btn btn-outline-secondary">Hủy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Handle form submission
+            $('#system-settings-form').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would normally submit the form data via AJAX
+                // For demo purposes, just show a success message
+                
+                // Create a notification
+                $('body').append(
+                    '<div class="position-fixed top-0 end-0 p-3" style="z-index: 5; right: 0; top: 0;">' +
+                    '<div id="saveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">' +
+                    '<div class="toast-header bg-success text-white">' +
+                    '<strong class="me-auto">Thành công</strong>' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>' +
+                    '</div>' +
+                    '<div class="toast-body">Cài đặt đã được lưu thành công.</div>' +
+                    '</div>' +
+                    '</div>'
+                );
+                
+                // Show the notification
+                $('.toast').toast('show');
+                
+                // Remove the notification after it's hidden
+                $('.toast').on('hidden.bs.toast', function () {
+                    $(this).remove();
+                });
+            });
+        });
+    </script>
+}

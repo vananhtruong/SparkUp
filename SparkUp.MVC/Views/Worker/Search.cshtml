@@ -32,7 +32,7 @@
                             <label class="form-label fw-bold">Địa điểm</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-                                <input type="text" class="form-control" name="Location" 
+                                <input type="text" class="form-control" name="Location"
                                        value="@Model.Location" placeholder="Nhập địa chỉ làm việc...">
                             </div>
                         </div>
@@ -134,9 +134,18 @@
                                                 <span class="text-muted ms-1">(@worker.Rating.ToString("0.0"))</span>
                                             </div>
 
+                                            <!-- Hiển thị kỹ năng -->
                                             @if (!string.IsNullOrEmpty(worker.Skills))
                                             {
                                                 <p class="mb-2">@worker.Skills</p>
+                                            }
+
+                                            <!-- Hiển thị loại dịch vụ -->
+                                            @if (worker.TaskTypes != null && worker.TaskTypes.Any())
+                                            {
+                                                <div class="mb-2">
+                                                    <span class="badge bg-primary">@worker.TaskTypes.FirstOrDefault()</span>
+                                                </div>
                                             }
 
                                             <div class="text-muted small">
@@ -153,11 +162,11 @@
                                         <h4 class="mb-0">@worker.HourlyRate.ToString("N0")đ<small class="text-muted">/giờ</small></h4>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <a href="@Url.Action("Profile", "Worker", new { id = worker.Id })" 
+                                        <a href="@Url.Action("Profile", "Worker", new { id = worker.Id })"
                                            class="btn btn-outline-primary">
                                             <i class="bi bi-info-circle me-1"></i> Xem chi tiết
                                         </a>
-                                        <a href="@Url.Action("Create", "TaskBooking", new { workerId = worker.Id })" 
+                                        <a href="@Url.Action("Create", "TaskBooking", new { workerId = worker.Id })"
                                            class="btn btn-primary">
                                             <i class="bi bi-calendar-plus me-1"></i> Đặt lịch
                                         </a>
@@ -186,10 +195,10 @@
             border: 1px solid #dee2e6;
         }
 
-        .worker-card:hover {
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            border-color: #6c757d;
-        }
+            .worker-card:hover {
+                box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+                border-color: #6c757d;
+            }
 
         .avatar-placeholder {
             width: 80px;

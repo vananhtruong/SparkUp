@@ -1,0 +1,343 @@
+@model List<SparkUp.Business.Notification>
+@{
+    var unreadCount = Model?.Count(n => !n.IsRead) ?? 0;
+}
+
+<div class="notifications-wrapper">
+    <div class="position-relative">
+        <a href="#" class="notification-toggle" id="notification-toggle">
+            <i class="ri-notification-2-line"></i>
+            @if (unreadCount > 0)
+            {
+                <span class="bg-danger notification-badge" id="notification-badge">@unreadCount</span>
+            }
+        </a>
+
+        <div class="notification-dropdown" id="notification-dropdown">
+            <div class="notification-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0">Thông báo</h6>
+                @if (unreadCount > 0)
+                {
+                    <span class="badge bg-light text-dark rounded-pill px-2" id="notification-count">@unreadCount</span>
+                }
+            </div>
+
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="notification-empty text-center">
+                    <p class="mb-0">Không có thông báo mới</p>
+                </div>
+            }
+            else
+            {
+                <div class="notification-list">
+                    @foreach (var notification in Model)
+                    {
+                        <a href="@notification.RedirectUrl" 
+                           class="notification-item @(notification.IsRead ? "" : "unread")"
+                           data-id="@notification.Id"
+                           data-action="@notification.Action"
+                           onclick="markAsRead(@notification.Id, '@notification.RedirectUrl', '@notification.Action'); return false;">
+                            <div class="d-flex align-items-start">
+                                <div class="notification-icon">
+                                    <i class="@(notification.Type == "Booking" ? "ri-calendar-check-line" : "ri-mail-line")"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title @(notification.IsRead ? "" : "fw-bold")">@notification.Title</div>
+                                    <div class="notification-text">@notification.Content</div>
+                                    <div class="notification-time">@notification.CreatedAt.ToString("HH:mm dd/MM")</div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+
+                <div class="notification-footer">
+                    <a href="#" class="text-primary mark-all-read" onclick="markAllAsRead(); return false;">
+                        Đánh dấu tất cả đã đọc
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function markAsRead(id, redirectUrl, action) {
+        fetch('/Notification/MarkAsRead/' + id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            if (response.ok) {
+                // Cập nhật UI
+                const notificationElement = document.querySelector(`.notification-item[data-id="${id}"]`);
+                if (notificationElement) {
+                    notificationElement.classList.remove('unread');
+                    notificationElement.querySelector('.notification-title').classList.remove('fw-bold');
+                }
+
+                // Giảm số đếm thông báo
+                const badgeElement = document.getElementById('notification-badge');
+                const countElement = document.getElementById('notification-count');
+                
+                if (badgeElement && countElement) {
+                    const currentCount = parseInt(countElement.textContent);
+                    if (currentCount > 1) {
+                        countElement.textContent = currentCount - 1;
+                        badgeElement.textContent = currentCount - 1;
+                    } else {
+                        badgeElement.style.display = 'none';
+                        countElement.style.display = 'none';
+                    }
+                }
+
+                // Chuyển hướng dựa vào action
+                if (action === 'view' || action === 'payment') {
+                    window.location.href = redirectUrl;
+                }
+            }
+        });
+    }
+
+    function markAllAsRead() {
+        fetch('/Notification/MarkAllAsRead', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => {
+            if (response.ok) {
+                // Cập nhật UI
+                document.querySelectorAll('.notification-item.unread').forEach(element => {
+                    element.classList.remove('unread');
+                    element.querySelector('.notification-title').classList.remove('fw-bold');
+                });
+
+                // Ẩn badge và đặt số đếm về 0
+                const badgeElement = document.getElementById('notification-badge');
+                const countElement = document.getElementById('notification-count');
+                
+                if (badgeElement) {
+                    badgeElement.style.display = 'none';
+                }
+                
+                if (countElement) {
+                    countElement.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationToggle = document.getElementById('notification-toggle');
+        const notificationDropdown = document.getElementById('notification-dropdown');
+        
+        if (notificationToggle && notificationDropdown) {
+            notificationToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('show');
+            });
+
+            // Đóng dropdown khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                if (!notificationToggle.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                    notificationDropdown.classList.remove('show');
+                }
+            });
+            
+            // Ngăn sự kiện click trong dropdown lan ra ngoài
+            notificationDropdown.addEventListener('click', function(e) {
+                if (!e.target.matches('.notification-item, .mark-all-read')) {
+                    e.stopPropagation();
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    /* Notification Toggle Button */
+    .notification-toggle {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        color: #6c757d;
+        background-color: #f8f9fa;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    
+    .notification-toggle:hover {
+        background-color: #e9ecef;
+        color: #0d6efd;
+    }
+    
+    .notification-toggle i {
+        font-size: 18px;
+    }
+    
+    /* Badge */
+    .notification-badge {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        font-size: 10px;
+        min-width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+    
+    /* Dropdown */
+    .notification-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: -10px;
+        width: 300px;
+        max-width: calc(100vw - 40px);
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        z-index: 1050;
+        overflow: hidden;
+        display: none;
+    }
+    
+    .notification-dropdown.show {
+        display: block;
+        animation: fadeIn 0.2s ease;
+    }
+    
+    /* Header */
+    .notification-header {
+        padding: 12px 15px;
+        background-color: #0d6efd;
+        color: white;
+    }
+    
+    /* List */
+    .notification-list {
+        max-height: 240px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+    
+    .notification-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .notification-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .notification-list::-webkit-scrollbar-thumb {
+        background: #ccc;
+    }
+    
+    /* Item */
+    .notification-item {
+        display: block;
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        text-decoration: none;
+        color: #212529;
+        transition: background-color 0.2s ease;
+    }
+    
+    .notification-item:last-child {
+        border-bottom: none;
+    }
+    
+    .notification-item:hover {
+        background-color: #f8f9fa;
+        text-decoration: none;
+    }
+    
+    .notification-item.unread {
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+    
+    .notification-icon {
+        width: 30px;
+        height: 30px;
+        background-color: #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        color: #0d6efd;
+    }
+    
+    .notification-content {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .notification-title {
+        font-size: 14px;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .notification-text {
+        font-size: 12px;
+        color: #6c757d;
+        margin-bottom: 4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .notification-time {
+        font-size: 11px;
+        color: #adb5bd;
+    }
+    
+    .fw-bold {
+        font-weight: 600;
+    }
+    
+    /* Empty */
+    .notification-empty {
+        padding: 20px;
+        color: #6c757d;
+        font-size: 14px;
+    }
+    
+    /* Footer */
+    .notification-footer {
+        padding: 10px;
+        text-align: center;
+        border-top: 1px solid #f0f0f0;
+        font-size: 13px;
+    }
+    
+    .mark-all-read {
+        color: #0d6efd;
+        text-decoration: none;
+    }
+    
+    .mark-all-read:hover {
+        text-decoration: underline;
+    }
+    
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

@@ -4,6 +4,16 @@
 }
 
 <div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Worker" asp-action="Search">Tìm kiếm thợ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Worker" asp-action="Profile" asp-route-id="@Model.WorkerId">Thông tin thợ</a></li>
+            <li class="breadcrumb-item active">Đặt lịch</li>
+        </ol>
+    </nav>
+
     <div class="row">
         <div class="col-lg-8">
             <div class="card">
@@ -23,12 +33,17 @@
                                    min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")"
                                    onchange="loadAvailableSlots()" />
                             <span asp-validation-for="WorkDate" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
+                        </div>                        <div class="mb-3">
                             <label asp-for="StartTime" class="form-label">Thời gian bắt đầu</label>
-                            <select class="form-select" asp-for="StartTime" id="timeSlots">
-                                <option value="">-- Chọn thời gian --</option>
+                            <select class="form-select" asp-for="StartTime" id="timeSlots" required>
+                                <option value="">-- Chọn thời gian --</option>                                @if (Model.AvailableSlots != null)
+                                {
+                                    foreach (var slot in Model.AvailableSlots.Where(s => s.IsAvailable))
+                                    {
+                                        <!-- Đảm bảo giá trị StartTime có định dạng đúng cho model binding -->
+                                        <option value="@slot.StartTime.ToString()">@slot.StartTime.ToString(@"hh\:mm")</option>
+                                    }
+                                }
                             </select>
                             <span asp-validation-for="StartTime" class="text-danger"></span>
                         </div>
@@ -50,26 +65,79 @@
                             <label asp-for="Description" class="form-label">Mô tả công việc</label>
                             <textarea class="form-control" asp-for="Description" rows="3"></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>                    <div class="text-end">
+                            <a asp-controller="Worker" asp-action="Profile" asp-route-id="@Model.WorkerId" class="btn btn-light me-2">Quay lại</a>
+                            <button type="submit" class="btn btn-primary" id="bookingSubmit">Đặt lịch</button>
                         </div>
-
-                        <div class="text-end">
-                            <a href="javascript:history.back()" class="btn btn-light me-2">Quay lại</a>
-                            <button type="submit" class="btn btn-primary">Đặt lịch</button>
-                        </div>
+                        
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger mt-3">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
                     </form>
                 </div>
             </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card">
+        </div>        <div class="col-lg-4">
+            <!-- Thông tin thợ -->
+            <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Thời gian làm việc</h5>
+                    <h5 class="mb-0">Thông tin thợ</h5>
                 </div>
                 <div class="card-body">
-                    <div id="availableSlotsDisplay">
-                        <!-- Hiển thị các khung giờ trống -->
+                    @{
+                        var worker = ViewBag.Worker;
+                        var workerName = worker?.FullName ?? "Thợ";
+                        var workerAvatar = worker?.AvatarUrl;
+                        var taskTypeName = ViewBag.TaskTypeName ?? "Dịch vụ";
+                    }
+                    <div class="d-flex align-items-center mb-3">
+                        @if (string.IsNullOrEmpty(workerAvatar))
+                        {
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
+                                 style="width: 64px; height: 64px; font-size: 24px;">
+                                @(string.IsNullOrEmpty(workerName) ? "?" : workerName.Substring(0, 1))
+                            </div>
+                        }
+                        else
+                        {
+                            <img src="@workerAvatar" class="rounded-circle me-3"
+                                 style="width: 64px; height: 64px; object-fit: cover;" alt="Worker">
+                        }
+                        <div>
+                            <h6 class="mb-1">@workerName</h6>
+                            <small class="text-muted">@taskTypeName</small>
+                        </div>
                     </div>
+
+                    <hr />
+
+                    <h6 class="mb-3">Giờ làm việc</h6>
+                    <div id="availableSlotsDisplay" class="hf-time-slots">
+                        <!-- Hiển thị các khung giờ trống -->
+                        <div class="text-center py-2">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span class="ms-2">Đang tải lịch trống...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ghi chú trợ giúp -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Lưu ý</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0 ps-3">
+                        <li class="mb-2">Chọn ngày và khung giờ phù hợp với lịch trình của bạn</li>
+                        <li class="mb-2">Ước tính thời gian làm việc để thợ chuẩn bị</li>
+                        <li class="mb-2">Cung cấp địa chỉ chính xác để thợ dễ tìm</li>
+                        <li>Mô tả chi tiết công việc để thợ hiểu rõ yêu cầu</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -78,48 +146,134 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
-    <script>
+      <script>
         function loadAvailableSlots() {
             const date = document.querySelector('#WorkDate').value;
             if (!date) return;
+
+            // Hiển thị đang tải
+            const availableSlotsDisplay = document.querySelector('#availableSlotsDisplay');
+            availableSlotsDisplay.innerHTML = `
+                <div class="text-center py-2">
+                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="ms-2">Đang tải lịch trống...</span>
+                </div>
+            `;
 
             fetch(`/TaskBooking/GetAvailableSlots?workerId=@Model.WorkerId&date=${date}`)
                 .then(response => response.json())
                 .then(slots => {
                     const timeSlotsSelect = document.querySelector('#timeSlots');
-                    const availableSlotsDisplay = document.querySelector('#availableSlotsDisplay');
                     
                     // Cập nhật dropdown thời gian
                     timeSlotsSelect.innerHTML = '<option value="">-- Chọn thời gian --</option>';
                     availableSlotsDisplay.innerHTML = '';
                     
+                    if (slots.length === 0) {
+                        availableSlotsDisplay.innerHTML = '<div class="alert alert-info">Không có khung giờ nào cho ngày này</div>';
+                        return;
+                    }
+                    
                     slots.forEach(slot => {
+                        // Convert TimeSpan format correctly
+                        const startTimeFormatted = formatTimeDisplay(slot.startTime);
+                        const endTimeFormatted = formatTimeDisplay(slot.endTime);
+                          // Add option with value in format "HH:mm:ss" for proper binding
                         if (slot.isAvailable) {
-                            const startTime = slot.startTime;
+                            // Ensure the value format is exactly what C# TimeSpan expects
+                            const timeString = typeof slot.startTime === 'string' 
+                                ? slot.startTime 
+                                : `${slot.startTime.hours.toString().padStart(2, '0')}:${slot.startTime.minutes.toString().padStart(2, '0')}:00`;
+                                
                             timeSlotsSelect.innerHTML += `
-                                <option value="${startTime}">${formatTime(startTime)}</option>
+                                <option value="${timeString}">${startTimeFormatted}</option>
                             `;
+                            
+                            console.log(`Added time slot option: ${timeString} displayed as ${startTimeFormatted}`);
                         }
                         
                         // Hiển thị trạng thái từng khung giờ
                         availableSlotsDisplay.innerHTML += `
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span>${formatTime(slot.startTime)} - ${formatTime(slot.endTime)}</span>
+                                <span>${startTimeFormatted} - ${endTimeFormatted}</span>
                                 <span class="badge ${slot.isAvailable ? 'bg-success' : 'bg-danger'}">
                                     ${slot.isAvailable ? 'Trống' : 'Đã đặt'}
                                 </span>
                             </div>
                         `;
                     });
+                    
+                    console.log("Time slots loaded:", slots);
+                })
+                .catch(error => {
+                    console.error("Error loading time slots:", error);
+                    availableSlotsDisplay.innerHTML = '<div class="alert alert-danger">Lỗi tải khung giờ. Vui lòng thử lại.</div>';
                 });
         }
 
-        function formatTime(timeSpan) {
-            return timeSpan.split(':').slice(0, 2).join(':');
-        }
-
-        // Load slots khi trang được load
-        document.addEventListener('DOMContentLoaded', loadAvailableSlots);
+        function formatTimeDisplay(timeSpan) {
+            // Handle different TimeSpan formats that might come from server
+            if (!timeSpan) return "";
+            
+            // If it's already a formatted time string like "08:00:00"
+            if (typeof timeSpan === 'string') {
+                return timeSpan.split(':').slice(0, 2).join(':');
+            }
+            
+            // If it's an object with hours, minutes properties
+            if (typeof timeSpan === 'object' && timeSpan.hours !== undefined) {
+                const hours = timeSpan.hours.toString().padStart(2, '0');
+                const minutes = timeSpan.minutes.toString().padStart(2, '0');
+                return `${hours}:${minutes}`;
+            }
+            
+            return timeSpan;
+        }        // Load slots khi trang được load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAvailableSlots();
+            
+            // Add form validation
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                const startTime = document.querySelector('#timeSlots').value;
+                if (!startTime) {
+                    event.preventDefault();
+                    alert('Vui lòng chọn thời gian bắt đầu');
+                    return false;
+                }
+                
+                // Kiểm tra các trường form khác
+                const address = document.querySelector('#Address').value;
+                const description = document.querySelector('#Description').value;
+                const hours = document.querySelector('#EstimatedHours').value;
+                
+                if (!address || !description || !hours) {
+                    event.preventDefault();
+                    alert('Vui lòng điền đầy đủ thông tin');
+                    return false;
+                }
+                
+                // Hiển thị loading để ngăn người dùng submit nhiều lần
+                const submitBtn = document.querySelector('#bookingSubmit');
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xử lý...';
+                submitBtn.disabled = true;
+                
+                // Log form data for debugging
+                console.log("Form submitting with:", {
+                    workerId: document.querySelector('#WorkerId').value,
+                    taskTypeId: document.querySelector('#TaskTypeId').value,
+                    workDate: document.querySelector('#WorkDate').value,
+                    startTime: startTime,
+                    estimatedHours: hours,
+                    address: address,
+                    description: description
+                });
+                
+                // Cho phép form submit
+                return true;
+            });
+        });
     </script>
 }

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SparkUp.Business;
 
 namespace SparkUp.MVC.Controllers.Admin
 {
+    [Authorize(Roles = "ADMIN")]
     public class WorkerManagementController : Controller
     {
         private readonly AppDbContext _context;

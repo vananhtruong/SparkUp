@@ -1,4 +1,28 @@
-﻿<!doctype html>
+﻿@using System.Security.Claims
+@{
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    
+    if (!isAuthenticated)
+    {
+        // Redirect to login if not authenticated
+        Context.Response.Redirect("/Authentication/Index");
+        return;
+    }
+    
+    var userName = User.Identity?.Name ?? "Admin User";
+    var userEmail = User.FindFirstValue(ClaimTypes.Email) ?? "";
+    var userRole = User.FindFirstValue(ClaimTypes.Role) ?? "";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var avatarUrl = User.FindFirstValue("AvatarUrl") ?? "";
+    
+    // Ensure user is an admin, otherwise redirect
+    if (userRole != "ADMIN")
+    {
+        Context.Response.Redirect("/Home/Index");
+        return;
+    }
+}
+<!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -25,13 +49,14 @@
     <!-- loader END -->
     <!-- Wrapper Start -->
     <div class="wrapper">
-        <!-- Sidebar  -->
-        <div class="iq-sidebar">
+        <!-- Sidebar  -->        <div class="iq-sidebar">
             <div class="iq-sidebar-logo d-flex justify-content-between">
-                <a href="admin-dashboard.html" class="header-logo">
-                    <img src="~/images/logo.png" class="img-fluid rounded-normal" alt="">
-                    <div class="logo-title">
-                        <span class="text-primary text-uppercase">SparkUp</span>
+                <a asp-controller="AdminHome" asp-action="Index" class="header-logo">
+                    <div class="d-flex align-items-center">
+                        <div class="hf-logo-icon me-2"><i class="las la-house-damage"></i></div>
+                        <div class="logo-title">
+                            <span class="text-primary text-uppercase">HomeFix</span>
+                        </div>
                     </div>
                 </a>
                 <div class="iq-menu-bt-sidebar">
@@ -41,15 +66,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="sidebar-scrollbar">
+            </div><div id="sidebar-scrollbar">
                 <nav class="iq-sidebar-menu">
                     <ul id="iq-sidebar-toggle" class="iq-menu">
-                        <li><a href="admin-dashboard.html"><i class="las la-home iq-arrow-left"></i>Bảng Điều Khiển</a></li>
-                        <li><a asp-controller="TaskType" asp-action="Index"><i class="ri-record-circle-line"></i>Danh Mục Dịch Vụ</a></li>
-                        <li><a asp-controller="WorkerManagement" asp-action="Index"><i class="ri-record-circle-line"></i>Quản Lý Thợ</a></li>
-                        <li><a href="admin-books.html"><i class="ri-record-circle-line"></i>Quản Lý Người Dùng</a></li>
-                        <li><a href="sign-in.html"><i class="ri-record-circle-line"></i>Đăng Xuất</a></li>
+                        <li><a asp-controller="AdminHome" asp-action="Index"><i class="las la-home iq-arrow-left"></i>Bảng Điều Khiển</a></li>
+                        <li><a asp-controller="TaskType" asp-action="Index"><i class="ri-list-check"></i>Danh Mục Dịch Vụ</a></li>
+                        <li><a asp-controller="WorkerManagement" asp-action="Index"><i class="ri-user-settings-line"></i>Quản Lý Thợ</a></li>
+                        <li><a asp-controller="UserManagement" asp-action="Index"><i class="ri-team-line"></i>Quản Lý Người Dùng</a></li>
+                        <li><a asp-controller="BookingManagement" asp-action="AdminBookings"><i class="ri-calendar-check-line"></i>Quản Lý Đặt Lịch</a></li>
+                        <li><a asp-controller="Reports" asp-action="Index"><i class="ri-bar-chart-box-line"></i>Báo Cáo & Thống Kê</a></li>
+                        <li><a asp-controller="Authentication" asp-action="Logout"><i class="ri-logout-box-line"></i>Đăng Xuất</a></li>
                     </ul>
                 </nav>
                 <div id="sidebar-bottom" class="p-3 position-relative">
@@ -102,54 +128,8 @@
                                     <input type="text" class="text search-input" placeholder="Type here to search...">
                                     <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                                 </form>
-                            </li>
-                            <li class="nav-item nav-icon">
-                                <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
-                                    <i class="ri-notification-2-line"></i>
-                                    <span class="bg-primary dots"></span>
-                                </a>
-                                <div class="iq-sub-dropdown">
-                                    <div class="iq-card shadow-none m-0">
-                                        <div class="iq-card-body p-0">
-                                            <div class="bg-primary p-3">
-                                                <h5 class="mb-0 text-white">Thông Báo<small class="badge  badge-light float-right pt-1">4</small></h5>
-                                            </div>
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="media align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="~/images/user/01.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
-                                                        <small class="float-right font-size-12">Just Now</small>
-                                                        <p class="mb-0">95.000đ</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="media align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="~/images/user/02.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
-                                                        <small class="float-right font-size-12">5 days ago</small>
-                                                        <p class="mb-0">255.000đ</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="iq-sub-card">
-                                                <div class="media align-items-center">
-                                                    <div class="">
-                                                        <img class="avatar-40 rounded" src="~/images/user/03.jpg" alt="">
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
-                                                        <small class="float-right font-size-12">2 days ago</small>
-                                                        <p class="mb-0">79.000đ</p>
-                                                    </div>
-                                                </div>
-                                            </a>
+                            </li>                            <li class="nav-item nav-icon">
+                                @await Component.InvokeAsync("NotificationMenu")
                                             <a href="#" class="iq-sub-card">
                                                 <div class="media align-items-center">
                                                     <div class="">
@@ -235,22 +215,31 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="line-height pt-3">
+                            </li>                            <li class="line-height pt-3">
                                 <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                                    <img src="~/images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                                    @if (string.IsNullOrEmpty(avatarUrl))
+                                    {
+                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mr-3" style="width: 40px; height: 40px; font-size: 18px;">
+                                            @(userName?.Substring(0, 1) ?? "A")
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <img src="@avatarUrl" class="img-fluid rounded-circle mr-3" alt="user">
+                                    }
                                     <div class="caption">
-                                        <h6 class="mb-1 line-height">Ông Trần Thuận</h6>
-                                        <p class="mb-0 text-primary">Tài Khoản</p>
+                                        <h6 class="mb-1 line-height">@userName</h6>
+                                        <p class="mb-0 text-primary">Admin</p>
                                     </div>
                                 </a>
                                 <div class="iq-sub-dropdown iq-user-dropdown">
                                     <div class="iq-card shadow-none m-0">
                                         <div class="iq-card-body p-0 ">
                                             <div class="bg-primary p-3">
-                                                <h5 class="mb-0 text-white line-height">Xin Chào Ông Trần Thuận</h5>
+                                                <h5 class="mb-0 text-white line-height">Xin Chào @userName</h5>
+                                                <p class="text-white-50 mb-0">@userEmail</p>
                                             </div>
-                                            <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                            <a asp-controller="User" asp-action="Profile" class="iq-sub-card iq-bg-primary-hover">
                                                 <div class="media align-items-center">
                                                     <div class="rounded iq-card-icon iq-bg-primary">
                                                         <i class="ri-file-user-line"></i>
@@ -260,38 +249,18 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                            <a href="profile-edit.html" class="iq-sub-card iq-bg-primary-hover">
+                                            <a asp-controller="AdminHome" asp-action="Settings" class="iq-sub-card iq-bg-primary-hover">
                                                 <div class="media align-items-center">
                                                     <div class="rounded iq-card-icon iq-bg-primary">
-                                                        <i class="ri-profile-line"></i>
+                                                        <i class="ri-settings-4-line"></i>
                                                     </div>
                                                     <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Sổ địa chỉ</h6>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="account-setting.html" class="iq-sub-card iq-bg-primary-hover">
-                                                <div class="media align-items-center">
-                                                    <div class="rounded iq-card-icon iq-bg-primary">
-                                                        <i class="ri-account-box-line"></i>
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Đơn hàng của tôi</h6>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="wishlist.html" class="iq-sub-card iq-bg-primary-hover">
-                                                <div class="media align-items-center">
-                                                    <div class="rounded iq-card-icon iq-bg-primary">
-                                                        <i class="ri-heart-line"></i>
-                                                    </div>
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-0 ">Yêu Thích</h6>
+                                                        <h6 class="mb-0 ">Cài đặt hệ thống</h6>
                                                     </div>
                                                 </div>
                                             </a>
                                             <div class="d-inline-block w-100 text-center p-3">
-                                                <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                                <a class="bg-primary iq-sign-btn" asp-controller="Authentication" asp-action="Logout" role="button">Đăng xuất<i class="ri-login-box-line ml-2"></i></a>
                                             </div>
                                         </div>
                                     </div>

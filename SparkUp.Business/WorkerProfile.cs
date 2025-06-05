@@ -15,10 +15,12 @@
         public string Address { get; set; }
         public string City { get; set; }
         public string District { get; set; }
+        
+        // Mối quan hệ 1-nhiều: Một thợ chỉ có một loại công việc
+        public int TaskTypeId { get; set; }
+        public decimal HourlyRate { get; set; } // Mức giá theo giờ
 
         public User User { get; set; }
-        public ICollection<WorkerTaskType> WorkerTaskTypes { get; set; }
-
+        public TaskType TaskType { get; set; } // Navigation property
     }
-
 }

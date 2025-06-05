@@ -1,0 +1,174 @@
+@model BookingsViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">@Model.Title</h1>
+
+    @if (Model.Bookings == null || !Model.Bookings.Any())
+    {
+        <div class="text-center py-5">
+            <i class="bi bi-calendar-x display-4 text-muted mb-3 d-block"></i>
+            <p class="lead">Chưa có lịch đặt nào</p>
+            <a asp-controller="Worker" asp-action="Search" class="btn btn-primary mt-3">Tìm thợ ngay</a>
+        </div>
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <span class="me-3">Lọc trạng thái:</span>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-secondary btn-sm filter-btn active" data-filter="all">Tất cả</button>
+                        <button type="button" class="btn btn-outline-warning btn-sm filter-btn" data-filter="Pending">Chờ xác nhận</button>
+                        <button type="button" class="btn btn-outline-info btn-sm filter-btn" data-filter="Accepted">Đã xác nhận</button>
+                        <button type="button" class="btn btn-outline-success btn-sm filter-btn" data-filter="Completed">Hoàn thành</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm filter-btn" data-filter="Rejected">Đã hủy</button>
+                    </div>
+                </div>
+                <div class="form-check form-switch ms-3">
+                    <input class="form-check-input" type="checkbox" id="upcomingOnly">
+                    <label class="form-check-label" for="upcomingOnly">Chỉ hiện lịch sắp tới</label>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover booking-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            @if (Model.IsWorkerView)
+                            {
+                                <th scope="col">Khách hàng</th>
+                            }
+                            else
+                            {
+                                <th scope="col">Thợ</th>
+                            }
+                            <th scope="col">Loại công việc</th>
+                            <th scope="col">Thời gian</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Thanh toán</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in Model.Bookings)
+                        {
+                            <tr data-status="@booking.Status" data-date="@booking.ScheduledTime.ToString("yyyy-MM-dd")">
+                                <td>#@booking.Id</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        @if (Model.IsWorkerView)
+                                        {
+                                            @if (string.IsNullOrEmpty(booking.CustomerAvatar))
+                                            {
+                                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2"
+                                                     style="width: 32px; height: 32px; font-size: 14px;">
+                                                    @(string.IsNullOrEmpty(booking.CustomerName) ? "?" : booking.CustomerName.Substring(0, 1))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <img src="@booking.CustomerAvatar" class="rounded-circle me-2"
+                                                     style="width: 32px; height: 32px; object-fit: cover;" alt="Customer">
+                                            }
+                                            <span>@booking.CustomerName</span>
+                                        }
+                                        else
+                                        {
+                                            @if (string.IsNullOrEmpty(booking.WorkerAvatar))
+                                            {
+                                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2"
+                                                     style="width: 32px; height: 32px; font-size: 14px;">
+                                                    @(string.IsNullOrEmpty(booking.WorkerName) ? "?" : booking.WorkerName.Substring(0, 1))
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <img src="@booking.WorkerAvatar" class="rounded-circle me-2"
+                                                     style="width: 32px; height: 32px; object-fit: cover;" alt="Worker">
+                                            }
+                                            <span>@booking.WorkerName</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td>@booking.TaskTypeName</td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span>@booking.ScheduledTime.ToString("dd/MM/yyyy")</span>
+                                        <small class="text-muted">@booking.ScheduledTime.ToString("HH:mm")</small>
+                                    </div>
+                                </td>
+                                <td class="text-truncate" style="max-width: 150px;">@booking.Address</td>
+                                <td>
+                                    <span class="badge @booking.StatusBadgeClass">
+                                        @(booking.Status == "Pending" ? "Chờ xác nhận" :
+                                          booking.Status == "Accepted" ? "Đã xác nhận" :
+                                          booking.Status == "Rejected" ? "Đã hủy" :
+                                          booking.Status == "Completed" ? "Hoàn thành" : booking.Status)
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge @booking.PaymentStatusBadgeClass">
+                                        @(booking.PaymentStatus == "Paid" ? "Đã thanh toán" :
+                                          booking.PaymentStatus == "Unpaid" ? "Chưa thanh toán" : booking.PaymentStatus)
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Xem
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Lọc theo trạng thái
+        $('.filter-btn').click(function() {
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+            
+            const filter = $(this).data('filter');
+            const showUpcoming = $('#upcomingOnly').is(':checked');
+            
+            filterBookings(filter, showUpcoming);
+        });
+        
+        // Lọc theo lịch sắp tới
+        $('#upcomingOnly').change(function() {
+            const showUpcoming = $(this).is(':checked');
+            const currentFilter = $('.filter-btn.active').data('filter');
+            
+            filterBookings(currentFilter, showUpcoming);
+        });
+        
+        function filterBookings(statusFilter, showUpcomingOnly) {
+            const today = new Date().toISOString().split('T')[0];
+            
+            $('.booking-table tbody tr').each(function() {
+                const status = $(this).data('status');
+                const date = $(this).data('date');
+                
+                const matchesStatus = statusFilter === 'all' || status === statusFilter;
+                const matchesDate = !showUpcomingOnly || date >= today;
+                
+                if (matchesStatus && matchesDate) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    </script>
+}

@@ -24,12 +24,8 @@ namespace SparkUp.Business
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<WorkerSchedule> WorkerSchedules { get; set; }
         public DbSet<Wallet> Wallets { get; set; }
-        public DbSet<WalletTransaction> WalletTransactions { get; set; }
+        public DbSet<WalletTransaction> WalletTransactions { get; set; }        
         public DbSet<EmailTemplate> EmailTemplates { get; set; }
-
-        public DbSet<WorkerTaskType> WorkerTaskTypes { get; set; }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //    => optionsBuilder.UseSqlServer("server=db16450.public.databaseasp.net;database=db16450;uid=db16450;pwd=12345678;TrustServerCertificate=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -131,9 +127,7 @@ namespace SparkUp.Business
                 .HasOne(ws => ws.Task)
                 .WithMany()
                 .HasForeignKey(ws => ws.TaskId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            // WalletTransaction
+                .OnDelete(DeleteBehavior.SetNull);            // WalletTransaction
             modelBuilder.Entity<WalletTransaction>()
                 .HasOne(wt => wt.Wallet)
                 .WithMany(w => w.Transactions)
@@ -144,17 +138,12 @@ namespace SparkUp.Business
                 .WithMany()
                 .HasForeignKey(wt => wt.TaskId)
                 .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<WorkerTaskType>().ToTable("WorkerTaskTypes");
-
-            modelBuilder.Entity<WorkerTaskType>()
-                .HasOne(wtt => wtt.WorkerProfile)
-                .WithMany(wp => wp.WorkerTaskTypes)
-                .HasForeignKey(wtt => wtt.WorkerProfileId);
-
-            modelBuilder.Entity<WorkerTaskType>()
-                .HasOne(wtt => wtt.TaskType)
-                .WithMany()
-                .HasForeignKey(wtt => wtt.TaskTypeId);
+            
+            // WorkerProfile <-> TaskType (một thợ chỉ có một loại công việc)
+            modelBuilder.Entity<WorkerProfile>()
+                .HasOne(wp => wp.TaskType)
+                .WithMany(tt => tt.WorkerProfiles)
+                .HasForeignKey(wp => wp.TaskTypeId);
         }
     }
 

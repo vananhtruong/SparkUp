@@ -27,9 +27,10 @@ namespace SparkUp.MVC.Controllers
                     .Take(8)
                     .ToListAsync();
 
-                var minPrices = await _context.WorkerTaskTypes
-                    .GroupBy(wtt => wtt.TaskTypeId)
-                    .Select(g => new { TaskTypeId = g.Key, MinPrice = g.Min(wtt => wtt.HourlyRate) })
+                var minPrices = await _context.WorkerProfiles
+                    .Where(wp => wp.IsConfirmed)
+                    .GroupBy(wp => wp.TaskTypeId)
+                    .Select(g => new { TaskTypeId = g.Key, MinPrice = g.Min(wp => wp.HourlyRate) })
                     .ToListAsync();
 
                 var popularTaskTypes = taskTypes.Select(tt => new

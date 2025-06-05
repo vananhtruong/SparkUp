@@ -13,6 +13,7 @@ using SparkUp.MVC.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SparkUp.MVC.Controllers
 {
@@ -35,20 +36,31 @@ namespace SparkUp.MVC.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        //Login User
+        }        //Login User
         public async Task<IActionResult> Login(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
-            if(user != null && user.PasswordHash.Equals(password)) { 
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));            if(user != null && user.PasswordHash.Equals(password)) { 
                 var claims = new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.FullName),
                     new Claim(ClaimTypes.Role, user.Role),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim("AvatarUrl", user.AvatarUrl ?? "")
                 };
+
+                // Tạo ClaimsIdentity
+                var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+                
+                // Đăng nhập người dùng
+                await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+                
+                // Chuyển hướng dựa vào vai trò
+                if (user.Role == "ADMIN")
+                {
+                    return Redirect("https://localhost:7261/AdminHome/Index");
+                }
+                
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index");
@@ -60,9 +72,7 @@ namespace SparkUp.MVC.Controllers
             {
                 RedirectUri = Url.Action("GoogleResponse")
             });
-        }
-
-        public async Task<IActionResult> GoogleResponse()
+        }        public async Task<IActionResult> GoogleResponse()
         {
             var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
             if (!result.Succeeded)
@@ -90,16 +100,27 @@ namespace SparkUp.MVC.Controllers
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();
                 user = newUser;
-            }
-
-            //create claim for user log in cookie
+            }            //create claim for user log in cookie
             var claims = new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.FullName),
                     new Claim(ClaimTypes.Role, user.Role),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim("AvatarUrl", user.AvatarUrl ?? "")
                 };
+                
+            // Tạo ClaimsIdentity
+            var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+            
+            // Đăng nhập người dùng
+            await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+
+            // Chuyển hướng dựa vào vai trò
+            if (user.Role == "ADMIN")
+            {
+                return Redirect("https://localhost:7261/AdminHome/Index");
+            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -110,9 +131,7 @@ namespace SparkUp.MVC.Controllers
             {
                 RedirectUri = Url.Action("FacebookResponse")
             });
-        }
-
-        public async Task<IActionResult> FacebookResponse()
+        }        public async Task<IActionResult> FacebookResponse()
         {
             var result = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
 
@@ -121,30 +140,62 @@ namespace SparkUp.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            var claims = result.Principal.Identities.FirstOrDefault()?.Claims.Select(c => new
-            {
-                c.Issuer,
-                c.OriginalIssuer,
-                c.Type,
-                c.Value
-            });
-
             // Get user info from Facebook
             var email = result.Principal.FindFirst(ClaimTypes.Email)?.Value;
             var name = result.Principal.FindFirst(ClaimTypes.Name)?.Value;
             var id = result.Principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            // Here you would typically:
-            // 1. Check if user exists in your database
-            // 2. If not, create new user
-            // 3. Create authentication cookie
-            // 4. Redirect to home page
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["ErrorMessage"] = "Không thể lấy thông tin email từ Facebook";
+                return RedirectToAction("Index");
+            }
 
-            // For now, we'll just return the claims
-            return Json(claims);
-        }
+            // Kiểm tra user đã tồn tại chưa
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+            Random rand = new Random();
+            
+            if(user == null)
+            {
+                var newUser = new User()
+                {
+                    FullName = name ?? "Facebook User",
+                    Email = email,
+                    Role = "Customer",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now,
+                    AvatarUrl = "default.png",
+                    PasswordHash = (rand.Next(100000, 999999)).ToString() + (char)('a' + rand.Next(0, 26)) + (char)('A' + rand.Next(0, 26)),
+                    PhoneNumber = "not yet"
+                };
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+                user = newUser;
+            }
 
-        //register with new account
+            // Tạo claims và đăng nhập
+            var claims = new Claim[]
+            {
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim("AvatarUrl", user.AvatarUrl ?? "")
+            };
+              // Tạo ClaimsIdentity
+            var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+            
+            // Đăng nhập người dùng
+            await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+            
+            // Chuyển hướng dựa vào vai trò
+            if (user.Role == "ADMIN")
+            {
+                return Redirect("https://localhost:7261/AdminHome/Index");
+            }
+            
+            return RedirectToAction("Index", "Home");
+        }        //register with new account
         public async Task<IActionResult> Register(string fullName, string email, string phone, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
@@ -163,6 +214,21 @@ namespace SparkUp.MVC.Controllers
                 };
                 await _context.Users.AddAsync(newUser);
                 await _context.SaveChangesAsync();
+                
+                // Đăng nhập người dùng sau khi đăng ký
+                var claims = new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, newUser.FullName),
+                    new Claim(ClaimTypes.Role, newUser.Role),
+                    new Claim(ClaimTypes.Email, newUser.Email),
+                    new Claim(ClaimTypes.NameIdentifier, newUser.Id.ToString()),
+                    new Claim("AvatarUrl", newUser.AvatarUrl ?? "")
+                };
+                
+                var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+                await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(claimsIdentity));
+                
+                return RedirectToAction("Index", "Home");
             }
 
             return RedirectToAction("Index");
@@ -219,11 +285,118 @@ namespace SparkUp.MVC.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
+        }        public async Task<IActionResult> WorkerRegister()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Kiểm tra xem người dùng đã là thợ chưa
+            var user = await _context.Users.Include(u => u.WorkerProfile).FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (user.WorkerProfile != null)
+            {
+                // Người dùng đã là thợ, chuyển hướng đến trang hồ sơ thợ
+                return RedirectToAction("Profile", "Worker", new { id = userId });
+            }
+
+            // Lấy danh sách loại công việc cho dropdown
+            ViewBag.TaskTypes = await _context.TaskTypes
+                .Where(tt => tt.IsActive)
+                .Select(tt => new SelectListItem
+                {
+                    Value = tt.Id.ToString(),
+                    Text = tt.Name
+                })
+                .ToListAsync();
+
+            return View();
         }
 
-        public IActionResult WorkerRegister()
+        [HttpPost]
+        public async Task<IActionResult> WorkerRegister(WorkerRegistrationViewModel model)
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.TaskTypes = await _context.TaskTypes
+                    .Where(tt => tt.IsActive)
+                    .Select(tt => new SelectListItem
+                    {
+                        Value = tt.Id.ToString(),
+                        Text = tt.Name
+                    })
+                    .ToListAsync();
+                return View(model);
+            }
+
+            // Tạo hồ sơ thợ mới
+            var workerProfile = new WorkerProfile
+            {
+                UserId = userId,
+                Skills = model.Skills,
+                Description = model.Description,
+                ExperienceYears = model.ExperienceYears,
+                Address = model.Address,
+                City = model.City,
+                District = model.District,
+                TaskTypeId = model.TaskTypeId,
+                HourlyRate = model.HourlyRate,
+                IsConfirmed = false,
+                ApprovalStatus = "Pending",
+                RatingAverage = 0
+            };
+
+            _context.WorkerProfiles.Add(workerProfile);
+            
+            // Cập nhật vai trò người dùng
+            var user = await _context.Users.FindAsync(userId);
+            if (user != null)
+            {
+                user.Role = "Worker";
+                _context.Users.Update(user);
+            }
+
+            await _context.SaveChangesAsync();            // Cập nhật claim người dùng
+            var identity = new ClaimsIdentity(User.Identity);
+            identity.RemoveClaim(identity.FindFirst(ClaimTypes.Role));
+            identity.AddClaim(new Claim(ClaimTypes.Role, "Worker"));
+            await HttpContext.SignInAsync("CookieAuth", new ClaimsPrincipal(identity));
+
+            TempData["SuccessMessage"] = "Đăng ký làm thợ thành công! Hồ sơ của bạn đang được xét duyệt.";
+            return RedirectToAction("Profile", "Worker", new { id = userId });
+        }        // Đăng xuất người dùng
+        public async Task<IActionResult> Logout()
+        {
+            // Clear authentication cookie
+            await HttpContext.SignOutAsync("CookieAuth");
+            
+            // Store a temporary message
+            TempData["LogoutMessage"] = "Bạn đã đăng xuất thành công";
+            
+            // Redirect to home page
+            return RedirectToAction("Index", "Home");
         }
     }
 }

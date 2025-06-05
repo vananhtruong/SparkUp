@@ -1,5 +1,93 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WorkerRegistrationViewModel
 @{
+    ViewData["Title"] = "Đăng ký làm thợ";
+}
+
+<div class="container my-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Đăng ký làm thợ</li>
+                </ol>
+            </nav>
+            
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">Đăng ký làm thợ</h2>
+                    
+                    <form asp-action="WorkerRegister" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="TaskTypeId" class="form-label">Loại công việc</label>
+                            <select asp-for="TaskTypeId" class="form-select" asp-items="ViewBag.TaskTypes">
+                                <option value="">-- Chọn loại công việc --</option>
+                            </select>
+                            <span asp-validation-for="TaskTypeId" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Skills" class="form-label">Kỹ năng của bạn</label>
+                            <input asp-for="Skills" class="form-control" placeholder="Ví dụ: Sửa chữa điện nước, Thợ sơn, Thợ hàn..." />
+                            <span asp-validation-for="Skills" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Mô tả về bản thân</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Giới thiệu về bản thân và kinh nghiệm làm việc của bạn..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="ExperienceYears" class="form-label">Số năm kinh nghiệm</label>
+                                <input asp-for="ExperienceYears" class="form-control" type="number" min="0" max="50" />
+                                <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="HourlyRate" class="form-label">Giá theo giờ (VNĐ)</label>
+                                <input asp-for="HourlyRate" class="form-control" type="number" min="0" step="10000" />
+                                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label">Địa chỉ</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="City" class="form-label">Thành phố</label>
+                                <input asp-for="City" class="form-control" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="District" class="form-label">Quận/Huyện</label>
+                                <input asp-for="District" class="form-control" />
+                                <span asp-validation-for="District" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="PortfolioUrl" class="form-label">Liên kết đến portfolio (không bắt buộc)</label>
+                            <input asp-for="PortfolioUrl" class="form-control" placeholder="https://..." />
+                            <span asp-validation-for="PortfolioUrl" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <button type="submit" class="btn btn-primary px-5 py-2">Đăng ký</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,0 +1,261 @@
+@model BookingManagementViewModel
+@{
+    ViewData["Title"] = "Quản lý đặt lịch";
+}
+
+<div class="container my-5 pt-5">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Quản lý đặt lịch</li>
+                </ol>
+            </nav>
+            <h1 class="fw-bold">Quản lý đặt lịch</h1>
+            <p class="text-muted">Quản lý tất cả các lịch đặt của @(Model.IsWorker ? "bạn" : "bạn")</p>
+        </div>
+    </div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs mb-4" id="bookingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">
+                Đang chờ
+                <span class="badge bg-primary ms-1">@Model.UpcomingBookings.Count</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="false">
+                Chờ xác nhận
+                <span class="badge bg-warning text-dark ms-1">@Model.PendingBookings.Count</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">
+                Đã hoàn thành
+                <span class="badge bg-success ms-1">@Model.CompletedBookings.Count</span>
+            </button>
+        </li>
+    </ul>
+    
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    @if (Model.IsWorker)
+                                    {
+                                        <th>Khách hàng</th>
+                                    }
+                                    else
+                                    {
+                                        <th>Thợ</th>
+                                    }
+                                    <th>Loại công việc</th>
+                                    <th>Thời gian</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thanh toán</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.UpcomingBookings.Count > 0)
+                                {
+                                    @foreach (var booking in Model.UpcomingBookings)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (Model.IsWorker)
+                                                    {
+                                                        <img src="@booking.CustomerAvatar" class="rounded-circle me-3"
+                                                             style="width: 40px; height: 40px; object-fit: cover;" alt="Customer">
+                                                        <div>@booking.CustomerName</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@booking.WorkerAvatar" class="rounded-circle me-3"
+                                                             style="width: 40px; height: 40px; object-fit: cover;" alt="Worker">
+                                                        <div>@booking.WorkerName</div>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>@booking.TaskTypeName</td>
+                                            <td>@booking.ScheduledTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td><span class="badge @booking.StatusBadgeClass">@booking.Status</span></td>
+                                            <td><span class="badge @booking.PaymentStatusBadgeClass">@booking.PaymentStatus</span></td>
+                                            <td>
+                                                <a asp-controller="TaskBooking" asp-action="Details" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-primary">
+                                                    <i class="bi bi-eye"></i> Chi tiết
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">Không có lịch đặt nào sắp tới</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-pane" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    @if (Model.IsWorker)
+                                    {
+                                        <th>Khách hàng</th>
+                                    }
+                                    else
+                                    {
+                                        <th>Thợ</th>
+                                    }
+                                    <th>Loại công việc</th>
+                                    <th>Thời gian</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thanh toán</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PendingBookings.Count > 0)
+                                {
+                                    @foreach (var booking in Model.PendingBookings)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (Model.IsWorker)
+                                                    {
+                                                        <img src="@booking.CustomerAvatar" class="rounded-circle me-3"
+                                                             style="width: 40px; height: 40px; object-fit: cover;" alt="Customer">
+                                                        <div>@booking.CustomerName</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@booking.WorkerAvatar" class="rounded-circle me-3"
+                                                             style="width: 40px; height: 40px; object-fit: cover;" alt="Worker">
+                                                        <div>@booking.WorkerName</div>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>@booking.TaskTypeName</td>
+                                            <td>@booking.ScheduledTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td><span class="badge @booking.StatusBadgeClass">@booking.Status</span></td>
+                                            <td><span class="badge @booking.PaymentStatusBadgeClass">@booking.PaymentStatus</span></td>
+                                            <td>
+                                                <a asp-controller="TaskBooking" asp-action="Details" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-primary">
+                                                    <i class="bi bi-eye"></i> Chi tiết
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">Không có lịch đặt nào đang chờ xác nhận</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-pane" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    @if (Model.IsWorker)
+                                    {
+                                        <th>Khách hàng</th>
+                                    }
+                                    else
+                                    {
+                                        <th>Thợ</th>
+                                    }
+                                    <th>Loại công việc</th>
+                                    <th>Thời gian</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thanh toán</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.CompletedBookings.Count > 0)
+                                {
+                                    @foreach (var booking in Model.CompletedBookings)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (Model.IsWorker)
+                                                    {
+                                                        <img src="@booking.CustomerAvatar" class="rounded-circle me-3"
+                                                             style="width: 40px; height: 40px; object-fit: cover;" alt="Customer">
+                                                        <div>@booking.CustomerName</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@booking.WorkerAvatar" class="rounded-circle me-3"
+                                                             style="width: 40px; height: 40px; object-fit: cover;" alt="Worker">
+                                                        <div>@booking.WorkerName</div>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>@booking.TaskTypeName</td>
+                                            <td>@booking.ScheduledTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td><span class="badge @booking.StatusBadgeClass">@booking.Status</span></td>
+                                            <td><span class="badge @booking.PaymentStatusBadgeClass">@booking.PaymentStatus</span></td>
+                                            <td>
+                                                <a asp-controller="TaskBooking" asp-action="Details" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-primary">
+                                                    <i class="bi bi-eye"></i> Chi tiết
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">Không có lịch đặt nào đã hoàn thành</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Kích hoạt tab
+        document.addEventListener('DOMContentLoaded', function() {
+            var triggerEl = document.querySelector('#bookingTabs a[data-bs-toggle="tab"]')
+            bootstrap.Tab.getInstance(triggerEl).show() // Select first tab
+        });
+    </script>
+}

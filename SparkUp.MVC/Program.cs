@@ -22,13 +22,22 @@ builder.Services.Configure<EmailSenderDto>(
 builder.Services.Configure<SettingsDto>(
     builder.Configuration.GetSection("Settings"));
 
+// Register Services
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<INotificationService, NotificationService>();
+
 //add authentication
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultScheme = "CookieAuth";
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-    .AddCookie()
+    .AddCookie("CookieAuth", options =>
+    {
+        options.LoginPath = "/Authentication/Index";
+        options.LogoutPath = "/Authentication/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    })
     .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
     {
         options.ClientId = builder.Configuration["GoogleKeys:ClientId"];

@@ -22,6 +22,31 @@ namespace SparkUp.Business.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SparkUp.Business.EmailTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailTemplates");
+                });
+
             modelBuilder.Entity("SparkUp.Business.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -98,13 +123,36 @@ namespace SparkUp.Business.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Message")
+                    b.Property<DateTime?>("ReadAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RedirectUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReferenceId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -217,6 +265,14 @@ namespace SparkUp.Business.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -356,6 +412,10 @@ namespace SparkUp.Business.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ApprovalStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -371,6 +431,9 @@ namespace SparkUp.Business.Migrations
                     b.Property<int>("ExperienceYears")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("HourlyRate")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
 
@@ -385,10 +448,15 @@ namespace SparkUp.Business.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TaskTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TaskTypeId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -431,32 +499,6 @@ namespace SparkUp.Business.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("WorkerSchedules", (string)null);
-                });
-
-            modelBuilder.Entity("SparkUp.Business.WorkerTaskType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("HourlyRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TaskTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkerProfileId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskTypeId");
-
-                    b.HasIndex("WorkerProfileId");
-
-                    b.ToTable("WorkerTaskTypes", (string)null);
                 });
 
             modelBuilder.Entity("SparkUp.Business.Feedback", b =>
@@ -585,11 +627,19 @@ namespace SparkUp.Business.Migrations
 
             modelBuilder.Entity("SparkUp.Business.WorkerProfile", b =>
                 {
+                    b.HasOne("SparkUp.Business.TaskType", "TaskType")
+                        .WithMany("WorkerProfiles")
+                        .HasForeignKey("TaskTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SparkUp.Business.User", "User")
                         .WithOne("WorkerProfile")
                         .HasForeignKey("SparkUp.Business.WorkerProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TaskType");
 
                     b.Navigation("User");
                 });
@@ -612,25 +662,6 @@ namespace SparkUp.Business.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("SparkUp.Business.WorkerTaskType", b =>
-                {
-                    b.HasOne("SparkUp.Business.TaskType", "TaskType")
-                        .WithMany()
-                        .HasForeignKey("TaskTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SparkUp.Business.WorkerProfile", "WorkerProfile")
-                        .WithMany("WorkerTaskTypes")
-                        .HasForeignKey("WorkerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TaskType");
-
-                    b.Navigation("WorkerProfile");
-                });
-
             modelBuilder.Entity("SparkUp.Business.Task", b =>
                 {
                     b.Navigation("Feedbacks");
@@ -644,6 +675,8 @@ namespace SparkUp.Business.Migrations
             modelBuilder.Entity("SparkUp.Business.TaskType", b =>
                 {
                     b.Navigation("Tasks");
+
+                    b.Navigation("WorkerProfiles");
                 });
 
             modelBuilder.Entity("SparkUp.Business.User", b =>
@@ -664,11 +697,6 @@ namespace SparkUp.Business.Migrations
             modelBuilder.Entity("SparkUp.Business.Wallet", b =>
                 {
                     b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("SparkUp.Business.WorkerProfile", b =>
-                {
-                    b.Navigation("WorkerTaskTypes");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,53 @@
+@model List<SparkUp.Business.TaskType>
+@{
+    ViewData["Title"] = "Chọn Loại Công Việc";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Chọn Loại Công Việc</h2>
+            
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
+            
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-warning">
+                    Không có loại công việc nào cho thợ này. Vui lòng liên hệ quản trị viên!
+                </div>
+                <div class="text-center mt-3">
+                    <a href="javascript:history.back()" class="btn btn-secondary">Quay lại</a>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var taskType in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    @if (!string.IsNullOrEmpty(taskType.Icon))
+                                    {
+                                        <div class="mb-3"><i class="@taskType.Icon fa-3x"></i></div>
+                                    }
+                                    else if (!string.IsNullOrEmpty(taskType.ImageUrl))
+                                    {
+                                        <img src="@taskType.ImageUrl" class="card-img-top mb-3" style="height: 100px; object-fit: contain;" alt="@taskType.Name">
+                                    }
+                                    <h5 class="card-title">@taskType.Name</h5>
+                                    <p class="card-text">@taskType.Description</p>
+                                    <a href="@Url.Action("Create", "TaskBooking", new { workerId = ViewBag.WorkerId, taskTypeId = taskType.Id })" 
+                                       class="btn btn-primary">Chọn</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="ms-auto">
-                            <a href="@Url.Action("Create", "TaskBooking", new { workerId = Model.Id, taskTypeId = Model.SelectedTaskTypeId })"
+                            <a href="@Url.Action("Create", "TaskBooking", new { workerId = Model.Id, taskTypeId = Model.TaskTypeId })"
                                class="btn btn-primary">
                                 <i class="bi bi-calendar-plus me-1"></i> Đặt lịch
                             </a>
@@ -92,8 +92,7 @@
                                         <span class="badge bg-primary me-2 mb-2">@type</span>
                                     }
                                 </div>
-                            }
-                            <div>@Model.Skills</div>
+                            }                            <div>@Model.Skills</div>
                         </div>
                     </div>
 
@@ -104,6 +103,15 @@
                             <p>@Model.Description</p>
                         </div>
                     }
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-controller="Worker" asp-action="Search" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left me-1"></i> Quay lại tìm kiếm
+                        </a>
+                        <a asp-controller="TaskBooking" asp-action="Create" asp-route-workerId="@Model.Id" asp-route-taskTypeId="@Model.TaskTypeId" class="btn btn-primary">
+                            <i class="bi bi-calendar-check me-1"></i> Đặt lịch ngay
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

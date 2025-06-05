@@ -1,0 +1,207 @@
+@model TaskBookingDetailViewModel
+@{
+    ViewData["Title"] = "Chi tiết đặt lịch #" + Model.Id;
+    var statusColor = Model.StatusBadgeClass.Replace("bg-", "text-");
+    var paymentColor = Model.PaymentStatusBadgeClass.Replace("bg-", "text-");
+}
+
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item">
+                @if (Model.IsWorker)
+                {
+                    <a asp-controller="TaskBooking" asp-action="WorkerBookings">Lịch hẹn của tôi</a>
+                }
+                else
+                {
+                    <a asp-controller="TaskBooking" asp-action="MyBookings">Lịch đặt của tôi</a>
+                }
+            </li>
+            <li class="breadcrumb-item active">Chi tiết đặt lịch #@Model.Id</li>
+        </ol>
+    </nav>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Status header -->
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <div>
+                    <h4 class="mb-1">Đặt lịch #@Model.Id</h4>
+                    <p class="text-muted mb-0">Đặt lúc: @Model.CreatedAt.ToString("HH:mm dd/MM/yyyy")</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <div class="text-center">
+                        <p class="mb-1">Trạng thái</p>
+                        <span class="badge @Model.StatusBadgeClass fs-6 px-3 py-2">
+                            @(Model.Status == "Pending" ? "Chờ xác nhận" :
+                              Model.Status == "Accepted" ? "Đã xác nhận" :
+                              Model.Status == "Rejected" ? "Đã hủy" :
+                              Model.Status == "Completed" ? "Hoàn thành" : Model.Status)
+                        </span>
+                    </div>
+                    <div class="text-center ms-3">
+                        <p class="mb-1">Thanh toán</p>
+                        <span class="badge @Model.PaymentStatusBadgeClass fs-6 px-3 py-2">
+                            @(Model.PaymentStatus == "Paid" ? "Đã thanh toán" :
+                              Model.PaymentStatus == "Unpaid" ? "Chưa thanh toán" : Model.PaymentStatus)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Chi tiết đặt lịch -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Thông tin công việc</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <p class="text-muted mb-1">Loại công việc</p>
+                                <p class="fw-bold mb-0">@Model.TaskTypeName</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <p class="text-muted mb-1">Thời gian bắt đầu</p>
+                                <p class="fw-bold mb-0">@Model.ScheduledTime.ToString("HH:mm dd/MM/yyyy")</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <p class="text-muted mb-1">Thời gian làm việc</p>
+                                <p class="fw-bold mb-0">@Model.EstimatedWork</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-muted mb-1">Địa chỉ làm việc</p>
+                        <p class="fw-bold mb-0">@Model.Address</p>
+                    </div>
+
+                    <div>
+                        <p class="text-muted mb-1">Mô tả công việc</p>
+                        <p class="mb-0">@Model.Description</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thao tác -->
+            @if (Model.Status == "Pending" && Model.IsWorker)
+            {
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Thao tác</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex gap-2">
+                            <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="status" value="Accepted" />
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-circle me-1"></i> Chấp nhận
+                                </button>
+                            </form>
+
+                            <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="status" value="Rejected" />
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-x-circle me-1"></i> Từ chối
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.Status == "Accepted" && Model.IsWorker)
+            {
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Thao tác</h5>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="UpdateStatus" method="post">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <input type="hidden" name="status" value="Completed" />
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle me-1"></i> Đánh dấu đã hoàn thành
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Thông tin khách hàng và thợ -->
+        <div class="col-lg-4">
+            <!-- Thông tin thợ -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Thông tin thợ</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        @if (string.IsNullOrEmpty(Model.WorkerAvatar))
+                        {
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
+                                 style="width: 50px; height: 50px; font-size: 20px;">
+                                @(string.IsNullOrEmpty(Model.WorkerName) ? "?" : Model.WorkerName.Substring(0, 1))
+                            </div>
+                        }
+                        else
+                        {
+                            <img src="@Model.WorkerAvatar" class="rounded-circle me-3"
+                                 style="width: 50px; height: 50px; object-fit: cover;" alt="Worker">
+                        }
+                        <div>
+                            <h6 class="mb-0">@Model.WorkerName</h6>
+                            <a asp-controller="Worker" asp-action="Profile" asp-route-id="@Model.WorkerId" class="btn btn-link btn-sm p-0">
+                                Xem hồ sơ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thông tin khách hàng -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Thông tin khách hàng</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        @if (string.IsNullOrEmpty(Model.CustomerAvatar))
+                        {
+                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-3"
+                                 style="width: 50px; height: 50px; font-size: 20px;">
+                                @(string.IsNullOrEmpty(Model.CustomerName) ? "?" : Model.CustomerName.Substring(0, 1))
+                            </div>
+                        }
+                        else
+                        {
+                            <img src="@Model.CustomerAvatar" class="rounded-circle me-3"
+                                 style="width: 50px; height: 50px; object-fit: cover;" alt="Customer">
+                        }
+                        <div>
+                            <h6 class="mb-0">@Model.CustomerName</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@{
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    var isWorker = User.IsInRole("Worker");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,19 +12,79 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    @* <link rel="stylesheet" href="~/SparkUp.MVC.styles.css" asp-append-version="true" /> phần này bị xung đột css nên t comment lại  *@
+    <link rel="stylesheet" href="~/SparkUp.MVC.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700,800&display=swap" rel="stylesheet">
-    @await RenderSectionAsync("Styles", required: false)
-    <link rel="stylesheet" href="~/css/style.css" />
+    @await RenderSectionAsync("Styles", required: false)    <link rel="stylesheet" href="~/css/style.css" />
     <!-- Add Google Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Notification CSS */
+        .notifications-wrapper {
+            position: relative;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-menu-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            width: 320px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,.1);
+            border-radius: 0.25rem;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .notification-menu-dropdown.show {
+            display: block;
+        }
+        
+        .notification-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .notification-item.unread {
+            background-color: rgba(13,110,253,0.05);
+        }
+        
+        .notification-toggle {
+            font-size: 20px;
+            color: #6c757d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            position: relative;
+        }
+    </style>
 </head>
 <body class="@ViewData["BodyClass"]">
     <header>
-        <nav class="hf-navbar navbar navbar-expand-lg navbar-light shadow-sm fixed-top py-2">
-            <div class="container-fluid px-md-5">
-                <a class="navbar-brand d-flex align-items-center" href="#">
+        <nav class="hf-navbar navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top py-2">
+            <div class="container-fluid px-md-5">                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
                     <div class="hf-logo-icon d-flex align-items-center justify-content-center me-2">
                         <i class="bi bi-house-door"></i>
                     </div>
@@ -30,23 +95,63 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="hfNavCollapse">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3 gap-1 align-items-lg-center">
-                        <li class="nav-item"><a class="nav-link" href="#">Dịch vụ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Cách thức hoạt động</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Đánh giá</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
-                    </ul>
-                    <div class="d-flex gap-2 align-items-center">
-                        <a href="#" class="hf-nav-btn-login" >Đăng nhập</a>
-                        <a href="#" class="hf-nav-btn-signups">Đăng ký</a>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Worker" asp-action="Search">Tìm thợ</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="HowItWorks">Cách thức hoạt động</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">Về chúng tôi</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
+                    </ul>                    <div class="d-flex gap-2 align-items-center">
+                        @if (isAuthenticated)
+                        {
+                            <!-- Thông báo -->
+                            <div class="me-3">
+                                @await Component.InvokeAsync("NotificationMenu")
+                            </div>
+                            
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle d-flex align-items-center gap-2" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if (string.IsNullOrEmpty(User.FindFirst("AvatarUrl")?.Value))
+                                    {
+                                        <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 14px;">
+                                            @(User.Identity.Name?.Substring(0, 1) ?? "U")
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <img src="@User.FindFirst("AvatarUrl")?.Value" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;" alt="Avatar">
+                                    }
+                                    <span>@User.Identity.Name</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" asp-controller="User" asp-action="Profile"><i class="bi bi-person me-2"></i>Hồ sơ cá nhân</a></li>
+                                      @if (isWorker)
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Worker" asp-action="Dashboard"><i class="bi bi-kanban me-2"></i>Bảng công việc</a></li>
+                                        <li><a class="dropdown-item" asp-controller="TaskBooking" asp-action="WorkerBookings"><i class="bi bi-calendar-check me-2"></i>Lịch hẹn thợ</a></li>
+                                        <li><a class="dropdown-item" asp-controller="BookingManagement" asp-action="Index"><i class="bi bi-calendar2-week me-2"></i>Quản lý đặt lịch</a></li>
+                                    }                                    else
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="TaskBooking" asp-action="MyBookings"><i class="bi bi-calendar-check me-2"></i>Lịch đặt của tôi</a></li>
+                                        <li><a class="dropdown-item" asp-controller="BookingManagement" asp-action="Index"><i class="bi bi-calendar2-week me-2"></i>Quản lý đặt lịch</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Authentication" asp-action="WorkerRegister"><i class="bi bi-tools me-2"></i>Đăng ký làm thợ</a></li>
+                                    }
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" asp-controller="Authentication" asp-action="Logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <a asp-action="Index" asp-controller="Authentication" class="hf-nav-btn-login">Đăng nhập</a>
+                        }
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-     <main role="main" class="main">
-            @RenderBody()
-     </main>
+    <main role="main" class="main">
+        @RenderBody()
+    </main>
 
     <!-- FOOTER chuẩn UI HomeFix -->
     <footer class="hf-footer mt-1 pt-5 pb-2">
@@ -64,14 +169,13 @@
                         <span class="hf-social-btn hf-social-i">I</span>
                         <span class="hf-social-btn hf-social-y">Y</span>
                     </div>
-                </div>
-                <div class="col-md-2 col-6">
+                </div>                <div class="col-md-2 col-6">
                     <div class="hf-footer-col-title">Dịch vụ</div>
-                    <div><a href="#">Sửa chữa tổng hợp</a></div>
-                    <div><a href="#">Sửa chữa đường ống</a></div>
-                    <div><a href="#">Sửa chữa điện</a></div>
-                    <div><a href="#">Dọn dẹp nhà cửa</a></div>
-                    <div><a href="#">Vận chuyển đồ</a></div>
+                    <div><a asp-controller="Worker" asp-action="Search" asp-route-taskTypeId="1">Sửa chữa tổng hợp</a></div>
+                    <div><a asp-controller="Worker" asp-action="Search" asp-route-taskTypeId="2">Sửa chữa đường ống</a></div>
+                    <div><a asp-controller="Worker" asp-action="Search" asp-route-taskTypeId="3">Sửa chữa điện</a></div>
+                    <div><a asp-controller="Worker" asp-action="Search" asp-route-taskTypeId="4">Dọn dẹp nhà cửa</a></div>
+                    <div><a asp-controller="Worker" asp-action="Search" asp-route-taskTypeId="5">Vận chuyển đồ</a></div>
                 </div>
                 <div class="col-md-2 col-6">
                     <div class="hf-footer-col-title">Công ty</div>

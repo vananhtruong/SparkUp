@@ -1,0 +1,146 @@
+@{
+    ViewData["Title"] = "Bảng công việc";
+    Layout = "_Layout";
+}
+
+<div class="container my-5 pt-5">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Bảng công việc</li>
+                </ol>
+            </nav>
+            <h1 class="fw-bold">Bảng công việc</h1>
+        </div>
+    </div>
+
+    <!-- Thống kê công việc -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Công việc chờ xác nhận</h6>
+                            <h3 class="fw-bold mb-0">@ViewBag.PendingBookingsCount</h3>
+                        </div>
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-3">
+                            <i class="bi bi-hourglass text-warning fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="TaskBooking" asp-action="WorkerBookings" class="btn btn-link p-0 text-decoration-none">Xem tất cả <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Công việc hoàn thành</h6>
+                            <h3 class="fw-bold mb-0">@ViewBag.CompletedBookingsCount</h3>
+                        </div>
+                        <div class="rounded-circle bg-success bg-opacity-10 p-3">
+                            <i class="bi bi-check-circle text-success fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a asp-controller="TaskBooking" asp-action="WorkerBookings" class="btn btn-link p-0 text-decoration-none">Xem tất cả <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Lịch làm việc</h6>
+                            <h3 class="fw-bold mb-0">Hôm nay</h3>
+                        </div>
+                        <div class="rounded-circle bg-primary bg-opacity-10 p-3">
+                            <i class="bi bi-calendar-check text-primary fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="#" class="btn btn-link p-0 text-decoration-none">Xem lịch <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Đặt lịch gần đây -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Lịch hẹn gần đây</h5>
+                <a asp-controller="TaskBooking" asp-action="WorkerBookings" class="btn btn-outline-primary btn-sm">Xem tất cả</a>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Khách hàng</th>
+                            <th scope="col">Công việc</th>
+                            <th scope="col">Thời gian</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.RecentBookings != null && ViewBag.RecentBookings.Count > 0)
+                        {
+                            @foreach (var booking in ViewBag.RecentBookings)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                @if (!string.IsNullOrEmpty(booking.CustomerAvatar))
+                                                {
+                                                    <img src="@booking.CustomerAvatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" alt="Avatar">
+                                                }
+                                                else
+                                                {
+                                                    <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                        @booking.CustomerName?.Substring(0, 1)
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div>@booking.CustomerName</div>
+                                        </div>
+                                    </td>
+                                    <td>@booking.TaskTypeName</td>
+                                    <td>@booking.ScheduledTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        <span class="badge @booking.StatusBadgeClass">@booking.Status</span>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="TaskBooking" asp-action="Details" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i> Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4">Bạn chưa có lịch hẹn nào</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
