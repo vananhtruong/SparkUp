@@ -99,6 +99,24 @@
                 </div>
             </div>
 
+            @if (!Model.IsWorker && Model.PaymentStatus == "Unpaid")
+            {
+                <form asp-controller="Payment" asp-action="Pay" method="post" class="mb-3">
+                    <input type="hidden" name="taskId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-credit-card"></i> Thanh toán ngay
+                    </button>
+                </form>
+
+                <form asp-controller="Payment" asp-action="PayWithWallet" method="post" class="mb-3">
+                    <input type="hidden" name="taskId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-wallet2"></i> Thanh toán qua ví
+                    </button>
+                </form>
+            }
+
+
             <!-- Thao tác -->
             @if (Model.Status == "Pending" && Model.IsWorker)
             {

@@ -17,7 +17,7 @@ namespace SparkUp.Business
         public string Description { get; set; }
         public DateTime ScheduledTime { get; set; }
         public string Status { get; set; } // Pending / Confirmed / InProgress / Done / Canceled
-        public string PaymentStatus { get; set; } // Unpaid / Paid / Refunded
+        public string PaymentStatus { get; set; } // Unpaid / PAID / Refunded
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 

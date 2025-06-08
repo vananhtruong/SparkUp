@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SparkUp.Business;
 using SparkUp.MVC.Models;
 using SparkUp.MVC.Service;
+using Net.payOS;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,21 @@ builder.Services.Configure<SettingsDto>(
 // Register Services
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
+
+// Register PayOsService
+
+var configuration = builder.Configuration;
+string clientId = configuration["Environment:PAYOS_CLIENT_ID"] ?? throw new Exception("Missing PAYOS_CLIENT_ID");
+string apiKey = configuration["Environment:PAYOS_API_KEY"] ?? throw new Exception("Missing PAYOS_API_KEY");
+string checksumKey = configuration["Environment:PAYOS_CHECKSUM_KEY"] ?? throw new Exception("Missing PAYOS_CHECKSUM_KEY");
+
+// --- KH?I T?O VÀ ??NG KÝ payOS VÀO DI CONTAINER ---
+PayOS payOSClient = new PayOS(clientId, apiKey, checksumKey);
+builder.Services.AddSingleton(payOSClient);
+
+
+
+
 
 //add authentication
 builder.Services.AddAuthentication(options =>
