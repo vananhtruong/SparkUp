@@ -4,6 +4,7 @@ using Microsoft.Identity.Client;
 using Net.payOS;
 using Net.payOS.Types;
 using SparkUp.Business;
+using System.Threading.Tasks;
 
 namespace SparkUp.MVC.Controllers
 {
@@ -36,9 +37,10 @@ namespace SparkUp.MVC.Controllers
             }
 
             decimal amount = 2000m; // Gán cố định 2000 VND
-            // Tạo orderCode kiểu long duy nhất: sử dụng 6 chữ số cuối của UnixTimeMilliseconds
-            long orderCodeLong = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() % 1_000_000;
-            string orderCodeStr = orderCodeLong.ToString();
+
+            // Tạo orderCode kiểu long duy nhất
+            long uniquePart = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() % 1_000_000; // 6 chữ số cuối
+            long orderCodeLong = task.Id * 1_000_000 + uniquePart;
 
             try
             {
@@ -49,9 +51,9 @@ namespace SparkUp.MVC.Controllers
                     ?? $"{Request.Scheme}://{Request.Host}/PayOS/CancelUrl";
 
                 var paymentData = new PaymentData(
-                orderCode: task.Id,
+                orderCode: orderCodeLong,
                 amount: (int)amount,
-                description: $"Thanh toán {amount:N0} VNĐ",
+                description: $"Thanh toán đơn số {task.Id}",
                 items: null,
                 cancelUrl: cancelUrl,
                 returnUrl: returnUrl
@@ -78,7 +80,14 @@ namespace SparkUp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> ReturnUrl(string status, string orderCode, string paymentId, string signature)
         {
-            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == int.Parse(orderCode));
+            if (!long.TryParse(orderCode, out long orderCodeLong))
+            {
+                TempData["Error"] = "Order code không hợp lệ";
+                return RedirectToAction("MyBookings", "TaskBooking");
+            }
+
+            int taskId = (int)(orderCodeLong / 1_000_000);
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == taskId);
             task.PaymentStatus = status;
             _context.Tasks.Update(task);
             await _context.SaveChangesAsync();
@@ -91,12 +100,20 @@ namespace SparkUp.MVC.Controllers
 
 
         // GET: /PayOS/CancelUrl
-        //[HttpGet]
-        //public IActionResult CancelUrl(string orderCode)
-        //{
-        //    ViewBag.Message = "Bạn đã hủy giao dịch hoặc thanh toán không thành công.";
-        //    return View("Failed");
-        //}
+        [HttpGet]
+        public async Task<IActionResult> CancelUrl(string orderCode)
+        {
+            if (!long.TryParse(orderCode, out long orderCodeLong))
+            {
+                TempData["Error"] = "Order code không hợp lệ";
+                return RedirectToAction("MyBookings", "TaskBooking");
+            }
+
+            int taskId = (int)(orderCodeLong / 1_000_000);
+            var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == taskId);
+            ViewBag.Message = "Bạn đã hủy giao dịch hoặc thanh toán không thành công.";
+            return RedirectToAction("Details", "TaskBooking", new { id = task.Id });
+        }
 
     }
 }
