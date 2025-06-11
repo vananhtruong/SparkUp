@@ -1,0 +1,51 @@
+﻿@model SparkUp.MVC.Models.TopUpViewModel
+
+@{
+    ViewData["Title"] = "Nạp tiền vào ví";
+}
+<div class="container py-5" style="max-width:420px;">
+    <div class="card border-0 shadow-lg rounded-4 p-4">
+        <div class="text-center mb-4">
+            <div class="rounded-circle bg-gradient text-white d-flex align-items-center justify-content-center mb-2" style="width:60px; height:60px; background:linear-gradient(135deg,#39f 0,#06f 100%); font-size:2rem;">
+                <i class="bi bi-wallet2"></i>
+            </div>
+            <h3 class="fw-bold mb-1">Nạp tiền vào ví</h3>
+            <div class="text-muted small">Tiện lợi - Nhanh chóng - Bảo mật</div>
+        </div>
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["Success"]
+            </div>
+        }
+        <form method="post" asp-action="TopUp" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="amount" class="form-label fw-semibold">Số tiền muốn nạp</label>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text bg-light"><i class="bi bi-cash-stack"></i></span>
+                    <input type="number" min="1000" step="1000" max="100000000"
+                           class="form-control" id="amount" name="amount"
+                           placeholder="Nhập số tiền (VNĐ)" required autocomplete="off" />
+                </div>
+                <div class="form-text text-secondary">Tối thiểu 1.000đ, tối đa 100.000.000đ</div>
+                <span asp-validation-for="Amount" class="text-danger small"></span>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg w-100 rounded-pill shadow-sm mt-3 fw-bold">
+                <i class="bi bi-plus-circle me-2"></i> Nạp tiền
+            </button>
+        </form>
+        <hr class="my-4" />
+        <div class="text-center text-secondary" style="font-size:13px;">
+            Mọi giao dịch đều được mã hóa và bảo vệ <i class="bi bi-shield-lock"></i>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Optional: focus auto vào input số tiền khi mở trang
+        setTimeout(function () {
+            document.getElementById('amount').focus();
+        }, 350);
+    </script>
+}

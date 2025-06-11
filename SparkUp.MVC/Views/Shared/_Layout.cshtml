@@ -122,6 +122,21 @@
                                     <span>@User.Identity.Name</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li class="dropdown-item-text px-3 pt-3 pb-2" style="min-width: 210px;">
+                                        <div class="fw-semibold" style="font-size: 14px;">Số dư tài khoản</div>
+                                        <div class="d-flex align-items-center mt-1" style="font-size: 22px; font-weight: bold;">
+                                            <span id="user-balance">0đ</span>
+                                            <a asp-controller="Wallet" asp-action="TopUp"
+                                               class="ms-2 d-inline-flex align-items-center"
+                                               style="color: #3b82f6; font-size: 22px; text-decoration: none;"
+                                               title="Nạp tiền">
+                                                <i class="bi bi-plus-circle"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+
+
                                     <li><a class="dropdown-item" asp-controller="User" asp-action="Profile"><i class="bi bi-person me-2"></i>Hồ sơ cá nhân</a></li>
                                       @if (isWorker)
                                     {
@@ -211,5 +226,19 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/script.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            // Giả sử bạn có accountId từ User claim hoặc Model
+            var accountId = '@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value';
+            if (accountId) {
+                $.get('/api/walletapi/balance/' + accountId, function (data) {
+                    $('#user-balance').text(Number(data.balance).toLocaleString() + 'đ');
+                }).fail(function () {
+                    $('#user-balance').text('0đ');
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>
