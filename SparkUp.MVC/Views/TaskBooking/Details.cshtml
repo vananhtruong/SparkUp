@@ -4,6 +4,21 @@
     var statusColor = Model.StatusBadgeClass.Replace("bg-", "text-");
     var paymentColor = Model.PaymentStatusBadgeClass.Replace("bg-", "text-");
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 
 <div class="container py-4">
     <!-- Breadcrumb -->

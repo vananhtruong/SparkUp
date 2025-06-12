@@ -88,7 +88,7 @@ namespace SparkUp.MVC.Controllers
 
             int taskId = (int)(orderCodeLong / 1_000_000);
             var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == taskId);
-            task.PaymentStatus = status;
+            task.PaymentStatus = "Paid";
             _context.Tasks.Update(task);
             await _context.SaveChangesAsync();
 
@@ -114,6 +114,80 @@ namespace SparkUp.MVC.Controllers
             ViewBag.Message = "Bạn đã hủy giao dịch hoặc thanh toán không thành công.";
             return RedirectToAction("Details", "TaskBooking", new { id = task.Id });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PayWithWallet(int taskId)
+        {
+            // Lấy user hiện tại
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                TempData["Error"] = "Không xác định được người dùng.";
+                return RedirectToAction("Details", "TaskBooking", new { id = taskId });
+            }
+            int uid = int.Parse(userId);
+
+            // Tìm task booking
+            var task = await _context.Tasks
+                .Include(t => t.Customer)
+                .FirstOrDefaultAsync(t => t.Id == taskId);
+
+            if (task == null)
+            {
+                TempData["Error"] = "Không tìm thấy đơn đặt lịch.";
+                return RedirectToAction("MyBookings", "TaskBooking");
+            }
+
+            if (task.PaymentStatus == "Paid")
+            {
+                TempData["SuccessMessage"] = "Đơn hàng đã được thanh toán.";
+                return RedirectToAction("Details", "TaskBooking", new { id = taskId });
+            }
+
+            // Số tiền cần thanh toán (demo: 2000, thực tế lấy từ task.Price hoặc field tương ứng)
+            decimal amount = 2000m;
+
+            // Tìm ví khách hàng
+            var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == uid);
+            if (wallet == null || wallet.IsLocked)
+            {
+                TempData["Error"] = "Ví của bạn không khả dụng.";
+                return RedirectToAction("Details", "TaskBooking", new { id = taskId });
+            }
+
+            if (wallet.Balance < amount)
+            {
+                TempData["Error"] = "Số dư ví không đủ để thanh toán.";
+                return RedirectToAction("Details", "TaskBooking", new { id = taskId });
+            }
+
+            // Trừ tiền
+            wallet.Balance -= amount;
+            wallet.UpdatedAt = DateTime.Now;
+
+            // Tạo lịch sử giao dịch
+            var transaction = new WalletTransaction
+            {
+                WalletId = wallet.Id,
+                Amount = -amount,
+                Type = "Payment",
+                TaskId = taskId,
+                Description = $"Thanh toán đơn đặt lịch #{taskId}",
+                CreatedAt = DateTime.Now,
+                Status = "Success"
+            };
+            _context.WalletTransactions.Add(transaction);
+
+            // Đánh dấu đơn đã thanh toán
+            task.PaymentStatus = "Paid";
+            _context.Tasks.Update(task);
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Thanh toán qua ví thành công!";
+            return RedirectToAction("Details", "TaskBooking", new { id = taskId });
+        }
+
 
     }
 }
