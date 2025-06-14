@@ -59,6 +59,13 @@ namespace SparkUp.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Logout()
+        {
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index");
+        }
+
         public async System.Threading.Tasks.Task GoogleLogin()
         {
             await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties()
@@ -226,9 +233,22 @@ namespace SparkUp.MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult WorkerRegister()
+        public async Task<IActionResult> WorkerRegisterView()
         {
-            return View();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = _context.Users.Find(Int32.Parse(userId??"0"));
+            if(currentUser==null || currentUser.Role != "Customer")
+            {
+                return RedirectToAction("Authentication", "Index");
+            }
+            var taskTypes = await _context.TaskTypes.ToListAsync();
+            ViewBag.TaskTypes = taskTypes;
+            return View("WorkerRegister");
+        }
+
+        public Task<IActionResult> WorkerRegister(WorkerCertificate certificate)
+        {
+            return null;
         }
     }
 }

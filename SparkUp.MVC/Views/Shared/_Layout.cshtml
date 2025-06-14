@@ -2,6 +2,7 @@
 @{
     var isAuthenticated = User.Identity?.IsAuthenticated?? false;
     var isWorker = User.IsInRole("Worker");
+    var isCustomer = User.IsInRole("Customer");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -42,11 +43,37 @@
                     </ul>
                     <div class="d-flex gap-2 align-items-center">
                         @if(isAuthenticated){
-                            @if(isWorker){
-                                <a href="#" class="hf-nav-btn-login">Bảng công việc</a>
-                            }else{
-                                <a href="#" class="hf-nav-btn-login">Đăng ký làm thợ</a>
-                            }
+
+                            <div class="dropdown">
+                                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://ui-avatars.com/api/?name=@User.Identity?.Name&background=random" alt="Avatar" class="rounded-circle" width="32" height="32">
+                                    <span class="ms-2 d-none d-sm-inline-block">@User.Identity?.Name</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                                    @if (isWorker)
+                                    {
+                                        <li><a href="#" class="bi bi-person me-2">Bảng công việc</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Chỉnh Sửa thông tin cá nhân thợ</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    }
+                                    else if(isCustomer)
+                                    {
+                                        <li><a asp-controller="Authentication" asp-action="WorkerRegisterView" class="bi bi-person me-2">Đăng ký làm thợ</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    }
+                                    
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Thông Tin Cá Nhân</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Authentication" asp-action="Logout">
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                <i class="bi bi-box-arrow-right me-2"></i>Thoát
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         }else{
                             <a asp-action="Index" asp-controller="Authentication" class="hf-nav-btn-login">Đăng nhập</a>
                         }
