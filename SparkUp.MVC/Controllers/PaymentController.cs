@@ -44,11 +44,8 @@ namespace SparkUp.MVC.Controllers
 
             try
             {
-                // Build returnUrl / cancelUrl (nếu đã config trong appsettings.json)
-                string returnUrl = _configuration["Environment:PAYOS_RETURN_URL"]
-                    ?? $"{Request.Scheme}://{Request.Host}/PayOS/ReturnUrl";
-                string cancelUrl = _configuration["Environment:PAYOS_CANCEL_URL"]
-                    ?? $"{Request.Scheme}://{Request.Host}/PayOS/CancelUrl";
+                string returnUrl = $"{Request.Scheme}://{Request.Host}/Payment/ReturnUrl";
+                string cancelUrl = $"{Request.Scheme}://{Request.Host}/Payment/CancelUrl";
 
                 var paymentData = new PaymentData(
                 orderCode: orderCodeLong,
