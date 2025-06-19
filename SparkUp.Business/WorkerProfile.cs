@@ -4,10 +4,10 @@
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string Skills { get; set; }
         public string Description { get; set; }
         public int ExperienceYears { get; set; }
         public string PortfolioUrl { get; set; }
+        public string Skills { get; set; } // Comma-separated list of skills
         public float RatingAverage { get; set; }
         public bool IsConfirmed { get; set; }
         public string ApprovalStatus { get; set; } = "Pending";

@@ -91,3 +91,132 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+@model SparkUp.Business.WorkerProfile
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Đăng Ký Làm Thợ</h2>
+                    <p class="text-muted text-center mb-4">Vui lòng điền thông tin và tải lên chứng chỉ của bạn</p>
+
+                    <form asp-action="WorkerRegister" asp-controller="Authentication" method="post" enctype="multipart/form-data">
+                        <div class="mb-4">
+                            <label class="form-label">Loại Dịch Vụ</label>
+                            <select class="form-select" name="WorkTypeId" required>
+                                <option value="">Chọn loại dịch vụ</option>
+                                @foreach (var taskType in ViewBag.TaskTypes)
+                                {
+                                    <option value="@taskType.Id">@taskType.Name</option>
+                                }
+                            </select>
+                            <div class="form-text">Chọn một loại dịch vụ bạn muốn đăng ký</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Portfolio URL</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                                <input type="url" class="form-control" asp-for="PortfolioUrl" placeholder="https://example.com/portfolio" required>
+                            </div>
+                            <div class="form-text">Nhập URL portfolio hoặc chứng chỉ của bạn (PDF hoặc hình ảnh)</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Mô Tả</label>
+                            <textarea class="form-control" asp-for="Description" rows="3" placeholder="Giới thiệu ngắn gọn về bản thân và dịch vụ của bạn..." required></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Số Năm Kinh Nghiệm</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" asp-for="ExperienceYears" min="0" max="50" required>
+                                <span class="input-group-text">năm</span>
+                            </div>
+                            <div class="form-text">Nhập số năm kinh nghiệm làm việc của bạn</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Kỹ Năng</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="skillInput" placeholder="Nhập kỹ năng và nhấn Enter" asp-for="Skills">
+                            </div>
+                            <div class="form-text">Nhập các kỹ năng của bạn</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-send me-2"></i>Gửi Yêu Cầu
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Initialize select2 for single select
+        $(document).ready(function() {
+            $('select[name="WorkTypeId"]').select2({
+                placeholder: "Chọn loại dịch vụ",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+}
+
+<style>
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        height: 38px;
+        display: flex;
+        align-items: center;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--single {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 38px;
+        padding-left: 12px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-primary {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .badge {
+        font-size: 0.875rem;
+        font-weight: normal;
+    }
+
+    .btn-close {
+        opacity: 0.8;
+    }
+
+    .btn-close:hover {
+        opacity: 1;
+    }
+</style> 

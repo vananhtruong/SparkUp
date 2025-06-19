@@ -14,6 +14,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SparkUp.MVC.Controllers
 {
@@ -63,6 +65,13 @@ namespace SparkUp.MVC.Controllers
                 
                 return RedirectToAction("Index", "Home");
             }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index");
         }
 
@@ -241,12 +250,12 @@ namespace SparkUp.MVC.Controllers
 
         }
 
-        public IActionResult ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword(string email)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
             if (user != null)
             {
-                //var template = _context.EmailTemplates.FirstOrDefault(t => t.Purpose.Equals("ForgotPassword"));
+                var template = _context.EmailTemplates.FirstOrDefault(t => t.Purpose.Equals("ForgotPassword"));
                 //create link for reset password
                 var rawToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
 
@@ -255,9 +264,10 @@ namespace SparkUp.MVC.Controllers
 
                 //create link
                 var link = $"{_settings.Domain}Authentication/ResetPasswordView?token={rawToken}";
+                template.Body = template.Body.Replace("{ResetLink}", link);
 
                 //send email
-                //_emailSender.SendEmailAsync(user.Email, template.Header, template.Body.Replace("{link}", link));
+                await _emailSender.SendEmailAsync(user.Email, template.Header, template.Body);
             }
             return RedirectToAction("ForgotPasswordView");
         }

@@ -17,20 +17,24 @@ namespace SparkUp.MVC.Service
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            var client = new SmtpClient("smtp.gmail.com", 587)
+            using var client = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential(_emailSenderDto.Email, _emailSenderDto.Password),
                 EnableSsl = true,
+                Timeout = 20000 // 20 seconds
             };
 
-            return client.SendMailAsync(new MailMessage
+            using var mailMessage = new MailMessage
             {
                 From = new MailAddress(_emailSenderDto.Email),
-                To = { email },
                 Subject = subject,
                 Body = message,
-                IsBodyHtml = true,
-            });
+                IsBodyHtml = true
+            };
+
+            mailMessage.To.Add(email);
+
+            return client.SendMailAsync(mailMessage);
         }
     }
 }

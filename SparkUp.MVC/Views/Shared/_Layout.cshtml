@@ -1,7 +1,8 @@
 ﻿@using System.Security.Claims
 @{
-    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    var isAuthenticated = User.Identity?.IsAuthenticated?? false;
     var isWorker = User.IsInRole("Worker");
+    var isCustomer = User.IsInRole("Customer");
 }
 <!DOCTYPE html>
 <html lang="en">
