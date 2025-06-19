@@ -14,6 +14,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SparkUp.MVC.Controllers
 {
@@ -187,12 +188,12 @@ namespace SparkUp.MVC.Controllers
 
         }
 
-        public IActionResult ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword(string email)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
             if (user != null)
             {
-                //var template = _context.EmailTemplates.FirstOrDefault(t => t.Purpose.Equals("ForgotPassword"));
+                var template = _context.EmailTemplates.FirstOrDefault(t => t.Purpose.Equals("ForgotPassword"));
                 //create link for reset password
                 var rawToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
 
@@ -201,9 +202,10 @@ namespace SparkUp.MVC.Controllers
 
                 //create link
                 var link = $"{_settings.Domain}Authentication/ResetPasswordView?token={rawToken}";
+                template.Body = template.Body.Replace("{ResetLink}", link);
 
                 //send email
-                //_emailSender.SendEmailAsync(user.Email, template.Header, template.Body.Replace("{link}", link));
+                await _emailSender.SendEmailAsync(user.Email, template.Header, template.Body);
             }
             return RedirectToAction("ForgotPasswordView");
         }
@@ -233,6 +235,7 @@ namespace SparkUp.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> WorkerRegisterView()
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -246,9 +249,27 @@ namespace SparkUp.MVC.Controllers
             return View("WorkerRegister");
         }
 
-        public Task<IActionResult> WorkerRegister(WorkerCertificate certificate)
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> WorkerRegister(WorkerProfile profile, int WorkTypeId)
         {
-            return null;
+            var userID = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0";
+            profile.UserId = Int32.Parse(userID);
+            profile.IsConfirmed = false;
+            profile.RatingAverage = 0;
+
+            await _context.WorkerProfiles.AddAsync(profile);
+            await _context.SaveChangesAsync();
+
+            var newTaskType = new WorkerTaskType()
+            {
+                WorkerProfileId = profile.Id,
+                TaskTypeId = WorkTypeId
+            };
+
+            await _context.WorkerTaskTypes.AddAsync(newTaskType);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

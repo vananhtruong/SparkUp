@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Worker Register";
 }
+@model SparkUp.Business.WorkerProfile
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -24,50 +25,34 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Chứng Chỉ Hành Nghề</label>
-                            <div class="btn-group w-100 mb-3" role="group">
-                                <input type="radio" class="btn-check" name="certificateType" id="uploadType" value="upload" checked>
-                                <label class="btn btn-outline-primary" for="uploadType">
-                                    <i class="bi bi-upload me-2"></i>Tải lên file
-                                </label>
-                                <input type="radio" class="btn-check" name="certificateType" id="urlType" value="url">
-                                <label class="btn btn-outline-primary" for="urlType">
-                                    <i class="bi bi-link-45deg me-2"></i>Nhập URL
-                                </label>
+                            <label class="form-label">Portfolio URL</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                                <input type="url" class="form-control" asp-for="PortfolioUrl" placeholder="https://example.com/portfolio" required>
                             </div>
-
-                            <!-- File Upload Section -->
-                            <div id="uploadSection">
-                                <div class="input-group">
-                                    <input type="file" class="form-control" name="Certificate" accept=".pdf,.jpg,.jpeg,.png">
-                                    <button class="btn btn-outline-secondary" type="button" id="previewBtn">
-                                        <i class="bi bi-eye"></i> Xem trước
-                                    </button>
-                                </div>
-                                <div class="form-text">Chấp nhận file PDF, JPG, JPEG, PNG (tối đa 5MB)</div>
-                            </div>
-
-                            <!-- URL Input Section -->
-                            <div id="urlSection" style="display: none;">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-                                    <input type="url" class="form-control" name="CertificateUrl" placeholder="https://example.com/certificate.pdf">
-                                </div>
-                                <div class="form-text">Nhập URL chứng chỉ của bạn (PDF hoặc hình ảnh)</div>
-                            </div>
-
-                            <div class="mb-4" id="previewContainer" style="display: none;">
-                                <div class="card">
-                                    <div class="card-body p-2">
-                                        <img id="previewImage" class="img-fluid" alt="Preview">
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="form-text">Nhập URL portfolio hoặc chứng chỉ của bạn (PDF hoặc hình ảnh)</div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Kinh Nghiệm Làm Việc</label>
-                            <textarea class="form-control" name="Experience" rows="3" placeholder="Mô tả kinh nghiệm làm việc của bạn..." required></textarea>
+                            <label class="form-label">Mô Tả</label>
+                            <textarea class="form-control" asp-for="Description" rows="3" placeholder="Giới thiệu ngắn gọn về bản thân và dịch vụ của bạn..." required></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Số Năm Kinh Nghiệm</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" asp-for="ExperienceYears" min="0" max="50" required>
+                                <span class="input-group-text">năm</span>
+                            </div>
+                            <div class="form-text">Nhập số năm kinh nghiệm làm việc của bạn</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Kỹ Năng</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="skillInput" placeholder="Nhập kỹ năng và nhấn Enter" asp-for="Skills">
+                            </div>
+                            <div class="form-text">Nhập các kỹ năng của bạn</div>
                         </div>
 
                         <div class="d-grid gap-2">
@@ -84,57 +69,6 @@
 
 @section Scripts {
     <script>
-        // Toggle between upload and URL sections
-        document.querySelectorAll('input[name="certificateType"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const uploadSection = document.getElementById('uploadSection');
-                const urlSection = document.getElementById('urlSection');
-                const previewContainer = document.getElementById('previewContainer');
-                
-                if (this.value === 'upload') {
-                    uploadSection.style.display = 'block';
-                    urlSection.style.display = 'none';
-                    document.querySelector('input[name="Certificate"]').required = true;
-                    document.querySelector('input[name="CertificateUrl"]').required = false;
-                } else {
-                    uploadSection.style.display = 'none';
-                    urlSection.style.display = 'block';
-                    document.querySelector('input[name="Certificate"]').required = false;
-                    document.querySelector('input[name="CertificateUrl"]').required = true;
-                    previewContainer.style.display = 'none';
-                }
-            });
-        });
-
-        // Preview uploaded image
-        document.querySelector('input[type="file"]').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const previewContainer = document.getElementById('previewContainer');
-                    const previewImage = document.getElementById('previewImage');
-                    
-                    if (file.type.startsWith('image/')) {
-                        previewImage.src = e.target.result;
-                        previewContainer.style.display = 'block';
-                    } else {
-                        previewContainer.style.display = 'none';
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Preview button click handler
-        document.getElementById('previewBtn').addEventListener('click', function() {
-            const fileInput = document.querySelector('input[type="file"]');
-            if (fileInput.files.length > 0) {
-                const previewContainer = document.getElementById('previewContainer');
-                previewContainer.style.display = previewContainer.style.display === 'none' ? 'block' : 'none';
-            }
-        });
-
         // Initialize select2 for single select
         $(document).ready(function() {
             $('select[name="WorkTypeId"]').select2({
@@ -183,22 +117,16 @@
         padding: 0.75rem 1.5rem;
     }
 
-    #previewContainer {
-        max-height: 300px;
-        overflow: hidden;
+    .badge {
+        font-size: 0.875rem;
+        font-weight: normal;
     }
 
-    #previewImage {
-        max-height: 300px;
-        object-fit: contain;
+    .btn-close {
+        opacity: 0.8;
     }
 
-    .btn-check:checked + .btn-outline-primary {
-        background-color: #0d6efd;
-        color: white;
-    }
-
-    .btn-group {
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    .btn-close:hover {
+        opacity: 1;
     }
 </style> 
