@@ -6,16 +6,18 @@ using SparkUp.MVC.Service;
 using Task = SparkUp.Business.Task;
 
 namespace SparkUp.MVC.Controllers
-{
-    public class TaskBookingController : Controller
+{    public class TaskBookingController : Controller
     {
         private readonly AppDbContext _context;
         private readonly INotificationService _notificationService;
+        private readonly IChatService _chatService;
 
-        public TaskBookingController(AppDbContext context, INotificationService notificationService)
+        public TaskBookingController(AppDbContext context, INotificationService notificationService, IChatService chatService)
         {
             _context = context;
-            _notificationService = notificationService;        }
+            _notificationService = notificationService;
+            _chatService = chatService;
+        }
 
         // GET: TaskBooking/Create
         public async Task<IActionResult> Create(int workerId, int? taskTypeId = null)
@@ -470,12 +472,11 @@ namespace SparkUp.MVC.Controllers
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
             {
                 return RedirectToAction("Index", "Home");
-            }
-
-            var booking = await _context.Tasks
+            }            var booking = await _context.Tasks
                 .Include(t => t.Worker)
                 .Include(t => t.Customer)
                 .Include(t => t.TaskType)
+                .Include(t => t.ChatRoom)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (booking == null)
@@ -487,7 +488,13 @@ namespace SparkUp.MVC.Controllers
             if (booking.WorkerId != userId && booking.CustomerId != userId)
             {
                 return Forbid();
-            }            var viewModel = new TaskBookingDetailViewModel
+            }
+
+            // Determine chat room status
+            bool hasChatRoom = booking.ChatRoom != null;
+            bool canStartChat = booking.Status == "Accepted" || booking.Status == "InProgress" || booking.Status == "Completed";
+
+            var viewModel = new TaskBookingDetailViewModel
             {
                 Id = booking.Id,
                 WorkerName = booking.Worker.FullName,
@@ -503,7 +510,10 @@ namespace SparkUp.MVC.Controllers
                 PaymentStatus = booking.PaymentStatus,
                 EstimatedWork = booking.EstimatedWork,
                 CreatedAt = booking.CreatedAt,
-                IsWorker = booking.WorkerId == userId
+                IsWorker = booking.WorkerId == userId,
+                ChatRoomId = booking.ChatRoom?.Id,
+                HasChatRoom = hasChatRoom,
+                CanStartChat = canStartChat
             };
 
             return View(viewModel);
@@ -546,6 +556,24 @@ namespace SparkUp.MVC.Controllers
             _context.Update(booking);
             await _context.SaveChangesAsync();
 
+            // Tự động tạo chat room khi booking được chấp nhận
+            if (status == "Accepted")
+            {
+                var existingChatRoom = await _context.ChatRooms
+                    .FirstOrDefaultAsync(c => c.TaskId == id);
+                
+                if (existingChatRoom == null)
+                {
+                    var chatRoom = await _chatService.CreateChatRoomAsync(id);
+                    if (chatRoom != null)
+                    {
+                        // Gửi thông báo chào mừng vào chat room
+                        await _chatService.SendSystemMessageAsync(chatRoom.Id, 
+                            "Phòng chat đã được tạo thành công. Bạn có thể bắt đầu trò chuyện với nhau.");
+                    }
+                }
+            }
+
             // Tạo thông báo dựa trên trạng thái mới
             string action = status.ToLower() switch
             {
@@ -572,6 +600,67 @@ namespace SparkUp.MVC.Controllers
             }
 
             return RedirectToAction(nameof(Details), new { id });
+        }
+
+        // POST: TaskBooking/StartChat/5
+        [HttpPost]
+        public async Task<IActionResult> StartChat(int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Authentication");
+            }
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var booking = await _context.Tasks
+                .Include(t => t.ChatRoom)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            // Kiểm tra quyền truy cập (chỉ worker hoặc customer của booking này)
+            if (booking.WorkerId != userId && booking.CustomerId != userId)
+            {
+                return Forbid();
+            }
+
+            // Kiểm tra trạng thái booking có cho phép chat không
+            if (booking.Status != "Accepted" && booking.Status != "InProgress" && booking.Status != "Completed")
+            {
+                TempData["ErrorMessage"] = "Chỉ có thể chat khi công việc đã được chấp nhận.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            // Tìm hoặc tạo chat room
+            ChatRoom chatRoom;
+            if (booking.ChatRoom != null)
+            {
+                chatRoom = booking.ChatRoom;
+            }
+            else
+            {
+                chatRoom = await _chatService.CreateChatRoomAsync(id);
+                if (chatRoom == null)
+                {
+                    TempData["ErrorMessage"] = "Không thể tạo phòng chat. Vui lòng thử lại.";
+                    return RedirectToAction(nameof(Details), new { id });
+                }
+
+                // Gửi thông báo chào mừng
+                await _chatService.SendSystemMessageAsync(chatRoom.Id, 
+                    "Phòng chat đã được tạo thành công. Bạn có thể bắt đầu trò chuyện với nhau.");
+            }
+
+            // Chuyển hướng đến chat room
+            return RedirectToAction("Room", "Chat", new { id = chatRoom.Id });
         }
     }
 }

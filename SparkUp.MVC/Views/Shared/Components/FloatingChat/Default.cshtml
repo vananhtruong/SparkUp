@@ -1,0 +1,393 @@
+@model SparkUp.MVC.Models.FloatingChatViewModel
+
+<!-- Floating Chat Component -->
+@if (Model.CanShowChat)
+{
+    <!-- Chat Toggle Button -->
+    <div id="floating-chat-container" class="floating-chat-container">
+        <button id="chat-toggle-btn" class="chat-toggle-btn" onclick="toggleFloatingChat()">
+            <i class="bi bi-chat-dots"></i>
+            @if (Model.UnreadCount > 0)
+            {
+                <span class="chat-badge">@Model.UnreadCount</span>
+            }
+        </button>
+
+        <!-- Floating Chat Window -->
+        <div id="floating-chat-window" class="floating-chat-window" style="display: none;">
+            <div class="chat-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-0 text-white">@Model.TaskTitle</h6>
+                        <small class="text-white-50">
+                            Chat với @(Model.IsWorker ? Model.CustomerName : Model.WorkerName)
+                        </small>
+                    </div>
+                    <div class="chat-controls">
+                        @if (Model.ChatRoomId.HasValue)
+                        {
+                            <button class="btn btn-sm btn-outline-light me-1" onclick="expandChat()" title="Mở rộng">
+                                <i class="bi bi-arrows-fullscreen"></i>
+                            </button>
+                        }
+                        <button class="btn btn-sm btn-outline-light" onclick="toggleFloatingChat()" title="Thu gọn">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-body">
+                @if (Model.ChatRoomId.HasValue)
+                {
+                    <div id="mini-chat-messages" class="mini-chat-messages">
+                        <div class="text-center text-muted py-3">
+                            <i class="bi bi-chat-dots"></i><br>
+                            <small>Đang tải tin nhắn...</small>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="mini-chat-messages d-flex align-items-center justify-content-center">
+                        <div class="text-center text-muted">
+                            <i class="bi bi-chat-plus display-4"></i>
+                            <p class="small mt-2">Chưa có phòng chat</p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (Model.ChatRoomId.HasValue)
+            {
+                <div class="chat-footer">
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="mini-message-input" class="form-control" 
+                               placeholder="Nhập tin nhắn..." maxlength="500">
+                        <button id="mini-send-btn" class="btn btn-primary" onclick="sendMiniMessage()">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="chat-footer">
+                    <div class="text-center">
+                        <small class="text-muted">Phòng chat sẽ được tạo khi công việc được chấp nhận</small>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <style>
+    .floating-chat-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1050;
+    }
+
+    .chat-toggle-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #007bff;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        position: relative;
+        font-size: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .chat-toggle-btn:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .chat-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #dc3545;
+        color: white;
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .floating-chat-window {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        width: 350px;
+        height: 400px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        animation: slideInUp 0.3s ease-out;
+    }
+
+    @@keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .chat-header {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        padding: 12px 15px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .chat-body {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mini-chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        background: #f8f9fa;
+    }
+
+    .chat-footer {
+        padding: 10px;
+        border-top: 1px solid #e0e0e0;
+        background: white;
+    }
+
+    .mini-message {
+        margin-bottom: 8px;
+        max-width: 80%;
+    }
+
+    .mini-message.sent {
+        margin-left: auto;
+        text-align: right;
+    }
+
+    .mini-message .message-bubble {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 18px;
+        font-size: 14px;
+        line-height: 1.4;
+        word-wrap: break-word;
+    }
+
+    .mini-message.sent .message-bubble {
+        background: #007bff;
+        color: white;
+    }
+
+    .mini-message.received .message-bubble {
+        background: white;
+        color: #333;
+        border: 1px solid #e0e0e0;
+    }
+
+    .mini-message .message-time {
+        font-size: 11px;
+        color: #6c757d;
+        margin-top: 2px;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .floating-chat-window {
+            width: calc(100vw - 40px);
+            right: -10px;
+        }
+        
+        .floating-chat-container {
+            right: 10px;
+        }
+    }
+    </style>
+
+    <script>
+    let floatingChatConfig = {
+        chatRoomId: @(Model.ChatRoomId?.ToString() ?? "null"),
+        currentUserId: @Model.CurrentUserId,
+        taskTitle: '@Html.Raw(Html.Encode(Model.TaskTitle))',
+        isWorker: @Model.IsWorker.ToString().ToLower()
+    };
+
+    let miniChatConnection = null;
+    let isFloatingChatInitialized = false;
+
+    function initializeFloatingChat() {
+        if (isFloatingChatInitialized || !floatingChatConfig.chatRoomId) return;
+        
+        // Khởi tạo SignalR connection cho mini chat
+        miniChatConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        miniChatConnection.start().then(function () {
+            console.log('Mini chat connected');
+            // Join chat room
+            miniChatConnection.invoke("JoinChatRoom", floatingChatConfig.chatRoomId.toString());
+            
+            // Load recent messages
+            loadMiniChatMessages();
+            isFloatingChatInitialized = true;
+        }).catch(function (err) {
+            console.error('Mini chat connection error:', err);
+        });
+
+        // Listen for new messages
+        miniChatConnection.on("ReceiveMessage", function (message) {
+            appendMiniMessage(message);
+            updateUnreadCount();
+        });
+    }
+
+    function toggleFloatingChat() {
+        const chatWindow = document.getElementById('floating-chat-window');
+        const toggleBtn = document.getElementById('chat-toggle-btn');
+        
+        if (chatWindow.style.display === 'none') {
+            chatWindow.style.display = 'flex';
+            toggleBtn.innerHTML = '<i class="bi bi-dash"></i>';
+            clearUnreadCount();
+            
+            // Initialize chat connection when first opened
+            if (floatingChatConfig.chatRoomId && !isFloatingChatInitialized) {
+                initializeFloatingChat();
+            }
+        } else {
+            chatWindow.style.display = 'none';
+            toggleBtn.innerHTML = '<i class="bi bi-chat-dots"></i>';
+        }
+    }
+
+    function expandChat() {
+        if (floatingChatConfig && floatingChatConfig.chatRoomId) {
+            window.open(`/Chat/Room/${floatingChatConfig.chatRoomId}`, '_blank');
+        }
+    }
+
+    function sendMiniMessage() {
+        const input = document.getElementById('mini-message-input');
+        const message = input.value.trim();
+        
+        if (message && miniChatConnection && floatingChatConfig.chatRoomId) {
+            miniChatConnection.invoke("SendMessage", floatingChatConfig.chatRoomId.toString(), message)
+                .then(function () {
+                    input.value = '';
+                })
+                .catch(function (err) {
+                    console.error('Send message error:', err);
+                });
+        }
+    }
+
+    function loadMiniChatMessages() {
+        if (!floatingChatConfig?.chatRoomId) return;
+        
+        fetch(`/Chat/GetMessages/${floatingChatConfig.chatRoomId}?limit=10`)
+            .then(response => response.json())
+            .then(messages => {
+                const container = document.getElementById('mini-chat-messages');
+                container.innerHTML = '';
+                
+                messages.forEach(message => {
+                    appendMiniMessage(message);
+                });
+                
+                // Scroll to bottom
+                container.scrollTop = container.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error loading messages:', error);
+                const container = document.getElementById('mini-chat-messages');
+                container.innerHTML = '<div class="text-center text-danger py-3"><small>Lỗi tải tin nhắn</small></div>';
+            });
+    }
+
+    function appendMiniMessage(message) {
+        const container = document.getElementById('mini-chat-messages');
+        if (!container) return;
+        
+        const isSent = message.senderId == floatingChatConfig.currentUserId;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `mini-message ${isSent ? 'sent' : 'received'}`;
+        
+        const time = new Date(message.sentAt).toLocaleTimeString('vi-VN', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        messageDiv.innerHTML = `
+            <div class="message-bubble">${escapeHtml(message.content)}</div>
+            <div class="message-time">${time}</div>
+        `;
+        
+        container.appendChild(messageDiv);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function updateUnreadCount() {
+        const chatWindow = document.getElementById('floating-chat-window');
+        const badge = document.querySelector('.chat-badge');
+        
+        if (chatWindow && chatWindow.style.display === 'none') {
+            // Increment unread count logic here
+            if (!badge) {
+                const toggleBtn = document.getElementById('chat-toggle-btn');
+                if (toggleBtn) {
+                    toggleBtn.innerHTML += '<span class="chat-badge">1</span>';
+                }
+            }
+        }
+    }
+
+    function clearUnreadCount() {
+        const badge = document.querySelector('.chat-badge');
+        if (badge) {
+            badge.remove();
+        }
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Handle Enter key in mini chat input
+    document.addEventListener('DOMContentLoaded', function() {
+        const miniInput = document.getElementById('mini-message-input');
+        if (miniInput) {
+            miniInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMiniMessage();
+                }
+            });
+        }
+    });
+    </script>
+}

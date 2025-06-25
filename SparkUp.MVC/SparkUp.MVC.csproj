@@ -1,20 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-	<PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
-
-	<ItemGroup>
+		
+		<!-- Disable Static Web Assets Compression to avoid conflicts -->
+		<SkipStaticWebAssetsBuildAndCompression>true</SkipStaticWebAssetsBuildAndCompression>
+		<EnableStaticWebAssetCompression>false</EnableStaticWebAssetCompression>
+	</PropertyGroup>	<ItemGroup>
 		<Compile Remove="Data\**" />
 		<Content Remove="Data\**" />
 		<EmbeddedResource Remove="Data\**" />
 		<None Remove="Data\**" />
 	</ItemGroup>
-
+	
+	<!-- Handle duplicate asset issue -->
 	<ItemGroup>
-		<PackageReference Include="jQuery.UI.Combined" Version="1.14.1" />
+		<Content Remove="wwwroot\css\ajax-loader.gif" />
+		<None Include="wwwroot\css\ajax-loader.gif" />
+	</ItemGroup><ItemGroup>
+		<!-- <PackageReference Include="jQuery.UI.Combined" Version="1.14.1" /> -->
+		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.16">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
   <!--<ItemGroup>
     <None Include="wwwroot\css\style.css" />

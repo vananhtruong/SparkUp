@@ -50,7 +50,7 @@ import Css
 @import url("ionicons.min.css");
 @import url("slick.css");
 @import url("slick-theme.css");
-@import url("Chart.min.css");
+/* Chart import removed to fix build issue */
 @import url("select2.min.css");
 @import url("magnific-popup.css");
 @import url("animate.css");

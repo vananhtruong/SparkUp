@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 using SparkUp.Business;
+using SparkUp.MVC.Hubs;
 
 namespace SparkUp.MVC.Service
 {
     public class NotificationService : INotificationService
     {
         private readonly AppDbContext _context;
+        private readonly IHubContext<NotificationHub> _notificationHub;
 
-        public NotificationService(AppDbContext context)
+        public NotificationService(AppDbContext context, IHubContext<NotificationHub> notificationHub)
         {
             _context = context;
+            _notificationHub = notificationHub;
         }
 
         /// <inheritdoc />
@@ -166,6 +170,139 @@ namespace SparkUp.MVC.Service
                     );
                     break;
             }
+        }
+
+        // ===== REAL-TIME NOTIFICATION METHODS =====
+
+        /// <inheritdoc />
+        public async Task<Notification> CreateAndSendNotificationAsync(int userId, string title, string content, string type,
+            string referenceId = null, string action = null, string redirectUrl = null)
+        {
+            // Create notification in database
+            var notification = await CreateNotificationAsync(userId, title, content, type, referenceId, action, redirectUrl);
+            
+            try
+            {
+                // Send real-time notification via SignalR
+                await _notificationHub.Clients.Group($"User_{userId}")
+                    .SendAsync("NewNotification", new
+                    {
+                        id = notification.Id,
+                        title = notification.Title,
+                        content = notification.Content,
+                        type = notification.Type,
+                        action = notification.Action,
+                        redirectUrl = notification.RedirectUrl,
+                        createdAt = notification.CreatedAt,
+                        isRead = notification.IsRead
+                    });
+
+                // Update notification count
+                await BroadcastNotificationCountAsync(userId);
+                
+                Console.WriteLine($"[NotificationService] Sent real-time notification to User_{userId}: {title}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[NotificationService] Failed to send real-time notification: {ex.Message}");
+                // Don't throw - notification is still saved in DB
+            }
+
+            return notification;
+        }
+
+        /// <inheritdoc />
+        public async System.Threading.Tasks.Task SendChatNotificationAsync(int recipientUserId, int senderUserId, 
+            string senderName, int chatRoomId, string messagePreview)
+        {
+            // Don't send notification to yourself
+            if (recipientUserId == senderUserId) return;
+
+            var title = $"Tin nhắn mới từ {senderName}";
+            var content = messagePreview.Length > 100 ? 
+                messagePreview.Substring(0, 100) + "..." : messagePreview;
+
+            await CreateAndSendNotificationAsync(
+                userId: recipientUserId,
+                title: title,
+                content: content,
+                type: "Chat",
+                referenceId: chatRoomId.ToString(),
+                action: "view",
+                redirectUrl: $"/Chat/Room/{chatRoomId}"
+            );
+        }
+
+        /// <inheritdoc />
+        public async System.Threading.Tasks.Task SendBookingStatusNotificationAsync(int userId, int taskId, 
+            string oldStatus, string newStatus, string taskTitle)
+        {
+            var title = "Trạng thái đặt lịch đã thay đổi";
+            var content = $"Đặt lịch '{taskTitle}' đã chuyển từ {GetStatusDisplayName(oldStatus)} sang {GetStatusDisplayName(newStatus)}";
+
+            await CreateAndSendNotificationAsync(
+                userId: userId,
+                title: title,
+                content: content,
+                type: "BookingStatus",
+                referenceId: taskId.ToString(),
+                action: "view",
+                redirectUrl: $"/TaskBooking/Details/{taskId}"
+            );
+        }
+
+        /// <inheritdoc />
+        public async System.Threading.Tasks.Task SendPaymentNotificationAsync(int userId, int taskId, 
+            decimal amount, string paymentStatus)
+        {
+            var title = paymentStatus == "Success" ? "Thanh toán thành công" : "Thanh toán thất bại";
+            var content = paymentStatus == "Success" 
+                ? $"Bạn đã thanh toán thành công {amount:N0} VNĐ"
+                : $"Thanh toán {amount:N0} VNĐ không thành công. Vui lòng thử lại.";
+
+            await CreateAndSendNotificationAsync(
+                userId: userId,
+                title: title,
+                content: content,
+                type: "Payment",
+                referenceId: taskId.ToString(),
+                action: paymentStatus == "Success" ? "view" : "retry",
+                redirectUrl: paymentStatus == "Success" 
+                    ? $"/TaskBooking/Details/{taskId}" 
+                    : $"/Payment/Create/{taskId}"
+            );
+        }
+
+        /// <inheritdoc />
+        public async System.Threading.Tasks.Task BroadcastNotificationCountAsync(int userId)
+        {
+            try
+            {
+                var unreadCount = await CountUnreadNotificationsAsync(userId);
+                
+                await _notificationHub.Clients.Group($"User_{userId}")
+                    .SendAsync("NotificationCount", unreadCount);
+                    
+                Console.WriteLine($"[NotificationService] Broadcasted notification count {unreadCount} to User_{userId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[NotificationService] Failed to broadcast notification count: {ex.Message}");
+            }
+        }
+
+        // Helper method to get user-friendly status names
+        private string GetStatusDisplayName(string status)
+        {
+            return status switch
+            {
+                "Pending" => "Chờ xác nhận",
+                "Confirmed" => "Đã xác nhận", 
+                "InProgress" => "Đang thực hiện",
+                "Done" => "Hoàn thành",
+                "Canceled" => "Đã hủy",
+                _ => status
+            };
         }
     }
 }

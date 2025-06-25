@@ -1,0 +1,125 @@
+@{
+    ViewData["Title"] = "Chat Test";
+}
+
+<div class="container mt-4">
+    <h2>Chat API Test</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Test Chat Room Access</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="chatRoomId" class="form-label">Chat Room ID:</label>
+                        <input type="number" class="form-control" id="chatRoomId" value="6">
+                    </div>
+                    <button class="btn btn-primary" onclick="testChatRoom()">Test Chat Room</button>
+                    <button class="btn btn-secondary" onclick="testGetMessages()">Test Get Messages</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Test Results</h5>
+                </div>
+                <div class="card-body">
+                    <pre id="testResults" style="background: #f8f9fa; padding: 10px; border-radius: 4px; max-height: 400px; overflow-y: auto;">
+Click a test button to see results...
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Send Test Message</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="testMessage" class="form-label">Message:</label>
+                        <input type="text" class="form-control" id="testMessage" value="Test message from chat test page">
+                    </div>
+                    <button class="btn btn-success" onclick="testSendMessage()">Send Test Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function testChatRoom() {
+    const chatRoomId = document.getElementById('chatRoomId').value;
+    const resultsEl = document.getElementById('testResults');
+    
+    resultsEl.textContent = 'Testing chat room access...';
+    
+    fetch(`/Chat/Test/${chatRoomId}`)
+        .then(response => response.json())
+        .then(data => {
+            resultsEl.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            resultsEl.textContent = `Error: ${error.message}`;
+        });
+}
+
+function testGetMessages() {
+    const chatRoomId = document.getElementById('chatRoomId').value;
+    const resultsEl = document.getElementById('testResults');
+    
+    resultsEl.textContent = 'Testing get messages...';
+    
+    fetch(`/Chat/GetMessages/${chatRoomId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            resultsEl.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            resultsEl.textContent = `Error: ${error.message}`;
+        });
+}
+
+function testSendMessage() {
+    const chatRoomId = document.getElementById('chatRoomId').value;
+    const message = document.getElementById('testMessage').value;
+    const resultsEl = document.getElementById('testResults');
+    
+    resultsEl.textContent = 'Testing send message...';
+    
+    fetch('/Chat/SendMessage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chatRoomId: parseInt(chatRoomId),
+            content: message,
+            messageType: 'Text'
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            resultsEl.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            resultsEl.textContent = `Error: ${error.message}`;
+        });
+}
+</script>

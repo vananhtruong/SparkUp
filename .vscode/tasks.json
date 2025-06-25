@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build and Run SparkUp",
+			"type": "shell",
+			"command": "cd \"c:\\Users\\HELLO\\Desktop\\ProjectEXE\\SparkUp\" && dotnet build SparkUp.sln && dotnet run --project SparkUp.MVC",
+			"group": "build",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"isBackground": false
+		}
+	]
+}

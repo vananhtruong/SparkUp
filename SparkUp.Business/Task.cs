@@ -23,11 +23,11 @@ namespace SparkUp.Business
 
         public User Customer { get; set; }
         public User Worker { get; set; }
-        public TaskType TaskType { get; set; }
-
+        public TaskType TaskType { get; set; }       
         public ICollection<Message> Messages { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }
         public Payment Payment { get; set; }
+        public ChatRoom ChatRoom { get; set; }
     }
 
 }
