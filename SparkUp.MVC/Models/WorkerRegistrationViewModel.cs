@@ -6,31 +6,29 @@ namespace SparkUp.MVC.Models
     public class WorkerRegistrationViewModel
     {
         [Required(ErrorMessage = "Vui lòng chọn loại công việc")]
-        public int TaskTypeId { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng nhập kỹ năng của bạn")]
-        public string Skills { get; set; }
+        public int TaskTypeId { get; set; }        [Required(ErrorMessage = "Vui lòng nhập kỹ năng của bạn")]
+        public string Skills { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Vui lòng nhập mô tả về bản thân")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Vui lòng nhập số năm kinh nghiệm")]
         [Range(0, 50, ErrorMessage = "Số năm kinh nghiệm phải từ 0 đến 50")]
         public int ExperienceYears { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Vui lòng nhập thành phố")]
-        public string City { get; set; }
+        public string City { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Vui lòng nhập quận/huyện")]
-        public string District { get; set; }
+        public string District { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Vui lòng nhập giá theo giờ")]
         [Range(0, 10000000, ErrorMessage = "Giá phải từ 0 đến 10.000.000")]
         public decimal HourlyRate { get; set; }
 
-        public string PortfolioUrl { get; set; }
+        public string PortfolioUrl { get; set; } = string.Empty;
     }
 }

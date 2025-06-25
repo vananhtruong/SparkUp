@@ -41,5 +41,34 @@ namespace SparkUp.MVC.Service
         /// Tạo thông báo đặt lịch thợ
         /// </summary>
         System.Threading.Tasks.Task CreateBookingNotificationAsync(SparkUp.Business.Task taskBooking, string action);
+
+        /// <summary>
+        /// Tạo và gửi thông báo real-time
+        /// </summary>
+        Task<Notification> CreateAndSendNotificationAsync(int userId, string title, string content, string type,
+            string referenceId = null, string action = null, string redirectUrl = null);
+
+        /// <summary>
+        /// Gửi thông báo chat message mới
+        /// </summary>
+        System.Threading.Tasks.Task SendChatNotificationAsync(int recipientUserId, int senderUserId, 
+            string senderName, int chatRoomId, string messagePreview);
+
+        /// <summary>
+        /// Gửi thông báo booking status thay đổi
+        /// </summary>
+        System.Threading.Tasks.Task SendBookingStatusNotificationAsync(int userId, int taskId, 
+            string oldStatus, string newStatus, string taskTitle);
+
+        /// <summary>
+        /// Gửi thông báo payment thành công
+        /// </summary>
+        System.Threading.Tasks.Task SendPaymentNotificationAsync(int userId, int taskId, 
+            decimal amount, string paymentStatus);
+
+        /// <summary>
+        /// Broadcast notification count update to user
+        /// </summary>
+        System.Threading.Tasks.Task BroadcastNotificationCountAsync(int userId);
     }
 }

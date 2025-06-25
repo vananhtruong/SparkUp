@@ -49,38 +49,52 @@ namespace SparkUp.MVC.Controllers
             }
 
             return Json(new { notifications = new List<object>() });
-        }
-
-        // Đánh dấu thông báo đã đọc
+        }        // Đánh dấu thông báo đã đọc
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkAsRead(int id)
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return BadRequest();
+                return Unauthorized();
             }
 
-            await _notificationService.MarkAsReadAsync(id);
-            return Ok();
+            try
+            {
+                await _notificationService.MarkAsReadAsync(id);
+                return Ok(new { success = true, message = "Notification marked as read" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, message = ex.Message });
+            }
         }
 
         // Đánh dấu tất cả thông báo đã đọc
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkAllAsRead()
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return BadRequest();
+                return Unauthorized();
             }
 
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
             {
-                await _notificationService.MarkAllAsReadAsync(userId);
-                return Ok();
+                try
+                {
+                    await _notificationService.MarkAllAsReadAsync(userId);
+                    return Ok(new { success = true, message = "All notifications marked as read" });
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { success = false, message = ex.Message });
+                }
             }
 
-            return BadRequest();
+            return BadRequest(new { success = false, message = "Invalid user" });
         }
 
         // Xóa thông báo

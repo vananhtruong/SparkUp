@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SparkUp.Business;
 using SparkUp.MVC.Models;
 using SparkUp.MVC.Service;
+using SparkUp.MVC.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ builder.Services.Configure<SettingsDto>(
 // Register Services
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+
+// Add SignalR
+builder.Services.AddSignalR();
 
 //add authentication
 builder.Services.AddAuthentication(options =>
@@ -99,6 +104,23 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Map SignalR Hub
+app.MapHub<ChatHub>("/chatHub");
+app.MapHub<NotificationHub>("/notificationHub");
+
+// Register API routes for Chat controller
+app.MapControllerRoute(
+    name: "chatapi",
+    pattern: "Chat/Api/{action=Index}/{id?}",
+    defaults: new { controller = "Chat" });
+
+// Register Chat specific routes
+app.MapControllerRoute(
+    name: "chat",
+    pattern: "Chat/{action=Index}/{id?}",
+    defaults: new { controller = "Chat" });
+
+// Default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

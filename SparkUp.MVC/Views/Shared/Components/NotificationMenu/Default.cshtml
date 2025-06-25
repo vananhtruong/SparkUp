@@ -9,7 +9,7 @@
             <i class="ri-notification-2-line"></i>
             @if (unreadCount > 0)
             {
-                <span class="bg-danger notification-badge" id="notification-badge">@unreadCount</span>
+                <span class="notification-badge" id="notification-badge">@unreadCount</span>
             }
         </a>
 
@@ -40,7 +40,7 @@
                            onclick="markAsRead(@notification.Id, '@notification.RedirectUrl', '@notification.Action'); return false;">
                             <div class="d-flex align-items-start">
                                 <div class="notification-icon">
-                                    <i class="@(notification.Type == "Booking" ? "ri-calendar-check-line" : "ri-mail-line")"></i>
+                                    <i class="@(GetNotificationIcon(notification.Type))"></i>
                                 </div>
                                 <div class="notification-content">
                                     <div class="notification-title @(notification.IsRead ? "" : "fw-bold")">@notification.Title</div>
@@ -62,72 +62,63 @@
     </div>
 </div>
 
+@functions {
+    private string GetNotificationIcon(string type)
+    {
+        return type switch
+        {
+            "Booking" => "ri-calendar-check-line",
+            "Payment" => "ri-money-dollar-circle-line",
+            "Chat" => "ri-chat-1-line",
+            "System" => "ri-information-line",
+            _ => "ri-notification-2-line"
+        };
+    }
+}
+
 <script>
+    // Basic notification interactions (main logic is in notifications.js)
     function markAsRead(id, redirectUrl, action) {
-        fetch('/Notification/MarkAsRead/' + id, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(response => {
-            if (response.ok) {
-                // Cập nhật UI
-                const notificationElement = document.querySelector(`.notification-item[data-id="${id}"]`);
-                if (notificationElement) {
-                    notificationElement.classList.remove('unread');
-                    notificationElement.querySelector('.notification-title').classList.remove('fw-bold');
+        if (window.notificationManager && typeof window.notificationManager.markAsRead === 'function') {
+            window.notificationManager.markAsRead(id, redirectUrl, action);
+        } else {
+            // Fallback for when notifications.js is not loaded
+            const formData = new FormData();
+            formData.append('id', id);
+            
+            fetch('/Notification/MarkAsRead/' + id, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
                 }
-
-                // Giảm số đếm thông báo
-                const badgeElement = document.getElementById('notification-badge');
-                const countElement = document.getElementById('notification-count');
-                
-                if (badgeElement && countElement) {
-                    const currentCount = parseInt(countElement.textContent);
-                    if (currentCount > 1) {
-                        countElement.textContent = currentCount - 1;
-                        badgeElement.textContent = currentCount - 1;
-                    } else {
-                        badgeElement.style.display = 'none';
-                        countElement.style.display = 'none';
-                    }
-                }
-
-                // Chuyển hướng dựa vào action
-                if (action === 'view' || action === 'payment') {
+            }).then(response => {
+                if (response.ok && redirectUrl) {
                     window.location.href = redirectUrl;
                 }
-            }
-        });
+            });
+        }
     }
 
     function markAllAsRead() {
-        fetch('/Notification/MarkAllAsRead', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(response => {
-            if (response.ok) {
-                // Cập nhật UI
-                document.querySelectorAll('.notification-item.unread').forEach(element => {
-                    element.classList.remove('unread');
-                    element.querySelector('.notification-title').classList.remove('fw-bold');
-                });
-
-                // Ẩn badge và đặt số đếm về 0
-                const badgeElement = document.getElementById('notification-badge');
-                const countElement = document.getElementById('notification-count');
-                
-                if (badgeElement) {
-                    badgeElement.style.display = 'none';
+        if (window.notificationManager && typeof window.notificationManager.markAllAsRead === 'function') {
+            window.notificationManager.markAllAsRead();
+        } else {
+            // Fallback for when notifications.js is not loaded
+            const formData = new FormData();
+            
+            fetch('/Notification/MarkAllAsRead', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
                 }
-                
-                if (countElement) {
-                    countElement.style.display = 'none';
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
                 }
-            }
-        });
+            });
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -141,14 +132,14 @@
                 notificationDropdown.classList.toggle('show');
             });
 
-            // Đóng dropdown khi click bên ngoài
+            // Close dropdown when clicking outside
             document.addEventListener('click', function(e) {
                 if (!notificationToggle.contains(e.target) && !notificationDropdown.contains(e.target)) {
                     notificationDropdown.classList.remove('show');
                 }
             });
             
-            // Ngăn sự kiện click trong dropdown lan ra ngoài
+            // Prevent click inside dropdown from bubbling
             notificationDropdown.addEventListener('click', function(e) {
                 if (!e.target.matches('.notification-item, .mark-all-read')) {
                     e.stopPropagation();
@@ -158,186 +149,4 @@
     });
 </script>
 
-<style>
-    /* Notification Toggle Button */
-    .notification-toggle {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        color: #6c757d;
-        background-color: #f8f9fa;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.25s ease;
-    }
-    
-    .notification-toggle:hover {
-        background-color: #e9ecef;
-        color: #0d6efd;
-    }
-    
-    .notification-toggle i {
-        font-size: 18px;
-    }
-    
-    /* Badge */
-    .notification-badge {
-        position: absolute;
-        top: -3px;
-        right: -3px;
-        font-size: 10px;
-        min-width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-    }
-    
-    /* Dropdown */
-    .notification-dropdown {
-        position: absolute;
-        top: calc(100% + 10px);
-        right: -10px;
-        width: 300px;
-        max-width: calc(100vw - 40px);
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        z-index: 1050;
-        overflow: hidden;
-        display: none;
-    }
-    
-    .notification-dropdown.show {
-        display: block;
-        animation: fadeIn 0.2s ease;
-    }
-    
-    /* Header */
-    .notification-header {
-        padding: 12px 15px;
-        background-color: #0d6efd;
-        color: white;
-    }
-    
-    /* List */
-    .notification-list {
-        max-height: 240px;
-        overflow-y: auto;
-        scrollbar-width: thin;
-    }
-    
-    .notification-list::-webkit-scrollbar {
-        width: 4px;
-    }
-    
-    .notification-list::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    
-    .notification-list::-webkit-scrollbar-thumb {
-        background: #ccc;
-    }
-    
-    /* Item */
-    .notification-item {
-        display: block;
-        padding: 12px 15px;
-        border-bottom: 1px solid #f0f0f0;
-        text-decoration: none;
-        color: #212529;
-        transition: background-color 0.2s ease;
-    }
-    
-    .notification-item:last-child {
-        border-bottom: none;
-    }
-    
-    .notification-item:hover {
-        background-color: #f8f9fa;
-        text-decoration: none;
-    }
-    
-    .notification-item.unread {
-        background-color: rgba(13, 110, 253, 0.05);
-    }
-    
-    .notification-icon {
-        width: 30px;
-        height: 30px;
-        background-color: #e9ecef;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 10px;
-        color: #0d6efd;
-    }
-    
-    .notification-content {
-        flex: 1;
-        min-width: 0;
-    }
-    
-    .notification-title {
-        font-size: 14px;
-        margin-bottom: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .notification-text {
-        font-size: 12px;
-        color: #6c757d;
-        margin-bottom: 4px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    
-    .notification-time {
-        font-size: 11px;
-        color: #adb5bd;
-    }
-    
-    .fw-bold {
-        font-weight: 600;
-    }
-    
-    /* Empty */
-    .notification-empty {
-        padding: 20px;
-        color: #6c757d;
-        font-size: 14px;
-    }
-    
-    /* Footer */
-    .notification-footer {
-        padding: 10px;
-        text-align: center;
-        border-top: 1px solid #f0f0f0;
-        font-size: 13px;
-    }
-    
-    .mark-all-read {
-        color: #0d6efd;
-        text-decoration: none;
-    }
-    
-    .mark-all-read:hover {
-        text-decoration: underline;
-    }
-    
-    @@keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
+

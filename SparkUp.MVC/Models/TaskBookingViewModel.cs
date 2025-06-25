@@ -17,15 +17,13 @@ namespace SparkUp.MVC.Models
 
         [Required(ErrorMessage = "Vui lòng nhập ước tính thời gian làm")]
         [Range(1, 8, ErrorMessage = "Thời gian làm việc phải từ 1-8 giờ")]
-        public int EstimatedHours { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
-        public string Address { get; set; }        
+        public int EstimatedHours { get; set; }        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
+        public string Address { get; set; } = string.Empty;
         [Required(ErrorMessage = "Vui lòng mô tả công việc")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [BindNever]
-        public List<WorkerScheduleSlot> AvailableSlots { get; set; }
+        public List<WorkerScheduleSlot> AvailableSlots { get; set; } = new();
     }
 
     public class WorkerScheduleSlot
