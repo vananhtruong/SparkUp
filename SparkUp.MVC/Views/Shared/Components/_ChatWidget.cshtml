@@ -1,0 +1,245 @@
+<!-- Chat Widget - Floating Button -->
+@if (User.Identity.IsAuthenticated && User.IsInRole("CUSTOMER"))
+{
+    <div id="chatWidget" class="chat-widget">
+        <!-- Chat Toggle Button -->
+        <button id="chatToggle" class="chat-toggle-btn" onclick="toggleChatWidget()">
+            <i class="fas fa-comments"></i>
+            <span id="unreadBadge" class="chat-unread-badge" style="display: none;">0</span>
+        </button>
+        
+        <!-- Chat Window -->
+        <div id="chatWindow" class="chat-window" style="display: none;">
+            <div class="chat-header">
+                <h6 class="mb-0">Hỗ trợ khách hàng</h6>
+                <button class="btn btn-sm" onclick="toggleChatWidget()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-body">
+                <div id="chatContent">
+                    <div class="text-center py-4">
+                        <i class="fas fa-headset fa-2x mb-3"></i>
+                        <h6>Xin chào! Chúng tôi có thể giúp gì cho bạn?</h6>
+                        <button class="btn btn-primary btn-sm" onclick="startQuickChat()">
+                            Bắt đầu chat
+                        </button>
+                        <div class="mt-2">
+                            <a href="/Chat" class="btn btn-outline-secondary btn-sm">
+                                Xem tất cả chat
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Chat Modal -->
+    <div class="modal fade" id="quickChatModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bắt đầu chat hỗ trợ</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="quickChatForm">
+                        <div class="form-group">
+                            <label>Bạn cần hỗ trợ về vấn đề gì?</label>
+                            <select class="form-control" id="quickChatSubject">
+                                <option value="">-- Chọn chủ đề --</option>
+                                <option value="Thanh toán">Vấn đề thanh toán</option>
+                                <option value="Đặt lịch">Đặt lịch thợ</option>
+                                <option value="Tài khoản">Tài khoản của tôi</option>
+                                <option value="Khiếu nại">Khiếu nại dịch vụ</option>
+                                <option value="Khác">Vấn đề khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="customSubjectGroup" style="display: none;">
+                            <label>Mô tả chi tiết:</label>
+                            <input type="text" class="form-control" id="customSubject" 
+                                   placeholder="Nhập mô tả vấn đề của bạn">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="createQuickChat()">Bắt đầu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-toggle-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #007bff;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle-btn:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .chat-unread-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e9ecef;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header button {
+            color: white;
+            background: none;
+            border: none;
+        }
+
+        .chat-body {
+            height: calc(100% - 60px);
+            overflow-y: auto;
+        }
+
+        @@media (max-width: 768px) {
+            .chat-window {
+                width: calc(100vw - 40px);
+                height: 350px;
+                bottom: 90px;
+                right: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+
+    <script>
+        let chatWidgetOpen = false;
+
+        function toggleChatWidget() {
+            const chatWindow = document.getElementById('chatWindow');
+            const chatToggle = document.getElementById('chatToggle');
+            
+            chatWidgetOpen = !chatWidgetOpen;
+            
+            if (chatWidgetOpen) {
+                chatWindow.style.display = 'block';
+                chatToggle.innerHTML = '<i class="fas fa-times"></i>';
+                loadUnreadCount();
+            } else {
+                chatWindow.style.display = 'none';
+                chatToggle.innerHTML = '<i class="fas fa-comments"></i><span id="unreadBadge" class="chat-unread-badge" style="display: none;">0</span>';
+            }
+        }
+
+        function startQuickChat() {
+            $('#quickChatModal').modal('show');
+        }
+
+        function createQuickChat() {
+            const subjectSelect = document.getElementById('quickChatSubject');
+            const customSubject = document.getElementById('customSubject');
+            
+            let subject = subjectSelect.value;
+            if (subject === 'Khác' && customSubject.value.trim()) {
+                subject = customSubject.value.trim();
+            } else if (!subject) {
+                alert('Vui lòng chọn chủ đề cần hỗ trợ');
+                return;
+            }
+
+            fetch('/Chat/CreateSession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ subject: subject })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    $('#quickChatModal').modal('hide');
+                    window.location.href = '/Chat/Session/' + data.sessionId;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function loadUnreadCount() {
+            fetch('/Chat/GetUnreadCount')
+            .then(response => response.json())
+            .then(data => {
+                const badge = document.getElementById('unreadBadge');
+                if (data.count > 0) {
+                    badge.textContent = data.count;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Show/hide custom subject field
+        document.getElementById('quickChatSubject').addEventListener('change', function() {
+            const customGroup = document.getElementById('customSubjectGroup');
+            if (this.value === 'Khác') {
+                customGroup.style.display = 'block';
+            } else {
+                customGroup.style.display = 'none';
+            }
+        });
+
+        // Load unread count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUnreadCount();
+            
+            // Refresh unread count every 30 seconds
+            setInterval(loadUnreadCount, 30000);
+        });
+    </script>
+}

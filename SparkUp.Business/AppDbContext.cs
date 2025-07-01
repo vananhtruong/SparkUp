@@ -26,6 +26,8 @@ namespace SparkUp.Business
         public DbSet<Wallet> Wallets { get; set; }
         public DbSet<WalletTransaction> WalletTransactions { get; set; }        
         public DbSet<EmailTemplate> EmailTemplates { get; set; }
+        public DbSet<SupportChatSession> SupportChatSessions { get; set; }
+        public DbSet<SupportChatMessage> SupportChatMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -144,6 +146,31 @@ namespace SparkUp.Business
                 .HasOne(wp => wp.TaskType)
                 .WithMany(tt => tt.WorkerProfiles)
                 .HasForeignKey(wp => wp.TaskTypeId);
+
+            // Support Chat relationships
+            modelBuilder.Entity<SupportChatSession>()
+                .HasOne(s => s.Customer)
+                .WithMany()
+                .HasForeignKey(s => s.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SupportChatSession>()
+                .HasOne(s => s.Admin)
+                .WithMany()
+                .HasForeignKey(s => s.AdminId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<SupportChatMessage>()
+                .HasOne(m => m.Session)
+                .WithMany(s => s.Messages)
+                .HasForeignKey(m => m.SessionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<SupportChatMessage>()
+                .HasOne(m => m.Sender)
+                .WithMany()
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 
