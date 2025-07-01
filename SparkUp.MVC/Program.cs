@@ -26,6 +26,10 @@ builder.Services.Configure<SettingsDto>(
 // Register Services
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddTransient<IChatService, ChatService>();
+
+// Add SignalR for real-time chat
+builder.Services.AddSignalR();
 
 // Register PayOsService
 
@@ -118,5 +122,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Map SignalR hub
+app.MapHub<SparkUp.MVC.Hubs.ChatHub>("/chatHub");
 
 app.Run();

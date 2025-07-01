@@ -1,0 +1,280 @@
+@model List<SparkUp.Business.SupportChatSession>
+@{
+    ViewData["Title"] = "Support Chat";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Hỗ trợ khách hàng</h5>
+                    <button class="btn btn-primary btn-sm" onclick="startNewChat()">
+                        <i class="fas fa-plus"></i> Chat mới
+                    </button>
+                </div>
+                <div class="card-body p-0">
+                    <div class="chat-list" style="max-height: 500px; overflow-y: auto;">
+                        @if (Model.Any())
+                        {
+                            @foreach (var session in Model)
+                            {
+                                <div class="chat-item p-3 border-bottom @(session.Status == "Open" ? "bg-light" : "")" 
+                                     onclick="openChatSession(@session.Id)" style="cursor: pointer;">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>@session.Subject</strong>
+                                        <small class="text-muted">@session.CreatedAt.ToString("dd/MM HH:mm")</small>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <span class="badge badge-@(session.Status == "Open" ? "success" : session.Status == "InProgress" ? "warning" : "secondary")">
+                                            @session.Status
+                                        </span>
+                                        @if (session.AdminId.HasValue)
+                                        {
+                                            <span class="text-muted">
+                                                <i class="fas fa-user-shield"></i> @session.Admin?.FullName
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="p-3 text-center text-muted">
+                                <i class="fas fa-comments fa-2x mb-2"></i>
+                                <p>Chưa có cuộc hội thoại nào. Bắt đầu chat để được hỗ trợ!</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div id="chatSessionContainer" class="card" style="display: none;">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0" id="chatSubject"></h6>
+                            <small class="text-muted" id="chatStatus"></small>
+                        </div>
+                        <div>
+                            <span id="adminOnlineStatus" class="badge badge-success" style="display: none;">
+                                <i class="fas fa-circle"></i> Admin đang trực tuyến
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div id="chatMessages" class="p-3" style="height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                    <div class="border-top p-3">
+                        <div class="input-group">
+                            <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn..." 
+                                   onkeypress="handleKeyPress(event)">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" onclick="sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="noChatSelected" class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Chọn một cuộc hội thoại để bắt đầu</h5>
+                    <p class="text-muted">Hoặc tạo cuộc hội thoại mới để được hỗ trợ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Chat Modal -->
+<div class="modal fade" id="newChatModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bắt đầu chat hỗ trợ</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newChatForm">
+                    <div class="form-group">
+                        <label for="chatSubjectInput">Chủ đề cần hỗ trợ</label>
+                        <input type="text" class="form-control" id="chatSubjectInput" 
+                               placeholder="Vd: Cần hỗ trợ thanh toán" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" onclick="createNewChat()">Bắt đầu chat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+    <script>
+        let currentSessionId = null;
+        let connection = null;
+
+        // SignalR connection
+        function initializeSignalR() {
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl("/chatHub")
+                .build();
+
+            connection.start().then(function () {
+                console.log("SignalR connected");
+            }).catch(function (err) {
+                console.error(err.toString());
+            });
+
+            connection.on("ReceiveMessage", function (senderId, senderName, message, sentAt) {
+                appendMessage(senderId, senderName, message, sentAt, false);
+            });
+
+            connection.on("AdminJoined", function (adminId, adminName) {
+                showAdminOnlineStatus(true);
+                appendSystemMessage("Admin " + adminName + " đã tham gia cuộc hội thoại");
+            });
+
+            connection.on("StatusUpdated", function (status) {
+                updateChatStatus(status);
+            });
+
+            connection.on("UpdateOnlineStatus", function (userId, userRole, isOnline) {
+                if (userRole === "ADMIN") {
+                    showAdminOnlineStatus(isOnline);
+                }
+            });
+        }
+
+        function startNewChat() {
+            $('#newChatModal').modal('show');
+        }
+
+        function createNewChat() {
+            const subject = document.getElementById('chatSubjectInput').value.trim();
+            if (!subject) {
+                alert('Vui lòng nhập chủ đề cần hỗ trợ');
+                return;
+            }
+
+            fetch('/Chat/CreateSession', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ subject: subject })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    $('#newChatModal').modal('hide');
+                    location.reload(); // Reload to show new session
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function openChatSession(sessionId) {
+            currentSessionId = sessionId;
+            
+            // Show chat container
+            document.getElementById('chatSessionContainer').style.display = 'block';
+            document.getElementById('noChatSelected').style.display = 'none';
+            
+            // Load session details
+            window.location.href = '/Chat/Session/' + sessionId;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (!message || !currentSessionId) return;
+
+            fetch('/Chat/SendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    sessionId: currentSessionId, 
+                    messageText: message 
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    messageInput.value = '';
+                    appendMessage(null, data.senderName, message, data.sentAt, true);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function appendMessage(senderId, senderName, message, sentAt, isOwnMessage) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message mb-3 ${isOwnMessage ? 'text-right' : 'text-left'}`;
+            
+            const time = new Date(sentAt).toLocaleTimeString('vi-VN', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            messageDiv.innerHTML = `
+                <div class="d-inline-block p-2 rounded ${isOwnMessage ? 'bg-primary text-white' : 'bg-white border'}">
+                    <div>${message}</div>
+                    <small class="d-block mt-1 ${isOwnMessage ? 'text-light' : 'text-muted'}">${senderName} - ${time}</small>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function appendSystemMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'text-center my-2';
+            messageDiv.innerHTML = `<small class="text-muted bg-light px-2 py-1 rounded">${message}</small>`;
+            messagesContainer.appendChild(messageDiv);
+        }
+
+        function showAdminOnlineStatus(isOnline) {
+            const statusElement = document.getElementById('adminOnlineStatus');
+            if (isOnline) {
+                statusElement.style.display = 'inline-block';
+            } else {
+                statusElement.style.display = 'none';
+            }
+        }
+
+        function updateChatStatus(status) {
+            document.getElementById('chatStatus').textContent = status;
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSignalR();
+        });
+    </script>
+}

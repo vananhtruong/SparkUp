@@ -1,0 +1,309 @@
+@model List<SparkUp.Business.SupportChatSession>
+@{
+    ViewData["Title"] = "Admin Chat Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="iq-card">
+                <div class="iq-card-header d-flex justify-content-between">
+                    <div class="iq-header-title">
+                        <h4 class="card-title">Quản lý hỗ trợ khách hàng</h4>
+                    </div>
+                    <div class="iq-card-header-toolbar">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Lọc trạng thái
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="?status=all">Tất cả</a>
+                                <a class="dropdown-item" href="?status=Open">Chờ xử lý</a>
+                                <a class="dropdown-item" href="?status=InProgress">Đang xử lý</a>
+                                <a class="dropdown-item" href="?status=Resolved">Đã giải quyết</a>
+                                <a class="dropdown-item" href="?status=Closed">Đã đóng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iq-card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>@Model.Count(s => s.Status == "Open")</h4>
+                                            <p class="mb-0">Chờ xử lý</p>
+                                        </div>
+                                        <i class="fas fa-clock fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>@Model.Count(s => s.Status == "InProgress")</h4>
+                                            <p class="mb-0">Đang xử lý</p>
+                                        </div>
+                                        <i class="fas fa-cog fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>@Model.Count(s => s.Status == "Resolved")</h4>
+                                            <p class="mb-0">Đã giải quyết</p>
+                                        </div>
+                                        <i class="fas fa-check fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-secondary text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4>@Model.Count(s => s.Status == "Closed")</h4>
+                                            <p class="mb-0">Đã đóng</p>
+                                        </div>
+                                        <i class="fas fa-times fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Khách hàng</th>
+                                    <th>Chủ đề</th>
+                                    <th>Trạng thái</th>
+                                    <th>Admin xử lý</th>
+                                    <th>Thời gian</th>
+                                    <th>Tin nhắn cuối</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Any())
+                                {
+                                    @foreach (var session in Model)
+                                    {
+                                        <tr class="@(session.Status == "Open" ? "table-warning" : "")">
+                                            <td>@session.Id</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (!string.IsNullOrEmpty(session.Customer.AvatarUrl))
+                                                    {
+                                                        <img src="@session.Customer.AvatarUrl" class="rounded-circle mr-2" 
+                                                             width="30" height="30" alt="Avatar">
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mr-2" 
+                                                             style="width: 30px; height: 30px; font-size: 12px;">
+                                                            @session.Customer.FullName.Substring(0, 1)
+                                                        </div>
+                                                    }
+                                                    <div>
+                                                        <div>@session.Customer.FullName</div>
+                                                        <small class="text-muted">@session.Customer.Email</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>@session.Subject</strong>
+                                                @if (session.IsCustomerOnline)
+                                                {
+                                                    <span class="badge badge-success badge-sm ml-1">
+                                                        <i class="fas fa-circle"></i>
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-@(session.Status == "Open" ? "primary" : session.Status == "InProgress" ? "warning" : session.Status == "Resolved" ? "success" : "secondary")">
+                                                    @session.Status
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if (session.Admin != null)
+                                                {
+                                                    <div>@session.Admin.FullName</div>
+                                                    @if (session.IsAdminOnline)
+                                                    {
+                                                        <small class="text-success">
+                                                            <i class="fas fa-circle"></i> Online
+                                                        </small>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">Chưa có</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div>@session.CreatedAt.ToString("dd/MM/yyyy")</div>
+                                                <small class="text-muted">@session.CreatedAt.ToString("HH:mm")</small>
+                                            </td>
+                                            <td>
+                                                @if (session.LastMessageAt.HasValue)
+                                                {
+                                                    <div>@session.LastMessageAt.Value.ToString("dd/MM")</div>
+                                                    <small class="text-muted">@session.LastMessageAt.Value.ToString("HH:mm")</small>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">Chưa có</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="/Chat/Session/@session.Id" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-comments"></i>
+                                                    </a>
+                                                    @if (session.AdminId == null && (session.Status == "Open" || session.Status == "InProgress"))
+                                                    {
+                                                        <button class="btn btn-sm btn-success" onclick="assignToMe(@session.Id)">
+                                                            <i class="fas fa-user-check"></i>
+                                                        </button>
+                                                    }
+                                                    @if (session.Status != "Closed" && session.Status != "Resolved")
+                                                    {
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                                                                    type="button" data-toggle="dropdown">
+                                                                <i class="fas fa-ellipsis-v"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <button class="dropdown-item" onclick="updateSessionStatus(@session.Id, 'Resolved')">
+                                                                    <i class="fas fa-check text-success"></i> Đã giải quyết
+                                                                </button>
+                                                                <button class="dropdown-item" onclick="updateSessionStatus(@session.Id, 'Closed')">
+                                                                    <i class="fas fa-times text-danger"></i> Đóng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center py-4">
+                                            <i class="fas fa-comments fa-2x text-muted mb-2"></i>
+                                            <p class="text-muted">Không có cuộc hội thoại nào</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+    <script>
+        let connection = null;
+
+        // SignalR connection for real-time updates
+        function initializeSignalR() {
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl("/chatHub")
+                .build();
+
+            connection.start().then(function () {
+                console.log("Admin SignalR connected");
+            }).catch(function (err) {
+                console.error(err.toString());
+            });
+
+            // Listen for new messages and update indicators
+            connection.on("ReceiveMessage", function (senderId, senderName, message, sentAt) {
+                // Could add notification sound or visual indicator
+                updateLastMessageTime();
+            });
+        }
+
+        function assignToMe(sessionId) {
+            fetch('/Chat/AssignAdmin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sessionId: sessionId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateSessionStatus(sessionId, status) {
+            const confirmMessage = status === 'Closed' ? 
+                'Bạn có chắc chắn muốn đóng cuộc hội thoại này?' : 
+                'Bạn có chắc chắn đã giải quyết xong vấn đề?';
+                
+            if (confirm(confirmMessage)) {
+                fetch('/Chat/UpdateStatus', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        sessionId: sessionId, 
+                        status: status 
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function updateLastMessageTime() {
+            // This would update the "last message" time without full page reload
+            // For simplicity, we'll just add a visual indicator that there are new messages
+        }
+
+        // Auto-refresh every 30 seconds for new sessions
+        setInterval(function() {
+            // Only refresh if no modal is open
+            if (!$('.modal').hasClass('show')) {
+                location.reload();
+            }
+        }, 30000);
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSignalR();
+        });
+    </script>
+}

@@ -396,17 +396,6 @@ namespace SparkUp.MVC.Controllers
 
             TempData["SuccessMessage"] = "Đăng ký làm thợ thành công! Hồ sơ của bạn đang được xét duyệt.";
             return RedirectToAction("Profile", "Worker", new { id = userId });
-        }        // Đăng xuất người dùng
-        public async Task<IActionResult> Logout()
-        {
-            // Clear authentication cookie
-            await HttpContext.SignOutAsync("CookieAuth");
-            
-            // Store a temporary message
-            TempData["LogoutMessage"] = "Bạn đã đăng xuất thành công";
-            
-            // Redirect to home page
-            return RedirectToAction("Index", "Home");
         }
     }
 }
