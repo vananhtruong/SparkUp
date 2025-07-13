@@ -20,6 +20,19 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     @await RenderSectionAsync("Styles", required: false)      <!-- Add CSRF Token for AJAX requests -->
     @Html.AntiForgeryToken()
+
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZY3PRJR7JW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZY3PRJR7JW');
+    </script>
+
 </head>
 <body class="@ViewData["BodyClass"]">
     <header>
