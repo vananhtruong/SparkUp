@@ -16,3 +16,4 @@ SparkUp.MVC/bin/Debug/net8.0/appsettings.json
 /.gitignore
 /.gitignore
 /SparkUp.MVC/bin/Release/net8.0
+/SparkUp.MVC/appsettings.json
