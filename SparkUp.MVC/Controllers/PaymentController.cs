@@ -4,6 +4,7 @@ using Microsoft.Identity.Client;
 using Net.payOS;
 using Net.payOS.Types;
 using SparkUp.Business;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SparkUp.MVC.Controllers
@@ -23,7 +24,10 @@ namespace SparkUp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Pay(int taskId)
         {
-            var task = await _context.Tasks.Include(t => t.Payment).Include(t => t.Customer).FirstOrDefaultAsync(t => t.Id == taskId);
+            var task = await _context.Tasks.Include(t => t.Payment)
+                .Include(t => t.Customer)
+                .Include(t => t.Worker)
+                .FirstOrDefaultAsync(t => t.Id == taskId);
             if (task == null)
             {
                 TempData["Error"] = "Không tìm thấy đơn đặt lịch.";
@@ -35,8 +39,12 @@ namespace SparkUp.MVC.Controllers
                 TempData["Message"] = "Đơn hàng đã được thanh toán.";
                 return RedirectToAction("Details", "TaskBooking", new { id = taskId });
             }
+            var workerprofile = await _context.WorkerProfiles
+                .FirstOrDefaultAsync(wp => wp.UserId == task.WorkerId);
+            double estimatedHours = ParseEstimatedWork(task.EstimatedWork);
 
-            decimal amount = 2000m; // Gán cố định 2000 VND
+            // Tính toán amount
+            decimal amount = (decimal)estimatedHours * workerprofile.HourlyRate;
 
             // Tạo orderCode kiểu long duy nhất
             long uniquePart = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() % 1_000_000; // 6 chữ số cuối
@@ -141,8 +149,12 @@ namespace SparkUp.MVC.Controllers
                 return RedirectToAction("Details", "TaskBooking", new { id = taskId });
             }
 
-            // Số tiền cần thanh toán (demo: 2000, thực tế lấy từ task.Price hoặc field tương ứng)
-            decimal amount = 2000m;
+            var workerprofile = await _context.WorkerProfiles
+                .FirstOrDefaultAsync(wp => wp.UserId == task.WorkerId);
+            double estimatedHours = ParseEstimatedWork(task.EstimatedWork);
+
+            // Tính toán amount
+            decimal amount = (decimal)estimatedHours * workerprofile.HourlyRate;
 
             // Tìm ví khách hàng
             var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == uid);
@@ -184,7 +196,15 @@ namespace SparkUp.MVC.Controllers
             TempData["SuccessMessage"] = "Thanh toán qua ví thành công!";
             return RedirectToAction("Details", "TaskBooking", new { id = taskId });
         }
-
+        private double ParseEstimatedWork(string estimatedWorkString)
+        {
+            var match = Regex.Match(estimatedWorkString, @"(\d+(\.\d+)?)");
+            if (match.Success)
+            {
+                return double.Parse(match.Value);
+            }
+            return 0;
+        }
 
     }
 }
